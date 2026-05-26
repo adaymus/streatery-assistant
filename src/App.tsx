@@ -2,11 +2,15 @@
  * Top-level app. Owns the form-submit / result state and renders the
  * left-side controls and the right-side result panel.
  */
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { prescreenAddress, type PrescreenResult } from "./prescreen.js";
 import { AddressForm } from "./components/AddressForm.js";
 import { ResultPanel } from "./components/ResultPanel.js";
+
+// Query-param name we use to persist the current address. Keeping it
+// short and obvious so a pasted link is human-readable.
+const ADDRESS_PARAM = "address";
 
 type Status =
   | { kind: "idle" }
@@ -25,6 +29,13 @@ export function App(): React.ReactElement {
   // prop — without this they'd re-render every time the parent does.
   const onSubmit = useCallback(async (address: string) => {
     setStatus({ kind: "loading", address });
+    // Reflect the current address in the URL so the page is bookmarkable
+    // and shareable. replaceState (vs pushState) avoids piling up
+    // browser-history entries every time the user pre-screens a new
+    // address — back button still works to leave the app.
+    const url = new URL(window.location.href);
+    url.searchParams.set(ADDRESS_PARAM, address);
+    window.history.replaceState({}, "", url.toString());
     try {
       const result = await prescreenAddress(address);
       setStatus({ kind: "success", result });
@@ -35,6 +46,21 @@ export function App(): React.ReactElement {
       setStatus({ kind: "error", address, message });
     }
   }, []);
+
+  // On first mount, if the URL already carries an address (someone opened
+  // a shared link or returned to a bookmark), auto-submit it. useRef +
+  // the flag inside the effect guards against double-firing under React
+  // StrictMode (which intentionally invokes effects twice in dev).
+  const hasAutoSubmittedRef = useRef(false);
+  useEffect(() => {
+    if (hasAutoSubmittedRef.current) return;
+    const params = new URLSearchParams(window.location.search);
+    const initialAddress = params.get(ADDRESS_PARAM)?.trim();
+    if (initialAddress && initialAddress.length > 0) {
+      hasAutoSubmittedRef.current = true;
+      onSubmit(initialAddress);
+    }
+  }, [onSubmit]);
 
   return (
     <div className="min-h-screen flex flex-col">

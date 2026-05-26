@@ -2,7 +2,7 @@
  * Renders the full pre-screen result: verdict, envelope, constraints,
  * curb features, site-walk caveats, and the map.
  */
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 
 import type { PrescreenResult } from "../prescreen.js";
 import type { Verdict } from "../envelope.js";
@@ -82,11 +82,53 @@ export function ResultPanel({
 
       <SiteWalkCaveatsCard caveats={siteWalkCaveats} />
 
-      <div className="text-xs text-stone-400 text-right">
-        Fetched at {new Date(result.fetchedAt).toLocaleString()} ·
-        geocoded with {geocoded.mar.confidenceScore}/100 confidence
+      <div className="flex flex-wrap justify-between items-center gap-2 text-xs text-stone-400">
+        <CopyLinkButton />
+        <span className="text-right">
+          Fetched at {new Date(result.fetchedAt).toLocaleString()} ·
+          geocoded with {geocoded.mar.confidenceScore}/100 confidence
+        </span>
       </div>
     </div>
+  );
+}
+
+// ---------- Copy link button (URL-based share) ----------
+
+/**
+ * Copies the current page URL to the clipboard. The URL already includes
+ * the `?address=...` param (App writes it on every pre-screen), so the
+ * recipient pasting it gets the same result auto-loaded.
+ *
+ * Shows "Copied!" feedback for 2 seconds, then resets — gives the user
+ * confirmation without needing a toast/notification system.
+ */
+function CopyLinkButton(): React.ReactElement {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async (): Promise<void> => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      // Reset the feedback after 2 seconds so subsequent clicks still
+      // give visual confirmation.
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard API can reject (permission denied, insecure context).
+      // Fall back to a prompt the user can copy from manually — rare,
+      // but better than a silent failure.
+      window.prompt("Copy this link:", window.location.href);
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={handleCopy}
+      className="text-stone-600 hover:text-stone-900 underline underline-offset-2 decoration-stone-300 hover:decoration-stone-500 transition-colors"
+    >
+      {copied ? "Link copied" : "Copy link"}
+    </button>
   );
 }
 
