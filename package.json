@@ -1,0 +1,35 @@
+{
+  "name": "streatery-prescreener",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Mt. Pleasant Streatery Pre-Screener — DC streatery eligibility checker",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "pages:dev": "wrangler pages dev",
+    "deploy": "npm run build && wrangler pages deploy",
+    "geocode": "tsx scripts/geocode.ts",
+    "prescreen": "tsx scripts/prescreen.ts"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260526.1",
+    "@tailwindcss/vite": "^4.3.0",
+    "@types/node": "^25.9.1",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "tailwindcss": "^4.3.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vite": "^8.0.14",
+    "wrangler": "^4.94.0"
+  },
+  "dependencies": {
+    "@turf/turf": "^7.3.5",
+    "maplibre-gl": "^5.24.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  }
+}

@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.wrangler/
+.DS_Store
+.env
+.env.local
+*.log
+
+# Claude Code workspace artifacts — keep local, never push
+.claude/

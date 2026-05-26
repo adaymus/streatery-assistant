@@ -1,0 +1,7 @@
+/* Tailwind v4 syntax: a single @import pulls in core + utilities.
+   No tailwind.config.js needed unless we want to customize the theme. */
+@import "tailwindcss";
+
+/* MapLibre's stylesheet ships as a regular CSS file; bundling it here
+   means we don't have to add a separate <link> in index.html. */
+@import "maplibre-gl/dist/maplibre-gl.css";

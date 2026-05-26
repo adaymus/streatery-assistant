@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    // "ES2022" gives us modern JS features (async/await, optional chaining, etc.)
+    // without needing transpilation for any reasonably recent Node version.
+    "target": "ES2022",
+    "module": "ESNext",
+    // "Bundler" resolution understands modern import patterns without forcing
+    // us to write `.js` extensions on every TS import.
+    "moduleResolution": "Bundler",
+
+    // Strictness — catches bugs at compile time. Worth the friction.
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+
+    // We're using tsx as the runner, so no actual emit. This stops `tsc` from
+    // accidentally writing .js files into the source tree if you ever run it.
+    "noEmit": true,
+
+    // Quality-of-life
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+
+    // Node 18+ has built-in fetch, URL, etc.; DOM lib enables browser
+    // globals (document, fetch, etc.) for the UI code. Both can coexist
+    // because they don't conflict — the union just enables both worlds.
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["node", "@cloudflare/workers-types"],
+
+    // JSX for the React UI. "react-jsx" is the modern automatic runtime
+    // — no need to `import React` in every file just to use JSX.
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "scripts/**/*.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "functions/**/*.ts"
+  ]
+}

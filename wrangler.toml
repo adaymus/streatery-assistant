@@ -1,0 +1,13 @@
+# Cloudflare Pages config for the streatery pre-screener.
+#
+# `pages_build_output_dir` tells wrangler where the static assets live
+# after `vite build`. Pages auto-discovers the `functions/` directory
+# adjacent to this file — no need to declare functions explicitly.
+#
+# `compatibility_date` pins the Workers runtime semantics. Bumping it
+# later opts into newer behaviors; leaving it stable means deployments
+# behave the same over time even as Cloudflare ships changes.
+
+name = "streatery-prescreener"
+compatibility_date = "2025-09-23"
+pages_build_output_dir = "./dist"
