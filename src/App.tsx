@@ -39,8 +39,8 @@ export function App(): React.ReactElement {
   return (
     <div className="min-h-screen flex flex-col">
       <header className="border-b border-stone-200 bg-white">
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <h1 className="text-xl font-semibold text-stone-900">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4">
+          <h1 className="text-lg sm:text-xl font-semibold text-stone-900">
             Mt. Pleasant Streatery Pre-Screener
           </h1>
           <p className="text-sm text-stone-600 mt-1">
@@ -50,7 +50,7 @@ export function App(): React.ReactElement {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto w-full px-6 py-6 flex-1 grid gap-6 md:grid-cols-[20rem_1fr]">
+      <main className="max-w-6xl mx-auto w-full px-4 sm:px-6 py-4 sm:py-6 flex-1 grid gap-4 sm:gap-6 md:grid-cols-[20rem_1fr]">
         <aside>
           <AddressForm
             onSubmit={onSubmit}
@@ -69,7 +69,7 @@ export function App(): React.ReactElement {
       </main>
 
       <footer className="border-t border-stone-200 bg-white">
-        <div className="max-w-6xl mx-auto px-6 py-3 text-xs text-stone-500">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 text-xs text-stone-500">
           Advisory only. Not a substitute for a site walk, an architect, or PE
           review.
         </div>
@@ -80,7 +80,7 @@ export function App(): React.ReactElement {
 
 function EmptyState(): React.ReactElement {
   return (
-    <div className="h-full flex items-center justify-center text-stone-500 text-sm border-2 border-dashed border-stone-200 rounded-lg p-12">
+    <div className="h-full min-h-48 flex items-center justify-center text-stone-500 text-sm border-2 border-dashed border-stone-200 rounded-lg p-6 sm:p-12 text-center">
       Enter a Mt. Pleasant address to start.
     </div>
   );
@@ -88,9 +88,9 @@ function EmptyState(): React.ReactElement {
 
 function LoadingState({ address }: { address: string }): React.ReactElement {
   return (
-    <div className="h-full flex flex-col items-center justify-center text-stone-600 text-sm rounded-lg border border-stone-200 bg-white p-12 gap-3">
+    <div className="h-full min-h-48 flex flex-col items-center justify-center text-stone-600 text-sm rounded-lg border border-stone-200 bg-white p-6 sm:p-12 gap-3 text-center">
       <div className="animate-pulse text-stone-400">Checking...</div>
-      <div className="font-mono text-xs">{address}</div>
+      <div className="font-mono text-xs break-all">{address}</div>
       <div className="text-xs text-stone-500 mt-2">
         Geocoding + 9 parallel curbside fetches (~2 seconds)
       </div>

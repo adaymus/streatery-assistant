@@ -25,6 +25,8 @@ export function ResultPanel({
 
   return (
     <div className="space-y-4">
+      {/* On mobile: verdict full-width on top, map below it. The verdict is
+          the headline answer Mitra needs at a glance; map is context. */}
       <div className="grid gap-4 md:grid-cols-[1fr_1.5fr]">
         <VerdictCard
           verdict={verdict}
@@ -108,7 +110,7 @@ function VerdictCard({
   const allBlockers = [...earlyDisqualifiers, ...hardDisqualifiers];
 
   return (
-    <div className={`rounded-lg border p-5 ${palette}`}>
+    <div className={`rounded-lg border p-4 sm:p-5 ${palette}`}>
       <div
         className={`inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wide ${pillPalette}`}
       >
@@ -152,11 +154,11 @@ function LocationCard({
 }): React.ReactElement {
   const { geocoded } = result;
   return (
-    <div className="rounded-lg border border-stone-200 bg-white p-5">
+    <div className="rounded-lg border border-stone-200 bg-white p-4 sm:p-5">
       <h3 className="text-xs font-semibold text-stone-500 uppercase tracking-wide mb-3">
         Location
       </h3>
-      <dl className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+      <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 sm:gap-y-2 text-sm">
         <DlItem label="Address" value={geocoded.mar.fullAddress} mono />
         <DlItem label="Block" value={geocoded.block.blockName} mono />
         <DlItem
@@ -201,7 +203,7 @@ function DlItem({
     <div>
       <dt className="text-xs text-stone-500">{label}</dt>
       <dd
-        className={`text-stone-800 ${mono ? "font-mono text-xs" : ""}`}
+        className={`text-stone-800 ${mono ? "font-mono text-xs break-words" : ""}`}
       >
         {value}
       </dd>
@@ -221,7 +223,7 @@ function ExtensionOpportunityCard({
   extendedFrontageFt: number;
 }): React.ReactElement {
   return (
-    <div className="rounded-lg border border-blue-200 bg-blue-50 p-5">
+    <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 sm:p-5">
       <h3 className="text-blue-900 font-semibold mb-2">
         Extension opportunity
       </h3>
@@ -249,7 +251,7 @@ function BindingConstraintsCard({
   }>;
 }): React.ReactElement {
   return (
-    <div className="rounded-lg border border-stone-200 bg-white p-5">
+    <div className="rounded-lg border border-stone-200 bg-white p-4 sm:p-5">
       <h3 className="text-xs font-semibold text-stone-500 uppercase tracking-wide mb-3">
         Binding constraints
       </h3>
@@ -301,11 +303,11 @@ function CurbFeaturesCard({
   ] as const;
 
   return (
-    <div className="rounded-lg border border-stone-200 bg-white p-5">
+    <div className="rounded-lg border border-stone-200 bg-white p-4 sm:p-5">
       <h3 className="text-xs font-semibold text-stone-500 uppercase tracking-wide mb-3">
         Curb features
       </h3>
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         <div>
           <h4 className="text-xs font-medium text-stone-600 mb-2">
             On this blockface
@@ -349,7 +351,7 @@ function SiteWalkCaveatsCard({
   caveats: string[];
 }): React.ReactElement {
   return (
-    <div className="rounded-lg border border-stone-200 bg-stone-50 p-5">
+    <div className="rounded-lg border border-stone-200 bg-stone-50 p-4 sm:p-5">
       <h3 className="text-xs font-semibold text-stone-700 uppercase tracking-wide mb-2">
         Site walk required
       </h3>
