@@ -2,9 +2,19 @@
  * Renders the full pre-screen result: verdict, envelope, constraints,
  * curb features, site-walk caveats, and the map.
  */
+import { lazy, Suspense } from "react";
+
 import type { PrescreenResult } from "../prescreen.js";
 import type { Verdict } from "../envelope.js";
-import { MapView } from "./MapView.js";
+
+// Lazy-load the map. MapLibre GL is ~400KB minified and only matters once
+// we have a result to render — there's no reason to ship it in the
+// initial bundle for someone who's still typing in an address.
+// React.lazy needs a default export, but MapView is a named export, so
+// we map it inline.
+const MapView = lazy(() =>
+  import("./MapView.js").then((m) => ({ default: m.MapView })),
+);
 
 interface ResultPanelProps {
   result: PrescreenResult;
@@ -36,7 +46,11 @@ export function ResultPanel({
           earlyDisqualifiers={earlyDisqualifiers.map((d) => d.detail)}
           hardDisqualifiers={eligibility?.hardDisqualifiers ?? []}
         />
-        <MapView result={result} />
+        {/* Placeholder matches the eventual map's height + border so the
+            layout doesn't shift when the lazy chunk finishes loading. */}
+        <Suspense fallback={<MapPlaceholder />}>
+          <MapView result={result} />
+        </Suspense>
       </div>
 
       <LocationCard result={result} />
@@ -72,6 +86,16 @@ export function ResultPanel({
         Fetched at {new Date(result.fetchedAt).toLocaleString()} ·
         geocoded with {geocoded.mar.confidenceScore}/100 confidence
       </div>
+    </div>
+  );
+}
+
+// ---------- Map placeholder (shown while the MapView chunk loads) ----------
+
+function MapPlaceholder(): React.ReactElement {
+  return (
+    <div className="w-full h-80 md:h-full min-h-72 rounded-lg border border-stone-200 bg-stone-50 flex items-center justify-center text-xs text-stone-400">
+      Loading map...
     </div>
   );
 }

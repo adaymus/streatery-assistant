@@ -24,7 +24,15 @@
  * default; we convert at the boundary so the engine logic stays in feet.
  */
 
-import * as turf from "@turf/turf";
+// Per-function turf imports. The @turf/turf umbrella package is hard to
+// tree-shake (everything ends up in the bundle even if only a few
+// functions are used), so we depend on the individual sub-packages
+// directly. Cuts ~300 KB out of the production bundle.
+import { lineString, point } from "@turf/helpers";
+import { length } from "@turf/length";
+import { along } from "@turf/along";
+import { lineSlice } from "@turf/line-slice";
+import { nearestPointOnLine } from "@turf/nearest-point-on-line";
 import type { Feature, LineString } from "geojson";
 
 import type {
@@ -137,7 +145,7 @@ function arcgisToLineString(
   const paths = (arcgisGeometry as { paths?: number[][][] } | null)?.paths;
   const first = paths?.[0];
   if (!first || first.length < 2) return null;
-  return turf.lineString(first);
+  return lineString(first);
 }
 
 /**
@@ -179,15 +187,15 @@ function clipBlockfaceToBlock(
   // Linear interpolation from measure to position-along-line. Holds
   // exactly for blockfaces with uniform measure parameterization, which
   // is the case for short straight curb segments (the common shape here).
-  const lineLengthKm = turf.length(rawLine, { units: "kilometers" });
+  const lineLengthKm = length(rawLine, { units: "kilometers" });
   const startFrac = (clipStart - blockfaceMeasFrom) / blockfaceMeasSpan;
   const endFrac = (clipEnd - blockfaceMeasFrom) / blockfaceMeasSpan;
   const startKm = startFrac * lineLengthKm;
   const endKm = endFrac * lineLengthKm;
 
-  const startPoint = turf.along(rawLine, startKm, { units: "kilometers" });
-  const endPoint = turf.along(rawLine, endKm, { units: "kilometers" });
-  return turf.lineSlice(startPoint, endPoint, rawLine);
+  const startPoint = along(rawLine, startKm, { units: "kilometers" });
+  const endPoint = along(rawLine, endKm, { units: "kilometers" });
+  return lineSlice(startPoint, endPoint, rawLine);
 }
 
 /**
@@ -200,8 +208,10 @@ function projectOntoLine(
   lon: number,
   line: Feature<LineString>,
 ): { positionFt: number; distanceFromLineFt: number } {
-  const point = turf.point([lon, lat]);
-  const snapped = turf.nearestPointOnLine(line, point, {
+  // Local variable renamed from `point` to `target` to avoid shadowing
+  // the imported `point` constructor from @turf/helpers.
+  const target = point([lon, lat]);
+  const snapped = nearestPointOnLine(line, target, {
     units: "kilometers",
   });
   return {
@@ -220,13 +230,13 @@ function sliceLineByMeasure(
   endFt: number,
 ): Feature<LineString> | null {
   if (endFt <= startFt) return null;
-  const startPoint = turf.along(line, startFt * FT_PER_KM_INV, {
+  const startPoint = along(line, startFt * FT_PER_KM_INV, {
     units: "kilometers",
   });
-  const endPoint = turf.along(line, endFt * FT_PER_KM_INV, {
+  const endPoint = along(line, endFt * FT_PER_KM_INV, {
     units: "kilometers",
   });
-  return turf.lineSlice(startPoint, endPoint, line);
+  return lineSlice(startPoint, endPoint, line);
 }
 
 /**
@@ -454,7 +464,7 @@ export function computeEligibility(
   );
 
   const blockfaceLengthFt =
-    turf.length(blockface, { units: "kilometers" }) * FT_PER_KM;
+    length(blockface, { units: "kilometers" }) * FT_PER_KM;
 
   // 1. Project the building onto the blockface to anchor the frontage window.
   const projected = projectOntoLine(
