@@ -391,6 +391,150 @@ polished. It needs to take an address, return a result, and let her say
 
 ---
 
+## Submission package requirements (for the next tool — package compiler)
+
+Sourced from the **DDOT Streatery Guidelines, FINAL, adopted December 5, 2024**
+(`Streatery_Guidelines_-_2024.12.05_-_FINAL.pdf`), §5 Review and Approval
+Process. The pre-screener tells an operator IF a site is eligible; the
+package compiler will produce the actual submission. This section is the
+spec for that downstream tool.
+
+### Permits required to operate a permanent streatery
+
+| # | Permit | Issuing agency | System | Hearing body | Review time |
+|---|--------|----------------|--------|--------------|-------------|
+| 1 | **Streatery Block Permit** *(coordinated cohort only — BIDs, CIDs, MSOs like District Bridges)* | DDOT | TOPS | PSC | 2-3 months |
+| 2 | **Streatery Design Permit** *(every food establishment)* | DDOT | TOPS | Admin (if guidelines-compliant) OR PSC (if not) | 4 weeks admin / 2-3 months PSC |
+| 3 | **Building Permit** | DOB | ProjectDox | Staff | 30 business days |
+| 4 | **Streatery Endorsement** *(if serving alcohol)* | ABCA | ABCA application | ABC Board | ~2 months |
+| 5 | **Propane Use: Heating — Portable Outdoor** *(if using heaters)* | FEMS | fems.dc.gov | Staff | 5 calendar days |
+| 6 | **Certificate of Occupancy** (new or modified) | DOB | ProjectDox | Staff | 7 days from acceptance |
+| 7 | **Certificate of Use** *(annual renewal required)* | DOB | Email coapp@dc.gov | Staff | 1 business day |
+
+Pre-flight: **Preliminary Design Review Meeting (PDRM)** — TOPS, 1-day turnaround, lets the applicant pre-clear concept with DDOT before formal submission. Recommended before #1 or #2.
+
+Streatery permits do NOT require annual renewal from DDOT, but DDOT may revoke them to accommodate infrastructure projects (bus priority lanes, protected bike lanes, etc.) — operators are notified during the planning stage. Certificate of Use IS annually renewable through DOB.
+
+### Required documents — Streatery Block Permit
+
+The District Bridges-style coordinated submission. Two documents:
+
+1. **Site Plan** — must show:
+   - Building façade(s), addresses, building entrances
+   - Existing sidewalk widths
+   - Existing curb cuts and/or driveways
+   - Existing bike lanes, bus routes, bus stops
+   - Existing trash services (alleys only)
+   - Existing parking spaces with dimensions + curbside regulation description
+   - Proposed streatery footprint with dimensions and setback measurements
+
+2. **Curbside Management and Delivery Plan** — must include:
+   - List of businesses on the corridor + their existing loading zones (on- and off-street)
+   - Proposed commercial loading zones for goods deliveries
+   - Proposed pick-up/drop-off zones (takeout, on-demand delivery, passengers)
+   - List of vehicle types servicing the businesses
+   - Number of delivery vehicles per day/week
+   - Days/times when deliveries are received
+   - Aerial map of all existing signage/curbside programming + off-site facilities
+   - Aerial map of all proposed changes
+   - Streetview/photographs of areas to be reprogrammed (current photos recommended)
+   - Brief justification narrative explaining how displaced curbside activity (parking, PUDO, commercial loading) will be managed
+
+### Required documents — Streatery Design Permit
+
+Every food establishment files this. 13 items:
+
+| # | Document | Notes |
+|---|----------|-------|
+| 1 | **Site Plan** | See sub-list below |
+| 2 | **Elevations (all sides)** | Side-view drawings of the proposed design with all dimensions, enclosure treatments, lighting, materials |
+| 3 | **Sections** | "Cut-through" drawings articulating complex elements (e.g., how accessibility is provided) |
+| 4 | **Construction Details** | **Must be stamped by a certified Professional Engineer (PE).** Shows assembly hardware, fasteners, materials, construction notes, AND a positive drainage flow detail along the curb line (including how to access the drainage channel if blocked) |
+| 5 | **Utility Access Plan** | Shows existing utilities in/under/adjacent to the proposed streatery; proposed APWA-color-code markings on the platform/barriers; access panels, removable planks, or other movable platform components |
+| 6 | **Copy of Certificate of Occupancy** | From DOB |
+| 7 | **Building Permit Application** | Filed in tandem |
+| 8 | **Copy of Business License** | — |
+| 9 | **Notarized Copy of Rental Lease Agreement** | Only if applicant is not the property owner |
+| 10 | **Letter of Support** | Required from: (a) Single Member District (SMD) commissioner if streatery occupies RPP spaces; (b) adjacent property owner(s) AND ground-floor tenant(s) if streatery extends in front of an adjacent property (the "frontage extension" path the pre-screener flags) |
+| 11 | **Proof of Insurance** | Per Office of Risk Management requirements (`orm.dc.gov/page/requirements-contractors-grantees-and-permittees`). Questions: `orm.insurance@dc.gov`. Specific amounts not published in the Guidelines |
+| 12 | **Signed Terms and Conditions Sheet** | Template in Guidelines Appendix 2 |
+| 13 | **Point of Contact Information** | PDF with name, title, email, phone for emergency and non-emergency access requests |
+
+**Site Plan (item 1) detailed contents:**
+- Building façade(s), addresses, building entrances
+- Existing sidewalk widths
+- Existing curb cuts and/or driveways
+- Adjacent bike lanes or auto travel lanes
+- Existing parking spaces (dimensions + curbside regulations)
+- Existing parking meter numbers, including which will be removed (format `XXX-XXXXX`, visible on the meter facing the street)
+- Other existing sidewalk elements (fire hydrants, streetlights, benches, bike racks)
+- Existing utilities in/under/adjacent to the proposed streatery
+- Existing street trees + tree pits (include photos)
+- Proposed streatery footprint with dimensions and setback dimensions
+
+### Required physical signage on the installed streatery
+
+Per §4.7 + Appendix 1: two 5.5" × 8.5" signs (one on each sidewalk-facing edge) showing:
+- Business name
+- Seating hours
+- Seating capacity
+- Emergency contact information
+
+No other signage, logos, advertising, or branding permitted.
+
+### Public notice process
+
+After the public space permit is submitted and a hearing is assigned, the applicant must print the permit + public-notice sign from TOPS and post the sign in the front window of the business **at least 10 calendar days before the PSC hearing**. ANCs, public utilities, and owner/occupants of adjacent properties have a 15-30 business day review/comment window for the streatery plans.
+
+### Display of permit after issuance
+
+Streatery permit AND approved site plan must be displayed in a conspicuous location on the front of the business, legible from the sidewalk. Failure to maintain this is a violation.
+
+### Inspections
+
+DDOT Public Space Inspections (PSI) Branch + DOB inspect the installed streatery for compliance with the approved plans. **Third-party inspections are NOT allowed.** DDOT may conduct random ongoing inspections.
+
+### Fees
+
+Per DCMR §24-225 plus any pending rulemaking. Confirmed values from external sources (verify in TOPS before final submission):
+
+| Item | Approximate cost | Notes |
+|------|------------------|-------|
+| Streatery Design Permit | $260 | Same as sidewalk cafes |
+| Public Space Rental | ~$20/sq ft annually | Per draft rulemaking; pending final adoption |
+| Building Permits | $200-$500+ | Varies by structure |
+| Streatery Endorsement (alcohol, annual) | $100 | ABCA |
+| Construction costs | $10K-$50K+ | Operator-borne, not a permit fee |
+
+Payment: check/money order to "DC Treasurer," or Discover/MasterCard/Visa.
+
+### District Bridges' role in the cohort approach
+
+The Streatery Block Permit pathway is what makes the District Bridges coordinated cohort economically viable. As a Main Street Organization (MSO), District Bridges files ONE Block Permit covering the corridor's curbside management; individual restaurants then file their own Design Permits referencing the Block Permit. This is what drops per-restaurant cost from ~$10K to ~$5K.
+
+### What the package compiler tool should produce (v2 scope)
+
+For each address the pre-screener clears, the compiler should ultimately produce:
+- A pre-filled **Streatery Design Permit application** ready for TOPS upload
+- A draft **Site Plan PDF/SVG** based on the geocoded blockface + envelope + nearby curb features (still requires architect refinement, but starts from real data not a blank page)
+- A draft **Utility Access Plan** populated from the curb-features dataset
+- A printable **Public Notice sign** in the prescribed format
+- The **Signed Terms and Conditions Sheet** template ready for signature
+- A **Point of Contact PDF** template
+- A coordinated **Curbside Management and Delivery Plan** for the corridor-wide Block Permit (one document covering all participating restaurants)
+
+The v1 briefing document (`src/submissionPackage.ts`) is a stepping stone — it tells the architect/operator what data the pre-screener gathered, so they can use it as input when assembling the real package.
+
+### Open questions for the compiler tool
+
+- [ ] Exact insurance amounts and policy types required by ORM (not in the Guidelines — needs direct ORM contact)
+- [ ] Whether construction details PE stamp can be a digital signature or requires a wet stamp
+- [ ] Whether the Streatery Block Permit can be submitted before individual Design Permits, or must they be concurrent
+- [ ] Format requirements for PDF uploads in TOPS (max file size, color/grayscale, etc.)
+- [ ] What constitutes "guidelines-compliant" for the administrative-vs-PSC review fork on the Design Permit — is the pre-screener's verdict sufficient, or does DDOT have its own checklist?
+
+---
+
 ## Addendum: Mt. Pleasant API verification (2026-04-10)
 
 Findings from live API testing against DC Open Data endpoints. This section
