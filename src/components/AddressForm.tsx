@@ -8,26 +8,41 @@ import { useState } from "react";
 interface QuickPick {
   label: string;
   address: string;
-  note?: string;
 }
 
-// Initial cohort + cross-street test from the project context. Expand as
-// more restaurants join the rollout.
-const QUICK_PICKS: QuickPick[] = [
+interface QuickPickGroup {
+  label: string;
+  items: QuickPick[];
+}
+
+// Cohort restaurants from the District Bridges streatery rollout, plus a
+// cross-street test address. Order within Second wave is by street number
+// (north-to-south along the Mt Pleasant corridor) so the list reads
+// geographically when scanning.
+const QUICK_PICK_GROUPS: QuickPickGroup[] = [
   {
-    label: "Martha Dear",
-    address: "3110 Mount Pleasant Street NW",
-    note: "Initial cohort",
+    label: "Initial cohort",
+    items: [
+      { label: "Martha Dear", address: "3110 Mount Pleasant Street NW" },
+      { label: "Purple Patch", address: "3155 Mount Pleasant Street NW" },
+    ],
   },
   {
-    label: "Purple Patch",
-    address: "3155 Mount Pleasant Street NW",
-    note: "Initial cohort",
+    label: "Second wave",
+    items: [
+      { label: "Suns Cinema", address: "3107 Mount Pleasant Street NW" },
+      { label: "Beau Thai", address: "3162 Mount Pleasant Street NW" },
+      { label: "Marx Cafe", address: "3203 Mount Pleasant Street NW" },
+      { label: "La Tejana", address: "3211 Mount Pleasant Street NW" },
+      { label: "Joia Burger", address: "3213 Mount Pleasant Street NW" },
+      { label: "Ellē", address: "3221 Mount Pleasant Street NW" },
+    ],
   },
   {
-    label: "1620 Lamont St NW",
-    address: "1620 Lamont Street NW",
-    note: "Cross-street test",
+    label: "Cross-street test",
+    items: [
+      { label: "1620 Lamont St NW", address: "1620 Lamont Street NW" },
+    ],
   },
 ];
 
@@ -88,32 +103,36 @@ export function AddressForm({
         </button>
       </form>
 
-      <div>
-        <h3 className="text-xs font-semibold text-stone-500 uppercase tracking-wide mb-2">
+      <div className="space-y-5">
+        <h3 className="text-xs font-semibold text-stone-500 uppercase tracking-wide">
           Quick picks
         </h3>
-        <ul className="space-y-1">
-          {QUICK_PICKS.map((pick) => (
-            <li key={pick.address}>
-              <button
-                type="button"
-                onClick={() => handleQuickPick(pick.address)}
-                disabled={isSubmitting}
-                className="w-full text-left px-3 py-3 sm:py-2 text-sm rounded-md hover:bg-stone-100 active:bg-stone-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-              >
-                <div className="font-medium text-stone-800">{pick.label}</div>
-                <div className="text-xs text-stone-500 font-mono">
-                  {pick.address}
-                </div>
-                {pick.note && (
-                  <div className="text-xs text-stone-400 mt-0.5">
-                    {pick.note}
-                  </div>
-                )}
-              </button>
-            </li>
-          ))}
-        </ul>
+        {QUICK_PICK_GROUPS.map((group) => (
+          <div key={group.label}>
+            <h4 className="text-xs font-medium text-stone-400 uppercase tracking-wide mb-1.5 px-3">
+              {group.label}
+            </h4>
+            <ul className="space-y-0.5">
+              {group.items.map((pick) => (
+                <li key={pick.address}>
+                  <button
+                    type="button"
+                    onClick={() => handleQuickPick(pick.address)}
+                    disabled={isSubmitting}
+                    className="w-full text-left px-3 py-3 sm:py-2 text-sm rounded-md hover:bg-stone-100 active:bg-stone-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    <div className="font-medium text-stone-800">
+                      {pick.label}
+                    </div>
+                    <div className="text-xs text-stone-500 font-mono">
+                      {pick.address}
+                    </div>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
   );
