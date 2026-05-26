@@ -6,7 +6,7 @@ import { lazy, Suspense, useState } from "react";
 
 import type { PrescreenResult } from "../prescreen.js";
 import type { Verdict } from "../envelope.js";
-import { buildBriefing } from "../submissionPackage.js";
+import { buildSubmissionPackage } from "../submissionPackage.js";
 
 // Lazy-load the map. MapLibre GL is ~400KB minified and only matters once
 // we have a result to render — there's no reason to ship it in the
@@ -136,7 +136,7 @@ function CopyLinkButton(): React.ReactElement {
   );
 }
 
-// ---------- Download briefing (submission package compiler v1) ----------
+// ---------- Download submission package ----------
 
 /**
  * Generates a Markdown briefing document on the fly and triggers a
@@ -154,7 +154,7 @@ function DownloadBriefingButton({
   result: PrescreenResult;
 }): React.ReactElement {
   const handleDownload = (): void => {
-    const { filename, content } = buildBriefing(result);
+    const { filename, content } = buildSubmissionPackage(result);
     const blob = new Blob([content], { type: "text/markdown;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
@@ -174,7 +174,7 @@ function DownloadBriefingButton({
       onClick={handleDownload}
       className="text-stone-600 hover:text-stone-900 underline underline-offset-2 decoration-stone-300 hover:decoration-stone-500 transition-colors"
     >
-      Download briefing
+      Download submission package
     </button>
   );
 }
