@@ -6,6 +6,7 @@ import { lazy, Suspense, useState } from "react";
 
 import type { PrescreenResult } from "../prescreen.js";
 import type { Verdict } from "../envelope.js";
+import { buildBriefing } from "../submissionPackage.js";
 
 // Lazy-load the map. MapLibre GL is ~400KB minified and only matters once
 // we have a result to render — there's no reason to ship it in the
@@ -83,7 +84,10 @@ export function ResultPanel({
       <SiteWalkCaveatsCard caveats={siteWalkCaveats} />
 
       <div className="flex flex-wrap justify-between items-center gap-2 text-xs text-stone-400">
-        <CopyLinkButton />
+        <div className="flex gap-4">
+          <CopyLinkButton />
+          <DownloadBriefingButton result={result} />
+        </div>
         <span className="text-right">
           Fetched at {new Date(result.fetchedAt).toLocaleString()} ·
           geocoded with {geocoded.mar.confidenceScore}/100 confidence
@@ -128,6 +132,49 @@ function CopyLinkButton(): React.ReactElement {
       className="text-stone-600 hover:text-stone-900 underline underline-offset-2 decoration-stone-300 hover:decoration-stone-500 transition-colors"
     >
       {copied ? "Link copied" : "Copy link"}
+    </button>
+  );
+}
+
+// ---------- Download briefing (submission package compiler v1) ----------
+
+/**
+ * Generates a Markdown briefing document on the fly and triggers a
+ * browser download. The document contains the full pre-screen result
+ * (verdict, envelope, constraints, curb features, site walk checklist,
+ * and raw JSON appendix) — see src/submissionPackage.ts for layout.
+ *
+ * Download mechanics: create a Blob, mint a temporary object-URL,
+ * point a hidden anchor at it, click it programmatically, revoke.
+ * No DOM cruft remains afterward.
+ */
+function DownloadBriefingButton({
+  result,
+}: {
+  result: PrescreenResult;
+}): React.ReactElement {
+  const handleDownload = (): void => {
+    const { filename, content } = buildBriefing(result);
+    const blob = new Blob([content], { type: "text/markdown;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = filename;
+    // The anchor doesn't need to be in the DOM tree to be clickable in
+    // modern browsers — keeps the operation invisible.
+    anchor.click();
+    // Free the object-URL when the browser is done with the download.
+    // setTimeout(0) defers past the click handler so the download fires.
+    setTimeout(() => URL.revokeObjectURL(url), 0);
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={handleDownload}
+      className="text-stone-600 hover:text-stone-900 underline underline-offset-2 decoration-stone-300 hover:decoration-stone-500 transition-colors"
+    >
+      Download briefing
     </button>
   );
 }
