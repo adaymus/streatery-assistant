@@ -39,11 +39,54 @@ const HEADERS_TO_STRIP = [
   "user-agent",
 ] as const;
 
+/**
+ * Shape of the bindings declared in wrangler.toml. The `RATE_LIMIT`
+ * binding is provided by Cloudflare's Workers Rate Limiting API — see
+ * the `[[unsafe.bindings]]` block in wrangler.toml for the configured
+ * quota.
+ */
+interface Env {
+  RATE_LIMIT?: {
+    limit: (options: { key: string }) => Promise<{ success: boolean }>;
+  };
+}
+
 // Pages Functions run in the Workers runtime, which provides web-standard
 // Request/Response/fetch. No Node imports needed.
-export const onRequest: PagesFunction = async (context) => {
+export const onRequest: PagesFunction<Env> = async (context) => {
   const incoming = context.request;
   const incomingUrl = new URL(incoming.url);
+
+  // Rate-limit by client IP. Cloudflare sets `cf-connecting-ip` to the
+  // true client IP regardless of any intermediate proxies. Falls back to
+  // a literal "unknown" key so that traffic without that header (local
+  // dev, or some misconfigured edge case) shares a single bucket rather
+  // than bypassing the limit entirely.
+  if (context.env.RATE_LIMIT) {
+    const clientIp =
+      incoming.headers.get("cf-connecting-ip") ?? "unknown";
+    const { success } = await context.env.RATE_LIMIT.limit({
+      key: clientIp,
+    });
+    if (!success) {
+      return new Response(
+        JSON.stringify({
+          error: "Rate limit exceeded",
+          detail: "Too many MAR geocoder requests. Try again in a minute.",
+        }),
+        {
+          status: 429,
+          headers: {
+            "content-type": "application/json",
+            // Standard hint to clients (and well-behaved bots) about
+            // when to retry. Matches the rate-limit window length.
+            "retry-after": "60",
+            "access-control-allow-origin": "*",
+          },
+        },
+      );
+    }
+  }
 
   // Translate `/api/mar/findLocation2?...` to the upstream URL.
   const upstreamPath = incomingUrl.pathname.replace(/^\/api\/mar/, "");

@@ -11,3 +11,21 @@
 name = "streatery-prescreener"
 compatibility_date = "2025-09-23"
 pages_build_output_dir = "./dist"
+
+# Rate-limit binding for the MAR proxy. Cloudflare's Workers Rate
+# Limiting API caps requests per period per arbitrary key. We key on the
+# client IP so one runaway client can't exhaust the quota for everyone.
+#
+#   limit:  max requests allowed within `period` seconds
+#   period: rolling window length in seconds (only 10 or 60 are supported)
+#
+# 60/60s is generous for a real triage session (worst case: ~40 fetches
+# to pre-screen a single address, well under the limit) and pinches
+# obvious abuse (scrapers, runaway loops).
+#
+# `namespace_id` is an arbitrary number that scopes the rate-limit
+# counter — pick anything unique to this binding. It's NOT a secret.
+[[ratelimits]]
+name = "RATE_LIMIT"
+namespace_id = "1001"
+simple = { limit = 60, period = 60 }
