@@ -6,7 +6,6 @@ import { lazy, Suspense, useState } from "react";
 
 import type { PrescreenResult } from "../prescreen.js";
 import type { Verdict } from "../envelope.js";
-import { buildSubmissionPackage } from "../submissionPackage.js";
 
 // Lazy-load the map. MapLibre GL is ~400KB minified and only matters once
 // we have a result to render — there's no reason to ship it in the
@@ -86,7 +85,7 @@ export function ResultPanel({
       <div className="flex flex-wrap justify-between items-center gap-2 text-xs text-stone-400">
         <div className="flex gap-4">
           <CopyLinkButton />
-          <DownloadBriefingButton result={result} />
+          <PrintPackageButton result={result} />
         </div>
         <span className="text-right">
           Fetched at {new Date(result.fetchedAt).toLocaleString()} ·
@@ -136,45 +135,48 @@ function CopyLinkButton(): React.ReactElement {
   );
 }
 
-// ---------- Download submission package ----------
+// ---------- Print submission package as PDF ----------
 
 /**
- * Generates a Markdown briefing document on the fly and triggers a
- * browser download. The document contains the full pre-screen result
- * (verdict, envelope, constraints, curb features, site walk checklist,
- * and raw JSON appendix) — see src/submissionPackage.ts for layout.
+ * Renders the submission package as a printable HTML view in a new
+ * tab and auto-triggers the browser print dialog. The user picks
+ * "Save as PDF" to complete the export.
  *
- * Download mechanics: create a Blob, mint a temporary object-URL,
- * point a hidden anchor at it, click it programmatically, revoke.
- * No DOM cruft remains afterward.
+ * The print module — including its `marked` dependency for Markdown
+ * conversion — is lazy-loaded with dynamic import on first click.
+ * Users who never request a PDF don't pay the ~40 KB cost.
  */
-function DownloadBriefingButton({
+function PrintPackageButton({
   result,
 }: {
   result: PrescreenResult;
 }): React.ReactElement {
-  const handleDownload = (): void => {
-    const { filename, content } = buildSubmissionPackage(result);
-    const blob = new Blob([content], { type: "text/markdown;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const anchor = document.createElement("a");
-    anchor.href = url;
-    anchor.download = filename;
-    // The anchor doesn't need to be in the DOM tree to be clickable in
-    // modern browsers — keeps the operation invisible.
-    anchor.click();
-    // Free the object-URL when the browser is done with the download.
-    // setTimeout(0) defers past the click handler so the download fires.
-    setTimeout(() => URL.revokeObjectURL(url), 0);
+  const [busy, setBusy] = useState(false);
+
+  const handlePrint = async (): Promise<void> => {
+    setBusy(true);
+    try {
+      const { openPrintableSubmissionPackage } = await import(
+        "../submissionPackagePrint.js"
+      );
+      openPrintableSubmissionPackage(result);
+    } catch (err) {
+      // Lazy import or render failure — surface to the console for
+      // debugging without crashing the whole result panel.
+      console.error("Failed to open print view:", err);
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
     <button
       type="button"
-      onClick={handleDownload}
-      className="text-stone-600 hover:text-stone-900 underline underline-offset-2 decoration-stone-300 hover:decoration-stone-500 transition-colors"
+      onClick={handlePrint}
+      disabled={busy}
+      className="text-stone-600 hover:text-stone-900 underline underline-offset-2 decoration-stone-300 hover:decoration-stone-500 transition-colors disabled:opacity-50"
     >
-      Download submission package
+      {busy ? "Opening..." : "Save submission package as PDF"}
     </button>
   );
 }

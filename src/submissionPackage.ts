@@ -47,9 +47,21 @@ interface SubmissionPackage {
 /** Backwards-compat alias — older callers still use the briefing name. */
 export const buildBriefing = buildSubmissionPackage;
 
+interface BuildOptions {
+  /**
+   * Skip the structured-JSON appendix. Useful for the PDF render —
+   * the JSON serves machine consumers (downstream tools, CLI users),
+   * not humans reading a printed package, and at ~1,000 lines it
+   * would balloon the page count for no value.
+   */
+  includeJsonAppendix?: boolean;
+}
+
 export function buildSubmissionPackage(
   result: PrescreenResult,
+  options: BuildOptions = {},
 ): SubmissionPackage {
+  const { includeJsonAppendix = true } = options;
   const fetchedDate = new Date(result.fetchedAt);
 
   const sections = [
@@ -69,7 +81,7 @@ export function buildSubmissionPackage(
     pointOfContactSection(result),
     onSiteSignSection(),
     provenanceSection(result),
-    jsonAppendixSection(result),
+    ...(includeJsonAppendix ? [jsonAppendixSection(result)] : []),
   ];
 
   const addressSlug = slugify(result.geocoded.mar.fullAddress);
