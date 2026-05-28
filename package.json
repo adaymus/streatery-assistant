@@ -12,7 +12,8 @@
     "deploy": "npm run build && wrangler pages deploy",
     "geocode": "tsx scripts/geocode.ts",
     "prescreen": "tsx scripts/prescreen.ts",
-    "briefing": "tsx scripts/briefing.ts"
+    "briefing": "tsx scripts/briefing.ts",
+    "site-plan": "tsx scripts/sitePlanMockup.ts"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260526.1",

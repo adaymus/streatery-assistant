@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" 
+     viewBox="-348.90 -474.05 403.55 599.22" 
+     preserveAspectRatio="xMidYMid meet">
+<rect x="-348.90179310598853" y="-474.04922878859105" width="403.5507738962444" height="599.217224211377" fill="#fafaf9" />
+<g id="parking-lane">
+<polygon points="0.00,0.00 -75.56,-243.22 -75.57,-243.25 -133.59,-431.68 -125.95,-434.05 -67.92,-245.61 -67.92,-245.59 7.64,-2.37" fill="#fef3c7" stroke="#d97706" stroke-width="0.4" stroke-dasharray="2,2" />
+</g>
+<g id="sidewalk">
+<polygon points="0.00,0.00 -75.56,-243.22 -75.57,-243.25 -133.59,-431.68 -141.23,-429.32 -83.21,-240.88 -83.20,-240.86 -7.64,2.37" fill="#e7e5e4" stroke="#a8a29e" stroke-width="0.3" />
+</g>
+<polyline points="0.00,0.00 -75.56,-243.22 -75.57,-243.25 -133.59,-431.68" fill="none" stroke="#1c1917" stroke-width="1.2" />
+<polygon points="-58.77,-162.15 -69.12,-195.58 -126.44,-177.85 -116.09,-144.41" fill="#d6d3d1" stroke="#57534e" stroke-width="0.6" />
+<text x="-92.60" y="-170.00" font-size="6" font-family="sans-serif" text-anchor="middle" dominant-baseline="middle" fill="#1c1917">3110 MOUNT PLEASANT STREET NW</text>
+<text x="-92.60" y="-163.00" font-size="4" font-family="sans-serif" text-anchor="middle" dominant-baseline="middle" fill="#78716c" font-style="italic">[building footprint assumed — operator to confirm]</text>
+<g id="envelope">
+<polygon points="-48.90,-157.41 -63.70,-205.05 -56.06,-207.42 -41.26,-159.77" fill="#059669" fill-opacity="0.25" stroke="#059669" stroke-width="1" />
+<text x="-52.48" y="-182.41" font-size="7" font-family="sans-serif" font-weight="700" text-anchor="middle" dominant-baseline="middle" fill="#059669">STREATERY ENVELOPE</text>
+<text x="-52.48" y="-174.41" font-size="5" font-family="sans-serif" text-anchor="middle" dominant-baseline="middle" fill="#059669">50.0 ft × 8 ft  ·  2-space</text>
+</g>
+<g id="features">
+<rect x="-1.77" y="-29.92" width="8" height="8" fill="#7c3aed" stroke="white" stroke-width="0.5" />
+<text x="7.23" y="-24.92" font-size="3" font-family="sans-serif" fill="#7c3aed">XW</text>
+<rect x="-34.89" y="-73.14" width="8" height="8" fill="#2563eb" stroke="white" stroke-width="0.5" />
+<text x="-25.89" y="-68.14" font-size="3" font-family="sans-serif" fill="#2563eb">BUS</text>
+<polygon points="-91.30559993034892,-244.59032983905126 -95.30559993034892,-236.59032983905126 -87.30559993034892,-236.59032983905126" fill="#ea580c" stroke="white" stroke-width="0.5" />
+<text x="-86.31" y="-239.59" font-size="3" font-family="sans-serif" fill="#ea580c">DRV</text>
+<polygon points="-69.1360819250079,-339.8906241805073 -73.1360819250079,-331.8906241805073 -65.1360819250079,-331.8906241805073" fill="#ea580c" stroke="white" stroke-width="0.5" />
+<text x="-64.14" y="-334.89" font-size="3" font-family="sans-serif" fill="#ea580c">DRV</text>
+<polygon points="-11.227693004713405,-177.2246838633671 -15.227693004713405,-169.2246838633671 -7.227693004713405,-169.2246838633671" fill="#ea580c" stroke="white" stroke-width="0.5" />
+<text x="-6.23" y="-172.22" font-size="3" font-family="sans-serif" fill="#ea580c">DRV</text>
+<polygon points="-308.90179310598853,-46.53780523816886 -312.90179310598853,-38.53780523816886 -304.90179310598853,-38.53780523816886" fill="#ea580c" stroke="white" stroke-width="0.5" />
+<text x="-303.90" y="-41.54" font-size="3" font-family="sans-serif" fill="#ea580c">DRV</text>
+<polygon points="-68.84662798023874,11.167995422785907 -72.84662798023874,19.167995422785907 -64.84662798023874,19.167995422785907" fill="#ea580c" stroke="white" stroke-width="0.5" />
+<text x="-63.85" y="16.17" font-size="3" font-family="sans-serif" fill="#ea580c">DRV</text>
+<polygon points="-33.47016544195352,-25.192435017359458 -36.47016544195352,-19.192435017359458 -30.47016544195352,-19.192435017359458" fill="#0891b2" stroke="white" stroke-width="0.5" />
+<text x="-29.47" y="-21.19" font-size="3" font-family="sans-serif" fill="#0891b2">ADA</text>
+<polygon points="-26.771605284330157,-30.93742799272536 -29.771605284330157,-24.93742799272536 -23.771605284330157,-24.93742799272536" fill="#0891b2" stroke="white" stroke-width="0.5" />
+<text x="-22.77" y="-26.94" font-size="3" font-family="sans-serif" fill="#0891b2">ADA</text>
+<rect x="-102.43" y="-30.21" width="8" height="8" fill="#f97316" stroke="white" stroke-width="0.5" />
+<text x="-93.43" y="-25.21" font-size="3" font-family="sans-serif" fill="#f97316">LZ</text>
+<circle cx="-57.22" cy="-135.37" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="-57.29" cy="-302.60" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="-47.41" cy="-102.59" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="-44.21" cy="-259.98" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="-34.40" cy="-220.64" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="-34.34" cy="-66.52" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="-24.59" cy="-194.41" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="-8.24" cy="-138.67" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="4.84" cy="-102.61" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="14.65" cy="-66.54" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="-93.10" cy="-23.87" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="-122.49" cy="-27.14" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="-148.62" cy="-27.13" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="-178.01" cy="-30.39" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="-200.87" cy="-30.39" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="-256.39" cy="-33.64" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="-230.27" cy="-33.65" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="-80.11" cy="-200.94" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="-99.74" cy="-273.08" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="-109.54" cy="-299.30" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="-66.98" cy="-23.88" r="3.5" fill="#16a34a" stroke="white" stroke-width="0.5" />
+<circle cx="-111.87" cy="-284.99" r="2" fill="#737373" stroke="white" stroke-width="0.5" />
+<text x="-108.87" y="-283.99" font-size="3" font-family="sans-serif" fill="#737373">M</text>
+</g>
+<text x="2.37" y="7.64" font-size="6" font-family="sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="middle" fill="#1c1917">IRVING ST NW</text>
+<text x="-135.95" y="-439.33" font-size="6" font-family="sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="middle" fill="#1c1917">KENYON ST NW</text>
+<g id="north-arrow" transform="translate(38.64898079025586, -458.04922878859105)"><circle cx="0" cy="0" r="12" fill="white" stroke="#1c1917" stroke-width="0.5" /><polygon points="0,-10 -3,8 0,6 3,8" fill="#1c1917" /><text x="0" y="11" font-size="5" font-family="sans-serif" font-weight="700" text-anchor="middle" fill="#1c1917">N</text></g>
+<g id="scale-bar" transform="translate(-340.90179310598853, -466.04922878859105)"><rect x="0" y="0" width="20" height="2" fill="#1c1917" /><rect x="20" y="0" width="20" height="2" fill="white" stroke="#1c1917" stroke-width="0.3" /><text x="0" y="-1" font-size="3.5" font-family="sans-serif" fill="#1c1917">0</text><text x="20" y="-1" font-size="3.5" font-family="sans-serif" text-anchor="middle" fill="#1c1917">20</text><text x="40" y="-1" font-size="3.5" font-family="sans-serif" text-anchor="middle" fill="#1c1917">40 ft</text></g>
+<text x="-147.13" y="-174.44" font-size="40" font-family="sans-serif" font-weight="900" fill="#1c1917" fill-opacity="0.06" text-anchor="middle" dominant-baseline="middle" transform="rotate(-25 -147.12640615786634 -174.44061668290257)">STRAWMAN — FOR MEETING DISCUSSION</text>
+<g id="title-block" transform="translate(-129.35101920974415, 59.16799542278591)">
+<rect x="0" y="0" width="180" height="62" fill="white" stroke="#1c1917" stroke-width="0.6" />
+<text x="4" y="8" font-size="6" font-family="sans-serif" font-weight="700" fill="#1c1917">DRAWING 1 OF 5: SITE PLAN (STRAWMAN)</text>
+<text x="4" y="16" font-size="5" font-family="sans-serif" fill="#44403c">3110 MOUNT PLEASANT STREET NW</text>
+<text x="4" y="22" font-size="4" font-family="sans-serif" fill="#78716c">3100 - 3145 BLOCK OF MOUNT PLEASANT STREET NW</text>
+<text x="4" y="32" font-size="4" font-family="sans-serif" fill="#44403c">Verdict: <tspan font-weight="700">ELIGIBLE</tspan></text>
+<text x="4" y="38" font-size="4" font-family="sans-serif" fill="#44403c">Envelope: 50.0 ft (2-space)</text>
+<text x="4" y="44" font-size="4" font-family="sans-serif" fill="#44403c">Generated: 5/28/2026</text>
+<text x="4" y="52" font-size="3.5" font-family="sans-serif" font-style="italic" fill="#a8a29e">Strawman generated by streatery-prescreener — not architectural drawing</text>
+<text x="4" y="57" font-size="3.5" font-family="sans-serif" font-style="italic" fill="#a8a29e">For meeting discussion; PE stamp + architect refinement required before submission</text>
+</g>
+<g id="legend" transform="translate(-344.90179310598853, -456.04922878859105)">
+<rect x="0" y="0" width="55" height="56" fill="white" stroke="#1c1917" stroke-width="0.4" />
+<text x="3" y="6" font-size="4.5" font-family="sans-serif" font-weight="700" fill="#1c1917">LEGEND</text>
+<rect x="3" y="7.5" width="3" height="3" fill="#dc2626" />
+<text x="8" y="10" font-size="3.5" font-family="sans-serif" fill="#44403c">Fire hydrant</text>
+<rect x="3" y="13.5" width="3" height="3" fill="#7c3aed" />
+<text x="8" y="16" font-size="3.5" font-family="sans-serif" fill="#44403c">Crosswalk</text>
+<rect x="3" y="19.5" width="3" height="3" fill="#2563eb" />
+<text x="8" y="22" font-size="3.5" font-family="sans-serif" fill="#44403c">Bus stop</text>
+<rect x="3" y="25.5" width="3" height="3" fill="#ea580c" />
+<text x="8" y="28" font-size="3.5" font-family="sans-serif" fill="#44403c">Driveway curb cut</text>
+<rect x="3" y="31.5" width="3" height="3" fill="#0891b2" />
+<text x="8" y="34" font-size="3.5" font-family="sans-serif" fill="#44403c">ADA ramp</text>
+<rect x="3" y="37.5" width="3" height="3" fill="#f97316" />
+<text x="8" y="40" font-size="3.5" font-family="sans-serif" fill="#44403c">Loading zone</text>
+<rect x="3" y="43.5" width="3" height="3" fill="#16a34a" />
+<text x="8" y="46" font-size="3.5" font-family="sans-serif" fill="#44403c">Street tree</text>
+<rect x="3" y="49.5" width="3" height="3" fill="#737373" />
+<text x="8" y="52" font-size="3.5" font-family="sans-serif" fill="#44403c">Parking meter</text>
+</g>
+</svg>
