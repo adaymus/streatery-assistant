@@ -10,6 +10,48 @@ This doc has three parts:
 
 ---
 
+## The mental model: 4 layers on a reference design
+
+Before the details, the framing in one diagram. A complete per-restaurant streatery design is a **reference template + 4 layers of progressively more site- and operator-specific information**:
+
+```
+                    ┌─────────────────────────────────┐
+   Layer 4          │  Owner decisions                │  ← operator picks
+   (preferences)    │  heaters? overhead? palette?    │     at submission time
+                    └─────────────────────────────────┘
+                    ┌─────────────────────────────────┐
+   Layer 3          │  Site-walk verified measurements│  ← owner/volunteer
+   (verified)       │  building entrance, utility     │     with tape measure
+                    │  covers, curb height, FDC       │
+                    └─────────────────────────────────┘
+                    ┌─────────────────────────────────┐
+   Layer 2          │  Site report (pre-screen)       │  ← auto-fetched
+   (automated)      │  speed limit, envelope dims,    │     from DC Open Data
+                    │  trees, meters, etc.            │     on demand
+                    └─────────────────────────────────┘
+                    ┌─────────────────────────────────┐
+   Layer 1          │  Code standards (DDOT + ADA)    │  ← baked into
+   (constants)      │  slope, heights, clearances,    │     templates once
+                    │  required signage, etc.         │
+                    └─────────────────────────────────┘
+                    ┌─────────────────────────────────┐
+   Base             │  Reference design (1/2/3-space) │  ← architect's template
+                    │  scaffold: where things go      │
+                    └─────────────────────────────────┘
+```
+
+### Properties this model gives us
+
+- **Graceful degradation**: layer 3 (site walk) can be skipped initially — design renders with assumed defaults and "VERIFY" notes on the drawings. Operator can use in-progress drawings for cohort planning, re-render after the site walk.
+- **Fixed precedence when sources conflict**: site-walk measurements (layer 3) override pre-screen defaults (layer 2) — boots-on-the-ground beats data extrapolation. Layer 4 (owner) picks *within* ranges layer 1 (code) allows, never beyond.
+- **Per-site versioning is natural**: change layer 4 (operator switches aesthetic palette) → re-render touches only the affected elements. Change layer 1 (DDOT updates Guidelines) → all sites regenerate with the new rules.
+- **Each layer has its own UX path**: operator never sees layer 1 (built in); reads layer 2 in the pre-screen result UI we already have; fills in a structured site-walk form for layer 3; picks from a few preset options for layer 4. Clean separation means different roles can fill in different layers without stepping on each other.
+- **Each layer ages at its own rate**: code standards rarely change, pre-screen data is fresh on demand, site walks need re-verification on major changes, owner preferences are per-restaurant. The system can track and surface staleness per layer.
+
+The rest of this doc is the detail under that framing.
+
+---
+
 ## Part 1: The dependency model
 
 A streatery has roughly 11 design elements. Each one is driven by zero or more site characteristics. Some characteristics drive multiple elements; some elements depend on multiple characteristics. Knowing which is which tells you what needs to be parametric in the templates.
