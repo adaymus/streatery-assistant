@@ -466,6 +466,43 @@ If you get through those 8 in the meeting, you have everything you need to scope
 
 ---
 
+## Known risks and flow improvements
+
+The 4-layer model is structurally sound, but five risks are worth planning for explicitly — and four flow improvements address them with a single move each.
+
+### Risks to plan for
+
+1. **PE accountability** — a PE stamps Drawing 4. If the parametric system produces an instance the PE didn't explicitly anticipate, liability gets fuzzy. **Mitigation:** PE reviews + stamps the *template* with a stated parameter range; instances inside the range are pre-approved, instances outside trigger re-review. Architect + PE define those ranges before any site reaches TOPS.
+
+2. **Building footprint data gap** — every drawing assumes a building rectangle from the MAR address point + guessed dimensions. Real buildings have recessed entries, awnings, corner kinks. Cascades into ramp placement, signage facing, sometimes envelope shape. **Mitigation:** spike on the DC Buildings dataset before the architect meeting; if it covers Mt Pleasant, footprints become layer-2 data. If not, plan a layer-3 "sketch the building outline" form with photos.
+
+3. **Site-walk data quality** — layer 3 is the only manual-input layer, so it's the most error-prone. A volunteer can confidently measure curb height but might miss a utility cover or mismeasure setbacks. **Mitigation:** structured mobile form with required photos per field; cross-check against pre-screen data and surface discrepancies (e.g., walker reports 5 ft sidewalk vs data's 8 ft) for resolution; two-person walks for the first 5-10 sites to calibrate.
+
+4. **Aesthetic palette politics** — cohort consistency is the economic argument, but operators will push for individuality. If customization grows beyond a few slots, per-site cost rises and the parametric value collapses. **Mitigation:** define 2-3 named palettes with photographic examples up front; restrict customization to (a) one signage variant, (b) one accent color, (c) heater/overhead Y/N. Anything else = "v3" or "independent architect."
+
+5. **PSC review cycle versioning** — designs are parametric until PSC submission, then frozen. Revisions (site-specific or rule-based) create churn unless versioning is explicit. **Mitigation:** submission locks a version. Regenerations create new versions with a clear diff. Operator + Mitra explicitly accept new versions before re-submitting.
+
+### Flow improvements that solve multiple risks at once
+
+**Mobile-first site walk app with photo evidence**. QR code on the pre-screen briefing → volunteer opens mobile form pre-filled with site context → required photos per measurement (FDC, utility cover, sidewalk with tape visible). Solves data-quality + provenance + later-dispute-evidence in one move.
+
+**Cohort dashboard for Mitra**. Single view of every site's status across all 4 layers, all permits, PSC stages. Reuses the existing data model; just a different rendering. Removes "where are we" tax across 12+ restaurants.
+
+**Per-layer audit trail**. Each layer carries `verified_by` + `verified_at` + `source`. Architect signs layer 1 once. Layer 2 auto-timestamps on every pre-screen. Layer 3 needs volunteer + date + photos. Layer 4 needs operator email confirmation. PE gets visible provenance for what they're stamping.
+
+**Calendar-aware planning**. The §5.1 timeline is 4-6 months end-to-end; streateries open in spring/summer; that pins submission to Jan-Feb. Tool surfaces "earliest realistic open date" when a site enters the pipeline. Avoids missed seasons.
+
+### Smaller hygienic items worth baking in early
+
+- **Liability watermark** on every generated drawing until PE-stamped ("AUTOMATED DRAFT — REQUIRES ARCHITECT + PE REVIEW BEFORE SUBMISSION"). Prevents the "operator submitted raw output by mistake" disaster.
+- **Re-eligibility alerts**: when DC data changes affect an existing cohort site (e.g., new bus priority lane plan), the system notices and pings the operator + Mitra. Compares fresh pre-screen against last-saved verdict.
+- **Diff view between design versions**: visual comparison when a design regenerates. Reduces operator anxiety about silent changes.
+- **Conflict resolution UX**: when layer 3 (site walk) contradicts layer 2 (pre-screen), explicit UI to resolve rather than silent override.
+
+These don't need to be in v2 day one — flagging them now so they fit the architecture cleanly rather than getting bolted on later.
+
+---
+
 ## Suggested v2 development sequence
 
 1. **Operator-input UI** (frontage length, entrance position, business name) — unblocks template testing
