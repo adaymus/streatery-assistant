@@ -10,9 +10,9 @@
 <polygon points="0.00,0.00 -75.56,-243.22 -75.57,-243.25 -133.59,-431.68 -141.23,-429.32 -83.21,-240.88 -83.20,-240.86 -7.64,2.37" fill="#e7e5e4" stroke="#a8a29e" stroke-width="0.3" />
 </g>
 <polyline points="0.00,0.00 -75.56,-243.22 -75.57,-243.25 -133.59,-431.68" fill="none" stroke="#1c1917" stroke-width="1.2" />
-<polygon points="-58.77,-162.15 -69.12,-195.58 -126.44,-177.85 -116.09,-144.41" fill="#d6d3d1" stroke="#57534e" stroke-width="0.6" />
-<text x="-92.60" y="-170.00" font-size="6" font-family="sans-serif" text-anchor="middle" dominant-baseline="middle" fill="#1c1917">3110 MOUNT PLEASANT STREET NW</text>
-<text x="-92.60" y="-163.00" font-size="4" font-family="sans-serif" text-anchor="middle" dominant-baseline="middle" fill="#78716c" font-style="italic">[building footprint assumed — operator to confirm]</text>
+<polygon points="-128.42,-174.00 -94.79,-184.89 -88.62,-163.84 -123.41,-152.79 -124.00,-154.85 -135.54,-151.54 -138.39,-161.55 -140.33,-160.99 -136.84,-148.73 -138.10,-148.35 -156.17,-142.80 -155.44,-165.25 -128.42,-174.00" fill="#d6d3d1" stroke="#57534e" stroke-width="0.6" />
+<text x="-129.88" y="-160.27" font-size="6" font-family="sans-serif" text-anchor="middle" dominant-baseline="middle" fill="#1c1917">3110 MOUNT PLEASANT STREET NW</text>
+<text x="-129.88" y="-153.27" font-size="4" font-family="sans-serif" text-anchor="middle" dominant-baseline="middle" fill="#78716c" font-style="italic">[DC Building Footprints, captured 2023-05]</text>
 <g id="envelope">
 <polygon points="-48.90,-157.41 -63.70,-205.05 -56.06,-207.42 -41.26,-159.77" fill="#059669" fill-opacity="0.25" stroke="#059669" stroke-width="1" />
 <text x="-52.48" y="-182.41" font-size="7" font-family="sans-serif" font-weight="700" text-anchor="middle" dominant-baseline="middle" fill="#059669">STREATERY ENVELOPE</text>

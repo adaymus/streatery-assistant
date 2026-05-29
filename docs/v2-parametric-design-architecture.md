@@ -140,9 +140,9 @@ Roughly in order of effort to close:
 
 ### Worth investigating before v2 starts
 
-- **DC Buildings dataset**: DC publishes a building footprints layer. If Mt Pleasant coverage is good, we can pull real building polygons instead of assuming. Worth a 30-minute spike before the architect commits to "operator supplies dimensions."
+- ~~**DC Buildings dataset**: DC publishes a building footprints layer.~~ **DONE 2026-05-28** — `Facility_and_Structure_WebMercator/MapServer/1`. 100% coverage across the cohort with real polygon shapes. Wired into the pre-screen pipeline as `geocoded.buildingFootprint` (`{ ring, approximateAreaFt2, capturedAt, description }`). Corner buildings span multiple addresses (one polygon serves all entrance addresses) — design system should handle that.
 - **Sidewalk inventory dataset**: there may be a clean sidewalk centerline / polygon dataset. Worth checking for the ramp-design conversation.
-- **Building entrances**: long shot, but worth checking if DC has an addressable-entrance dataset distinct from the MAR.
+- **Building entrances**: long shot, but worth checking if DC has an addressable-entrance dataset distinct from the MAR. The MAR gives us the entrance address point but not which side of the building it's on. Currently a layer-3 (site-walk) item; if a dataset exists it could move to layer 2.
 
 ### Site-walk-only (no data path)
 
@@ -474,7 +474,7 @@ The 4-layer model is structurally sound, but five risks are worth planning for e
 
 1. **PE accountability** — a PE stamps Drawing 4. If the parametric system produces an instance the PE didn't explicitly anticipate, liability gets fuzzy. **Mitigation:** PE reviews + stamps the *template* with a stated parameter range; instances inside the range are pre-approved, instances outside trigger re-review. Architect + PE define those ranges before any site reaches TOPS.
 
-2. **Building footprint data gap** — every drawing assumes a building rectangle from the MAR address point + guessed dimensions. Real buildings have recessed entries, awnings, corner kinks. Cascades into ramp placement, signage facing, sometimes envelope shape. **Mitigation:** spike on the DC Buildings dataset before the architect meeting; if it covers Mt Pleasant, footprints become layer-2 data. If not, plan a layer-3 "sketch the building outline" form with photos.
+2. **Building footprint data gap** — ~~every drawing assumes a building rectangle from the MAR address point + guessed dimensions. Real buildings have recessed entries, awnings, corner kinks. Cascades into ramp placement, signage facing, sometimes envelope shape.~~ **RESOLVED 2026-05-28** via DC's Building Footprints layer (`Facility_and_Structure_WebMercator/MapServer/1`). Spike confirmed 100% coverage across the cohort with real polygon shapes (5-38 vertices, not stub rectangles). Wired into the pre-screen pipeline as `geocoded.buildingFootprint`. Edge case to flag for the architect: corner buildings span multiple addresses (e.g., Purple Patch at 3155 Mt Pleasant and 1620 Lamont return the same polygon) — design system needs to treat the polygon as "the building," not "the polygon for this address." Most Mt Pleasant captures are 2015; major renovations since then should be a layer-3 site-walk flag.
 
 3. **Site-walk data quality** — layer 3 is the only manual-input layer, so it's the most error-prone. A volunteer can confidently measure curb height but might miss a utility cover or mismeasure setbacks. **Mitigation:** structured mobile form with required photos per field; cross-check against pre-screen data and surface discrepancies (e.g., walker reports 5 ft sidewalk vs data's 8 ft) for resolution; two-person walks for the first 5-10 sites to calibrate.
 

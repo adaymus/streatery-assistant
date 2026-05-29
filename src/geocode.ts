@@ -16,6 +16,10 @@
 
 import { fetchJson, buildQuery } from "./http.js";
 import { bboxAroundPoint, bboxToArcgisGeometry } from "./bbox.js";
+import {
+  fetchBuildingFootprint,
+  type BuildingFootprintResult,
+} from "./buildingFootprint.js";
 
 // ---------- Types ----------
 
@@ -83,6 +87,16 @@ export interface GeocodedAddress {
   block: RoadwayBlockResult;
   side: Side;
   blockface: BlockfaceResult;
+  /**
+   * Building polygon containing the address point, sourced from DC's
+   * Building Footprints layer. Null when the address point doesn't
+   * fall inside any building polygon (rare for restaurants, but
+   * happens for addresses in alleys or the public right-of-way).
+   *
+   * Important: corner buildings span multiple addresses. The same
+   * polygon may be returned for several MAR addresses.
+   */
+  buildingFootprint: BuildingFootprintResult | null;
 }
 
 // ---------- Step 1: MAR Geocoder ----------
@@ -454,14 +468,20 @@ export async function geocodeAddress(
   const addressPoint = await fetchAddressPoint(mar.marId);
   const block = await fetchRoadwayBlock(addressPoint.blockKey);
   const side = deriveSide(mar.streetNumber, block);
-  const blockface = await fetchBlockface(
-    addressPoint.routeId,
-    side,
-    mar.latitude,
-    mar.longitude,
-    block.fromMeasure,
-    block.toMeasure,
-  );
+  // Building footprint + blockface run in parallel — they're
+  // independent network calls and both depend only on address point
+  // info that's already resolved.
+  const [blockface, buildingFootprint] = await Promise.all([
+    fetchBlockface(
+      addressPoint.routeId,
+      side,
+      mar.latitude,
+      mar.longitude,
+      block.fromMeasure,
+      block.toMeasure,
+    ),
+    fetchBuildingFootprint(mar.latitude, mar.longitude),
+  ]);
 
   return {
     query: rawAddress,
@@ -470,5 +490,6 @@ export async function geocodeAddress(
     block,
     side,
     blockface,
+    buildingFootprint,
   };
 }

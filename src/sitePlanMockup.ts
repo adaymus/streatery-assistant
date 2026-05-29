@@ -146,25 +146,43 @@ export function buildSitePlanMockupSvg(result: PrescreenResult): string {
     }
   }
 
-  // ---------- 4. Building rectangle ----------
-  // We don't know the building footprint — use a placeholder rectangle
-  // centered on the address point, on the sidewalk side, with sides
-  // aligned to the curb direction. Mark it clearly as ASSUMED.
+  // ---------- 4. Building polygon ----------
+  // If DC Building Footprints returned a polygon for this address, use
+  // the real shape. Otherwise fall back to a placeholder rectangle
+  // centered on the address point, on the sidewalk side, marked as
+  // ASSUMED. Real polygons typically have 5-38 vertices and capture
+  // corners + recessed entries; the assumed rectangle is a simple
+  // 35×60 ft shape rotated to align with the curb.
 
-  const buildingOffsetFromCurb =
-    SIDEWALK_WIDTH_FT_ASSUMED + BUILDING_DEPTH_FT_ASSUMED / 2;
-  // Find nearest point on the curb to the building, then move perpendicular.
-  const buildingProj = projectOnPolyline(buildingCenter, curbLine);
-  const buildingCenterAdj: LocalPoint = {
-    x: buildingProj.x + sidewalkPerpX * buildingOffsetFromCurb,
-    y: buildingProj.y + sidewalkPerpY * buildingOffsetFromCurb,
-  };
-  const buildingPoly = rectanglePolygon(
-    buildingCenterAdj,
-    BUILDING_WIDTH_FT_ASSUMED,
-    BUILDING_DEPTH_FT_ASSUMED,
-    { ux: curbUx, uy: curbUy },
-  );
+  const footprintRing = result.geocoded.buildingFootprint?.ring;
+  let buildingPoly: LocalPoint[];
+  let buildingCenterAdj: LocalPoint;
+  let footprintIsAssumed: boolean;
+
+  if (footprintRing && footprintRing.length >= 3) {
+    buildingPoly = footprintRing.map(([lon, lat]) => toLocal(lon!, lat!));
+    // Centroid of the polygon for label placement.
+    buildingCenterAdj = {
+      x: buildingPoly.reduce((s, p) => s + p.x, 0) / buildingPoly.length,
+      y: buildingPoly.reduce((s, p) => s + p.y, 0) / buildingPoly.length,
+    };
+    footprintIsAssumed = false;
+  } else {
+    const buildingOffsetFromCurb =
+      SIDEWALK_WIDTH_FT_ASSUMED + BUILDING_DEPTH_FT_ASSUMED / 2;
+    const buildingProj = projectOnPolyline(buildingCenter, curbLine);
+    buildingCenterAdj = {
+      x: buildingProj.x + sidewalkPerpX * buildingOffsetFromCurb,
+      y: buildingProj.y + sidewalkPerpY * buildingOffsetFromCurb,
+    };
+    buildingPoly = rectanglePolygon(
+      buildingCenterAdj,
+      BUILDING_WIDTH_FT_ASSUMED,
+      BUILDING_DEPTH_FT_ASSUMED,
+      { ux: curbUx, uy: curbUy },
+    );
+    footprintIsAssumed = true;
+  }
 
   // ---------- 5. Project all curb features to local frame ----------
 
@@ -316,13 +334,18 @@ export function buildSitePlanMockupSvg(result: PrescreenResult): string {
   elements.push(
     `<polygon points="${polyToSvg(buildingPoly)}" fill="#d6d3d1" stroke="#57534e" stroke-width="0.6" />`,
   );
-  // Building label — placed at the building center, parallel to the curb.
+  // Building label — placed at the building center.
   const buildingLabel = result.geocoded.mar.fullAddress;
   elements.push(
     `<text x="${buildingCenterAdj.x.toFixed(2)}" y="${(-buildingCenterAdj.y).toFixed(2)}" font-size="6" font-family="sans-serif" text-anchor="middle" dominant-baseline="middle" fill="#1c1917">${escapeXml(buildingLabel)}</text>`,
   );
+  // Provenance line: confirms whether the polygon is real DC data or
+  // assumed. Architect sees this and knows what to trust.
+  const footprintNote = footprintIsAssumed
+    ? "[building footprint assumed — operator to confirm]"
+    : `[DC Building Footprints, ${footprintCaptureLabel(result.geocoded.buildingFootprint?.capturedAt)}]`;
   elements.push(
-    `<text x="${buildingCenterAdj.x.toFixed(2)}" y="${(-buildingCenterAdj.y + 7).toFixed(2)}" font-size="4" font-family="sans-serif" text-anchor="middle" dominant-baseline="middle" fill="#78716c" font-style="italic">[building footprint assumed — operator to confirm]</text>`,
+    `<text x="${buildingCenterAdj.x.toFixed(2)}" y="${(-buildingCenterAdj.y + 7).toFixed(2)}" font-size="4" font-family="sans-serif" text-anchor="middle" dominant-baseline="middle" fill="#78716c" font-style="italic">${escapeXml(footprintNote)}</text>`,
   );
 
   // Envelope (most important visual).
@@ -557,6 +580,12 @@ function rectanglePolygon(
     x: center.x + a * alongUnit.ux + b * perpUx,
     y: center.y + a * alongUnit.uy + b * perpUy,
   }));
+}
+
+function footprintCaptureLabel(capturedAtMs: number | null | undefined): string {
+  if (!capturedAtMs) return "capture date unknown";
+  const d = new Date(capturedAtMs);
+  return `captured ${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
 }
 
 function escapeXml(s: string): string {
