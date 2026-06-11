@@ -83,9 +83,15 @@ export function ResultPanel({
       <SiteWalkCaveatsCard caveats={siteWalkCaveats} />
 
       <div className="flex flex-wrap justify-between items-center gap-2 text-xs text-stone-400">
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-4">
           <CopyLinkButton />
           <PrintPackageButton result={result} />
+          {/* Drawings only exist when there's an envelope to draw — the
+              design pipeline throws on INELIGIBLE results, so don't
+              offer the button at all in that case. */}
+          {eligibility && eligibility.envelope.lengthFt > 0 && (
+            <PrintDrawingSetButton result={result} />
+          )}
         </div>
         <span className="text-right">
           Fetched at {new Date(result.fetchedAt).toLocaleString()} ·
@@ -178,6 +184,63 @@ function PrintPackageButton({
     >
       {busy ? "Opening..." : "Save submission package as PDF"}
     </button>
+  );
+}
+
+// ---------- Print drawing set as PDF ----------
+
+/**
+ * Renders the 11-sheet architectural drawing set as a printable HTML
+ * view in a new tab and auto-triggers the print dialog — the drawing
+ * counterpart to PrintPackageButton, producing a SEPARATE file from
+ * the submission package.
+ *
+ * Differences from the package button:
+ *   - The drawing pipeline fetches more site data (curb reference,
+ *     building footprint, vicinity streets), so "busy" lasts ~2s and
+ *     the label says what's happening
+ *   - Those fetches can fail, so errors surface inline next to the
+ *     button instead of only in the console
+ *
+ * The print module — including all 11 sheet renderers — is lazy-loaded
+ * on first click, same as the map and the package printer.
+ */
+function PrintDrawingSetButton({
+  result,
+}: {
+  result: PrescreenResult;
+}): React.ReactElement {
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handlePrint = async (): Promise<void> => {
+    setBusy(true);
+    setError(null);
+    try {
+      const { openPrintableDrawingSet } = await import(
+        "../drawingSetPrint.js"
+      );
+      await openPrintableDrawingSet(result);
+    } catch (err) {
+      console.error("Failed to generate drawing set:", err);
+      setError(err instanceof Error ? err.message : "Drawing generation failed");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <span className="inline-flex items-center gap-2">
+      <button
+        type="button"
+        onClick={handlePrint}
+        disabled={busy}
+        className="text-stone-600 hover:text-stone-900 underline underline-offset-2 decoration-stone-300 hover:decoration-stone-500 transition-colors disabled:opacity-50"
+      >
+        {busy ? "Generating drawings..." : "Save drawing set as PDF"}
+      </button>
+      {error && <span className="text-rose-600">{error}</span>}
+    </span>
   );
 }
 
