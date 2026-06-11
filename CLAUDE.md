@@ -150,7 +150,10 @@ Pleasant problem in v1.
 ### Hard disqualifiers for parking lane streateries
 
 - Speed limit > 30 mph
-- Street classified as Principal Arterial, Other Freeway and Expressway, or Interstate Functional
+- Street classified as Other Freeway and Expressway, or Interstate Functional
+  (Principal Arterials are NOT disqualified for parking-lane streateries — they
+  are eligible but require Type 1 barriers per §4.2; only freeways/interstates
+  are hard-prohibited)
 - Rush-hour restricted parking lane (becomes a travel lane at any time of day)
 - Bus lane or bus stop zone
 - Loading zone
@@ -449,7 +452,7 @@ Every food establishment files this. 13 items:
 | 1 | **Site Plan** | See sub-list below |
 | 2 | **Elevations (all sides)** | Side-view drawings of the proposed design with all dimensions, enclosure treatments, lighting, materials |
 | 3 | **Sections** | "Cut-through" drawings articulating complex elements (e.g., how accessibility is provided) |
-| 4 | **Construction Details** | **Must be stamped by a certified Professional Engineer (PE).** Shows assembly hardware, fasteners, materials, construction notes, AND a positive drainage flow detail along the curb line (including how to access the drainage channel if blocked) |
+| 4 | **Construction Details** | Guidelines text says **stamped by a certified PE**, but in practice **DDOT has accepted an architect-only seal** (confirmed to District Bridges; both approved reference sets are architect-sealed — see `docs/v3-reference-set-teardown.md`). Shows assembly hardware, fasteners, materials, construction notes, AND a positive drainage flow detail along the curb line (including how to access the drainage channel if blocked) |
 | 5 | **Utility Access Plan** | Shows existing utilities in/under/adjacent to the proposed streatery; proposed APWA-color-code markings on the platform/barriers; access panels, removable planks, or other movable platform components |
 | 6 | **Copy of Certificate of Occupancy** | From DOB |
 | 7 | **Building Permit Application** | Filed in tandem |
@@ -528,9 +531,9 @@ The v1 briefing document (`src/submissionPackage.ts`) is a stepping stone — it
 ### Open questions for the compiler tool
 
 - [ ] Exact insurance amounts and policy types required by ORM (not in the Guidelines — needs direct ORM contact)
-- [ ] Whether construction details PE stamp can be a digital signature or requires a wet stamp
+- [x] ~~Whether construction details PE stamp can be a digital signature or requires a wet stamp~~ Largely moot: DDOT has accepted **architect-only seals** for Construction Details (no PE stamp required in practice — confirmed to District Bridges, 2026-06; both approved reference sets are architect-sealed). Confirm the architect's seal format (wet vs. digital) with the architect.
 - [ ] Whether the Streatery Block Permit can be submitted before individual Design Permits, or must they be concurrent
-- [ ] Format requirements for PDF uploads in TOPS (max file size, color/grayscale, etc.)
+- [x] ~~Format requirements for PDF uploads in TOPS (max file size, color/grayscale, etc.)~~ Resolved 2026-06-11 (operator-reported — verify in TOPS at first submission): file limit **~25 MB**; **grayscale is fine**; TOPS wants **one combined file**. The pipeline delivers exactly that: `npm run drawings -- "<addr>" --pdf --out set.pdf` renders all 11 sheets in sheet-index order and binds them into a single PDF (ARCH D default; `--page arch-d|tabloid|letter` overrides — see `src/design/page.ts`, which snaps each sheet to the largest standard architect's scale that fits). Generated sets run ~1.3 MB. Sheets are already grayscale except the APWA color swatches (labeled by name, so they survive grayscale printing) and the red NOT-REQUIRED stamp (reads as dark gray)
 - [ ] What constitutes "guidelines-compliant" for the administrative-vs-PSC review fork on the Design Permit — is the pre-screener's verdict sufficient, or does DDOT have its own checklist?
 
 ---
@@ -554,6 +557,7 @@ baselines will differ.
 | Roadway Functional Classification | `https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Transportation_WebMercator/MapServer/48/query` | 48 |
 | Parking Meters | `https://maps2.dcgis.dc.gov/dcgis/rest/services/DDOT/Parking/FeatureServer/8/query` | 8 |
 | Pavement Markings (crosswalks) | `https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Transportation_Traffic_Calming_WebMercator/MapServer/96/query` | 96 |
+| Curb (planimetric, physical curb face) | `https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Planimetrics_2023/MapServer/3/query` | 3 |
 
 The DCGIS Geocoder REST endpoint at `geocode.dcgis.dc.gov` returned ECONNREFUSED
 during testing — appears down or deprecated. Use the `citizenatlas.dc.gov` MAR
@@ -641,6 +645,11 @@ and in older neighborhoods. Re-verify before expanding.
 | MAR geocoder browser access | CORS works | **No CORS headers AND fronted by F5 WAF.** Browser-direct fetch fails twice over. The WAF rejects requests with browser-identifying headers (`Origin`, `Referer`, `Sec-Fetch-*`, browser User-Agent) — returns a small HTML "Request Rejected. Please consult with your administrator." page. Any proxy must strip those headers AND set a non-browser User-Agent before forwarding. ArcGIS endpoints (`maps2.dcgis.dc.gov`) DO send CORS headers and don't have this WAF issue — browser-direct fetch works for those |
 | Cloudflare rate-limit binding field | `binding` (Workers convention) | **`name`** for Cloudflare Pages Functions. The official Workers docs show `[[ratelimits]] binding = "..."`, which wrangler rejects on Pages projects with `Unexpected fields found in ratelimits[0] field: "binding"`. Pages-specific convention: `name = "RATE_LIMIT"` |
 | Building footprint data | Spec says "no building footprint data — operator supplies" | **Building Footprints layer EXISTS**: `Facility_and_Structure_WebMercator/MapServer/1`. Polygon geometry, 5-38 vertices per building (real shape with corners), 100% coverage tested across the cohort. NO address join field — only spatial. Query by `geometryType=esriGeometryPoint` + `spatialRel=esriSpatialRelIntersects` with the MAR address lat/lon. Returns 0 or 1 polygon. **Corner buildings span multiple addresses** — same polygon returned for both addresses (e.g., 3155 Mt Pleasant = 1620 Lamont, same building). Most Mt Pleasant captures dated 2015-04; some refresh captures as recent as 2023-05. Resolves the v2 architecture risk on building-shape assumptions |
+| Frontage limit | Regs: envelope bounded by own frontage, extendable with §4.1 consent | **DDOT approves against the business's OWN storefront width by default** — the envelope engine (2026-06-11) now derives the frontage window from the Building Footprints polygon: project ring vertices onto the clipped blockface, keep vertices within 30 ft of the curb-nearest one (drops rear geometry + corner-building cross-street wings), take min/max station. Martha Dear's own frontage is **22 ft** (building polygon AND tax lot SSL 2596-0639 both ≈22.5 ft); the approved 35'-3½" set is a **§4.1 consent extension** spanning 3108/3110/3112 frontage (per the teardown doc). Model extensions with `--frontage <ft>` on the drawings CLI / `PrescreenOptions.frontageLengthFt` — the drawing then carries a consent-letters note. Fallback when no footprint: 50 ft window centered on the address point, flagged `assumed_default` |
+| Roadway Blockface geometry | "Unbroken sections of curb" (assumed = the physical curb line) | **The polyline is NOT the curb.** Measured against the Planimetrics Curb layer (2026-06-11, Mt Pleasant 3100 block): the blockface geometry runs **~12-25 ft street-ward of the real curb face** (it follows the route alignment; only the record's attributes describe a side — Left/Right geometries for the same block are only ~20 ft apart on a 40 ft-wide street). **Stations along the line are fine** (it parallels the curb — all M1/M2 validation holds); **perpendicular offsets are systematically shifted** and must be re-referenced via the Curb layer (`Planimetrics_2023/MapServer/3`, Tier 4 bbox). The drawing pipeline does this in `src/design/planFrame.ts` (`estimateCurbOffsetFt`: side-filtered median of sampled line→curb distances; ~11.9 ft at Martha Dear). This bug was invisible until M3 because envelope math only uses stations — but it silently broke `extractInputs`' curbside-tree filter (12 ft from the LINE matches no real tree), which is why every M1/M2 run reported "no trees in structure". Post-fix, Queen's English correctly reports its willow oak inside the structure — the same tree the approved set handles with an arborist report |
+| Sidewalk width fields | (not previously surfaced) | `SIDEWALK_IB_WIDTH` / `SIDEWALK_OB_WIDTH` on Roadway Block are **strings**: `"14"`, `"16+"` (16 ft or more, includes the planting zone), `"None"`. IB/OB → Right/Left side mapping is **not documented** — present both when they differ. They are NOT the curb-to-façade distance an architect dimensions (Martha Dear: DDOT says 16+/14; the footprint-measured curb-to-façade is ~23.8 ft because of the front-yard setback; A100's "10'-3" sidewalk" is the paved walk only). The site plan uses footprint-measured curb-to-façade and carries DDOT's strings in a provenance note |
+| Travel lane width | (not previously surfaced) | `TOTALTRAVELLANEWIDTH / TOTALTRAVELLANES` = per-lane width. Verified: 24/2 = **12'-0"** on Martha Dear's block — exactly the travel dimension on approved A100's ROW cross-section |
+| Meter ID format | `XXX-XXXXX` per the Guidelines (visible on the meter) | The dataset's `METERID` drops the dash: Martha Dear's block meter is **`14793192`** = A100's documented **"147-93192"**. Same number, different formatting — re-insert the dash if matching against architect/DDOT documents |
 
 ### Roadway Block (163) additional useful fields
 
@@ -701,14 +710,15 @@ stops, trees, crosswalks) and buffer arithmetic.
 |------|---------|---------------------|
 | 1 | Interstate | No |
 | 2 | Other Freeway / Expressway | No |
-| 3 | Principal Arterial | No |
-| 4 | Minor Arterial | Yes |
+| 3 | Principal Arterial | Yes — requires Type 1 barriers (§4.2) |
+| 4 | Minor Arterial | Yes — Type 1 if 4+ lanes / on High Injury or Freight Network, else Type 2 |
 | 5 | Major Collector | Yes |
 | 6 | Minor Collector | Yes |
 | 7 | Local | Yes |
 
-DC functional class equivalents: 11 (Interstate), 12 (Freeway), 14 (Principal
-Arterial) → disqualify. 16 (Minor Arterial), 17 (Collector), 19 (Local) → eligible.
+DC functional class equivalents: 11 (Interstate), 12 (Freeway) → disqualify.
+14 (Principal Arterial) → eligible but requires Type 1 barriers. 16 (Minor
+Arterial), 17 (Collector), 19 (Local) → eligible.
 
 ### Updated open questions
 

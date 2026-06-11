@@ -3,8 +3,9 @@
  *
  * Renders a pre-screen result into a comprehensive Markdown package
  * that bundles every document we can prepare in software, plus clearly
- * marked placeholders for the architectural drawings that require an
- * architect and a Professional Engineer.
+ * marked placeholders for the architectural drawings that require a
+ * licensed architect (the guidelines also name a PE for the Construction
+ * Details, though DDOT has accepted architect-only seals in practice).
  *
  * Document structure follows the DDOT Streatery Guidelines (FINAL,
  * December 5, 2024) §5.2 "Required Documents" checklist for the
@@ -25,11 +26,11 @@
  *     - Operator-provided documents checklist (what to gather)
  *     - Structured JSON appendix for downstream tools
  *
- *   PLACEHOLDER (v2 — needs architect + PE):
+ *   PLACEHOLDER (v2 — needs a licensed architect):
  *     - Site Plan
  *     - Elevations (all sides)
  *     - Sections
- *     - Construction Details (PE-stamped)
+ *     - Construction Details (architect-sealed; see note below)
  *     - Utility Access Plan
  *
  * Each placeholder explains what the drawing must contain (per the
@@ -132,12 +133,12 @@ function aboutPackageSection(): string {
       `submission that can be prepared from data: the eligibility ` +
       `findings, the official templates with as much auto-populated as ` +
       `possible, and clear placeholders for the architectural drawings ` +
-      `that require an architect and a Professional Engineer.`,
+      `that require a licensed architect.`,
     ``,
     `It is generated automatically from DC Open Data sources by the Mt. ` +
       `Pleasant Streatery Pre-Screener. **It is advisory only** and does ` +
-      `not substitute for a site walk, architect review, PE seal, or ` +
-      `formal Public Space Committee approval.`,
+      `not substitute for a site walk, architect review, or formal ` +
+      `Public Space Committee approval.`,
     ``,
     `Source: DDOT Streatery Guidelines, FINAL, adopted December 5, 2024.`,
   ].join("\n");
@@ -181,7 +182,7 @@ function documentStatusSection(): string {
     `| 1 | Site Plan | **PLACEHOLDER (v2)** | Architect to produce; pre-screener has gathered curb feature data as input |`,
     `| 2 | Elevations (all sides) | **PLACEHOLDER (v2)** | Architect to produce |`,
     `| 3 | Sections | **PLACEHOLDER (v2)** | Architect to produce |`,
-    `| 4 | Construction Details | **PLACEHOLDER (v2)** | PE-stamped; structural engineer to produce |`,
+    `| 4 | Construction Details | **PLACEHOLDER (v2)** | Architect to produce + seal; DDOT accepts architect-only (guidelines name a PE) |`,
     `| 5 | Utility Access Plan | **PLACEHOLDER (v2)** | Architect to produce; pre-screener has gathered utility-relevant features as input |`,
     `| 6 | Copy of Certificate of Occupancy | **Operator to provide** | From DOB |`,
     `| 7 | Building Permit Application | **Operator to file** | ProjectDox; separate from this package |`,
@@ -382,11 +383,13 @@ function drawingPlaceholdersSection(result: PrescreenResult): string {
     `# Architectural drawings *(v2 — placeholders)*`,
     ``,
     `The five engineering drawings below cannot be generated automatically ` +
-      `in this version. They require an architect, a Professional Engineer ` +
-      `(for the Construction Details PE stamp), and a coordination process ` +
-      `with the operator. The exact format and content will be established ` +
-      `in v2 of this tool, working with Mitra Moin (District Bridges) and ` +
-      `the project architect.`,
+      `in this version. They require a licensed architect and a coordination ` +
+      `process with the operator. (The guidelines name a PE for the ` +
+      `Construction Details, but DDOT has accepted architect-only seals — ` +
+      `both approved Mt Pleasant / 11th St reference sets are architect-` +
+      `sealed.) The exact format and content will be established in v2 of ` +
+      `this tool, working with Mitra Moin (District Bridges) and the ` +
+      `project architect.`,
     ``,
     `Each placeholder below lists what the drawing must contain (per ` +
       `DDOT Streatery Guidelines §5.2) plus the relevant data this ` +
@@ -441,8 +444,8 @@ function drawingPlaceholdersSection(result: PrescreenResult): string {
     }),
     drawingPlaceholder({
       number: 4,
-      title: "Construction Details (PE-stamped)",
-      requiresPeStamp: true,
+      title: "Construction Details (architect-sealed)",
+      requiresProfessionalSeal: true,
       mustContain: [
         "Any hardware (fasteners, brackets) used in construction",
         "A positive drainage flow detail along the curb line, including how to access the drainage channel if blocked",
@@ -453,9 +456,11 @@ function drawingPlaceholdersSection(result: PrescreenResult): string {
         `street classification. This site is FHWA functional class ` +
         `${result.geocoded.block.functionalClassFhwa ?? "?"} ` +
         `(${functionalClassLabel(result.geocoded.block.functionalClassFhwa)}) ` +
-        `at ${result.geocoded.block.speedLimitMph ?? "?"} mph — PE to confirm ` +
-        `whether Jersey barriers or concrete blocks are required. ` +
-        `**Drawing must be stamped by a certified DC Professional Engineer.**`,
+        `at ${result.geocoded.block.speedLimitMph ?? "?"} mph — architect to ` +
+        `confirm whether Jersey barriers or concrete blocks are required. ` +
+        `**Must be sealed by a DC-licensed architect. The guidelines name a ` +
+        `PE for this drawing, but DDOT has accepted architect-only seals; ` +
+        `confirm the current expectation with District Bridges.**`,
     }),
     drawingPlaceholder({
       number: 5,
@@ -482,11 +487,12 @@ function drawingPlaceholder(args: {
   title: string;
   mustContain: string[];
   preScreenerInput: string;
-  requiresPeStamp?: boolean;
+  requiresProfessionalSeal?: boolean;
 }): string {
   const contents = args.mustContain.map((item) => `- ${item}`).join("\n");
-  const peClause = args.requiresPeStamp
-    ? ` This drawing must be stamped by a certified DC Professional Engineer.`
+  const sealClause = args.requiresProfessionalSeal
+    ? ` This drawing must be sealed by a DC-licensed architect (the ` +
+      `guidelines name a PE, but DDOT has accepted architect-only seals).`
     : "";
   return [
     `---`,
@@ -495,7 +501,7 @@ function drawingPlaceholder(args: {
     ``,
     `> **PLACEHOLDER FOR ARCHITECTURAL DRAWING (v2)**  `,
     `> This page will hold the **${args.title}** drawing. Producing it ` +
-      `requires an architect and a deliverable format (PDF/CAD).${peClause} ` +
+      `requires an architect and a deliverable format (PDF/CAD).${sealClause} ` +
       `The exact format and template will be defined in v2 of this tool ` +
       `with input from Mitra Moin (District Bridges) and the project ` +
       `architect.`,

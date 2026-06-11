@@ -61,6 +61,21 @@ export interface RoadwayBlockResult {
   hasBusLane: boolean;
   wardId: string | null;
   ancId: string | null;
+  // Sidewalk widths come back as STRINGS from the Roadway Block layer:
+  // "14", "16+" (16 ft or more, often including the planting zone), or
+  // "None". We surface both the raw string (for honest labeling) and a
+  // parsed number (for drawing band sizing). IB/OB = inbound/outbound
+  // relative to downtown — the mapping to Right/Left side is not
+  // documented, so consumers should present both when they differ.
+  sidewalkWidthInboundRaw: string | null;
+  sidewalkWidthInboundFt: number | null;
+  sidewalkWidthOutboundRaw: string | null;
+  sidewalkWidthOutboundFt: number | null;
+  // Travel lanes: per-lane width = TOTALTRAVELLANEWIDTH / TOTALTRAVELLANES
+  // (verified: 24 ft / 2 lanes = the 12'-0" on Martha Dear's approved
+  // A100 ROW cross-section).
+  totalTravelLanes: number | null;
+  travelLaneWidthEachFt: number | null;
 }
 
 export interface BlockfaceResult {
@@ -251,6 +266,28 @@ export async function fetchRoadwayBlock(
       ? totalParkingWidth / totalParkingLanes
       : null;
 
+  // Sidewalk widths are strings like "14", "16+", or "None". Parse the
+  // leading number when there is one; keep the raw string so the UI can
+  // say "16'+" instead of pretending we measured 16.0.
+  const sidewalkParse = (
+    v: unknown,
+  ): { raw: string | null; valueFt: number | null } => {
+    const raw = str(v);
+    if (raw == null) return { raw: null, valueFt: null };
+    const match = raw.match(/^(\d+(?:\.\d+)?)/);
+    return { raw, valueFt: match ? Number(match[1]) : null };
+  };
+  const sidewalkIb = sidewalkParse(attrs.SIDEWALK_IB_WIDTH);
+  const sidewalkOb = sidewalkParse(attrs.SIDEWALK_OB_WIDTH);
+
+  // Same sum-across-lanes convention as the parking width above.
+  const totalTravelWidth = num(attrs.TOTALTRAVELLANEWIDTH);
+  const totalTravelLanes = num(attrs.TOTALTRAVELLANES);
+  const travelLaneWidthEach =
+    totalTravelWidth != null && totalTravelLanes != null && totalTravelLanes > 0
+      ? totalTravelWidth / totalTravelLanes
+      : null;
+
   const busLaneIb = attrs.BUSLANE_INBOUND;
   const busLaneOb = attrs.BUSLANE_OUTBOUND;
   const hasBusLane =
@@ -275,6 +312,12 @@ export async function fetchRoadwayBlock(
     hasBusLane,
     wardId: str(attrs.WARD_ID),
     ancId: str(attrs.ANC_ID),
+    sidewalkWidthInboundRaw: sidewalkIb.raw,
+    sidewalkWidthInboundFt: sidewalkIb.valueFt,
+    sidewalkWidthOutboundRaw: sidewalkOb.raw,
+    sidewalkWidthOutboundFt: sidewalkOb.valueFt,
+    totalTravelLanes,
+    travelLaneWidthEachFt: travelLaneWidthEach,
   };
 }
 

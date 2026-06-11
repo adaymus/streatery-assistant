@@ -8,3 +8,6 @@ dist/
 
 # Claude Code workspace artifacts — keep local, never push
 .claude/
+
+# Generated CLI drawing-set output at repo root
+/set.pdf

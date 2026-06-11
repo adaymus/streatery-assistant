@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -6 112 55.749999999999986" preserveAspectRatio="xMidYMid meet">
+<rect x="0" y="-6" width="112" height="55.749999999999986" fill="#fefdfb" />
+<text x="2" y="0" font-size="1.6" font-family="sans-serif" font-weight="700" fill="#1c1917">GENERAL NOTES + DDOT REQUIREMENTS</text>
+<text x="2" y="1.7" font-size="0.9" font-family="sans-serif" fill="#78716c">Conditions evaluated for this site — notes whose conditions do not apply are omitted, not crossed out. Site-specific notes appear on each drawing sheet.</text>
+<text x="2" y="5.1000000000000005" font-size="1.1" font-family="sans-serif" font-weight="700" fill="#1c1917">DDOT / ADA REQUIREMENTS</text>
+<line x1="2" y1="5.500000000000001" x2="54" y2="5.500000000000001" stroke="#1c1917" stroke-width="0.07" />
+<text x="2" y="6.75" font-size="1" font-family="sans-serif" fill="#44403c">1. Platform rides on adjustable pedestals / leveling feet for positive drainage; deck is NOT</text>
+<text x="2" y="8.2" font-size="1" font-family="sans-serif" fill="#44403c">bolted or anchored into the roadway (§4.4). Composite decking on PT 2x4 sleepers — the</text>
+<text x="2" y="9.649999999999999" font-size="1" font-family="sans-serif" fill="#44403c">assembly both approved sets use. [§4.4]</text>
+<text x="2" y="11.549999999999997" font-size="1" font-family="sans-serif" fill="#44403c">2. Entry flush with the sidewalk: removable 3/8&quot; steel transition plate at the curb, max 3/8&quot;</text>
+<text x="2" y="12.999999999999996" font-size="1" font-family="sans-serif" fill="#44403c">rise, gap ≤ 1/2&quot; (§4.4; Queen&apos;s English self-imposed 3/8&quot; max). [§4.4]</text>
+<text x="2" y="14.899999999999995" font-size="1" font-family="sans-serif" fill="#44403c">3. Maintain 1&apos;-0&quot; clear stormwater channel along the curb under the deck, with open ends</text>
+<text x="2" y="16.349999999999994" font-size="1" font-family="sans-serif" fill="#44403c">(§4.6). Construction Details must show positive drainage flow AND how the channel is</text>
+<text x="2" y="17.799999999999994" font-size="1" font-family="sans-serif" fill="#44403c">accessed/cleared if blocked (§5.2 item 4). [§4.6 + §5.2 item 4]</text>
+<text x="2" y="19.699999999999992" font-size="1" font-family="sans-serif" fill="#44403c">4. Mark all utilities in/under/adjacent to the streatery per APWA color code before</text>
+<text x="2" y="21.14999999999999" font-size="1" font-family="sans-serif" fill="#44403c">installation; show proposed markings on the platform/barriers in the Utility Access Plan (§5.2</text>
+<text x="2" y="22.59999999999999" font-size="1" font-family="sans-serif" fill="#44403c">item 5; operator contact table in Appendix 5). [§5.2 item 5, Appendix 5]</text>
+<text x="2" y="24.49999999999999" font-size="1" font-family="sans-serif" fill="#44403c">5. Two 5.5&quot;×8.5&quot; signs, one near each end of the sidewalk-facing edge: business name, seating</text>
+<text x="2" y="25.94999999999999" font-size="1" font-family="sans-serif" fill="#44403c">hours, seating capacity, emergency contact (§4.7, Appendix 1 format). No other signage, logos,</text>
+<text x="2" y="27.399999999999988" font-size="1" font-family="sans-serif" fill="#44403c">advertising, or branding permitted. [§4.7, Appendix 1]</text>
+<text x="2" y="29.299999999999986" font-size="1" font-family="sans-serif" fill="#44403c">6. Enclosure tops out 32-42&quot; above the roadway (42&quot; cap rail, both approved sets); gaps</text>
+<text x="2" y="30.749999999999986" font-size="1" font-family="sans-serif" fill="#44403c">between intermediate members ≤ 19&quot; (§4.2). [§4.2]</text>
+<text x="58" y="4.2" font-size="1" font-family="sans-serif" fill="#44403c">7. Overhead structure 8-12 ft above platform; translucent, minimal-profile roof sloped 2:12</text>
+<text x="58" y="5.65" font-size="1" font-family="sans-serif" fill="#44403c">(10%) SLOPE TO CURB; NO enclosure above barrier height at any time; vertical members above 42&quot;</text>
+<text x="58" y="7.1000000000000005" font-size="1" font-family="sans-serif" fill="#44403c">max 6&quot; wide (§4.3). [§4.3]</text>
+<text x="58" y="9" font-size="1" font-family="sans-serif" fill="#44403c">8. Concrete blocks required in the 2 ft travel-side buffer (§4.2). DDOT standard detail to</text>
+<text x="58" y="10.45" font-size="1" font-family="sans-serif" fill="#44403c">appear on the details sheet (A2.01 equivalent, M5). [§4.2]</text>
+<text x="58" y="12.349999999999998" font-size="1" font-family="sans-serif" fill="#44403c">9. DDOT-provided Jersey barrier carries reflectors per the Appendix 3 standard detail (signed</text>
+<text x="58" y="13.799999999999997" font-size="1" font-family="sans-serif" fill="#44403c">by DDOT&apos;s chief engineer) — embed on the details sheet rather than redrawing. [Appendix 3]</text>
+<text x="58" y="15.699999999999996" font-size="1" font-family="sans-serif" fill="#44403c">10. ≥ 1 ADA-accessible table: 28-34&quot; surface height, 27&quot; knee clearance, 30&quot;×48&quot; clear floor</text>
+<text x="58" y="17.149999999999995" font-size="1" font-family="sans-serif" fill="#44403c">space, on an accessible route (§4.8). All seating 1 ft back from barriers/enclosure. [§4.8]</text>
+<text x="58" y="19.949999999999992" font-size="1.1" font-family="sans-serif" font-weight="700" fill="#1c1917">SITE-WALK VERIFICATIONS</text>
+<line x1="58" y1="20.34999999999999" x2="110" y2="20.34999999999999" stroke="#1c1917" stroke-width="0.07" />
+<text x="58" y="21.59999999999999" font-size="1" font-family="sans-serif" fill="#44403c">1. Provide access panels / removable planks over any manhole, vault lid, or utility cover</text>
+<text x="58" y="23.04999999999999" font-size="1" font-family="sans-serif" fill="#44403c">within the footprint (§5.2 item 5). SITE-WALK: locate covers — utility vault coverage in DC</text>
+<text x="58" y="24.49999999999999" font-size="1" font-family="sans-serif" fill="#44403c">Open Data is incomplete. [§5.2 item 5]</text>
+<text x="58" y="27.299999999999986" font-size="1.1" font-family="sans-serif" font-weight="700" fill="#1c1917">OPERATOR ITEMS</text>
+<line x1="58" y1="27.699999999999985" x2="110" y2="27.699999999999985" stroke="#1c1917" stroke-width="0.07" />
+<text x="58" y="28.949999999999985" font-size="1" font-family="sans-serif" fill="#44403c">1. IF portable propane heaters are planned: &quot;Propane Use: Heating — Portable Outdoor&quot; permit</text>
+<text x="58" y="30.399999999999984" font-size="1" font-family="sans-serif" fill="#44403c">from FEMS (fems.dc.gov, ~5 calendar days). Where a roof is present, confirm heater clearances</text>
+<text x="58" y="31.849999999999984" font-size="1" font-family="sans-serif" fill="#44403c">with FEMS before purchase. [FEMS]</text>
+<g id="architect-seal">
+<rect x="75.2" y="36.749999999999986" width="9" height="12" fill="white" stroke="#1c1917" stroke-width="0.12" />
+<text x="75.9" y="38.249999999999986" font-size="0.8" font-family="sans-serif" fill="#78716c">ARCHITECT:</text>
+<line x1="75.9" y1="39.84999999999999" x2="83.5" y2="39.84999999999999" stroke="#a8a29e" stroke-width="0.06" />
+<circle cx="79.7" cy="44.34999999999999" r="3" fill="none" stroke="#d6d3d1" stroke-width="0.08" stroke-dasharray="0.5,0.4" />
+<text x="79.7" y="44.649999999999984" font-size="0.7" font-family="sans-serif" text-anchor="middle" fill="#a8a29e">SEAL</text>
+</g>
+<g id="title-block">
+<rect x="85" y="36.749999999999986" width="26" height="12" fill="white" stroke="#1c1917" stroke-width="0.12" />
+<text x="86" y="38.54999999999998" font-size="1.3" font-family="sans-serif" font-weight="700" fill="#1c1917">MARTHA DEAR</text>
+<text x="86" y="40.04999999999998" font-size="0.95" font-family="sans-serif" fill="#44403c">3110 MOUNT PLEASANT STREET NW</text>
+<text x="86" y="41.94999999999999" font-size="1.05" font-family="sans-serif" font-weight="700" fill="#1c1917">G1.01 — GENERAL NOTES + DDOT REQUIREMENTS</text>
+<text x="86" y="43.34999999999999" font-size="0.85" font-family="sans-serif" fill="#44403c">SEATING CAPACITY: 6 (96 SF / 15)</text>
+<text x="86" y="44.649999999999984" font-size="0.85" font-family="sans-serif" fill="#44403c">GENERATED 2026-06-11 — SCALE: 1 UNIT = 1 FT</text>
+<text x="86" y="46.44999999999999" font-size="0.8" font-family="sans-serif" font-style="italic" fill="#a8a29e">AUTOMATED DRAFT — generated by streatery pre-screener v3.</text>
+<text x="86" y="47.54999999999998" font-size="0.8" font-family="sans-serif" font-style="italic" fill="#a8a29e">Architect review, refinement, and seal required before submission.</text>
+</g>
+<g id="scale-bar" transform="translate(2, -4)">
+<rect x="0" y="0" width="5" height="0.5" fill="#1c1917" />
+<rect x="5" y="0" width="5" height="0.5" fill="white" stroke="#1c1917" stroke-width="0.06" />
+<text x="0" y="-0.4" font-size="0.8" font-family="sans-serif" fill="#1c1917">0</text>
+<text x="5" y="-0.4" font-size="0.8" font-family="sans-serif" text-anchor="middle" fill="#1c1917">5</text>
+<text x="10" y="-0.4" font-size="0.8" font-family="sans-serif" text-anchor="middle" fill="#1c1917">10 FT</text>
+</g>
+<text x="56" y="16.874999999999993" font-size="3.2" font-family="sans-serif" font-weight="900" fill="#1c1917" fill-opacity="0.06" text-anchor="middle" dominant-baseline="middle" transform="rotate(-20 56 16.874999999999993)">AUTOMATED DRAFT — ARCHITECT REVIEW REQUIRED</text>
+</svg>

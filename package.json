@@ -13,7 +13,8 @@
     "geocode": "tsx scripts/geocode.ts",
     "prescreen": "tsx scripts/prescreen.ts",
     "briefing": "tsx scripts/briefing.ts",
-    "site-plan": "tsx scripts/sitePlanMockup.ts"
+    "site-plan": "tsx scripts/sitePlanMockup.ts",
+    "drawings": "tsx scripts/drawings.ts"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260526.1",

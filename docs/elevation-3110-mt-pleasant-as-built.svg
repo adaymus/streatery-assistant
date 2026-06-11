@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -13.54 81.3 34.54" preserveAspectRatio="xMidYMid meet">
+<rect x="-10" y="-13.54" width="81.3" height="34.54" fill="#fefdfb" />
+<line x1="-8" y1="0" x2="41.3" y2="0" stroke="#1c1917" stroke-width="0.22" />
+<line x1="-8" y1="0" x2="-8.8" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="-6" y1="0" x2="-6.8" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="-4" y1="0" x2="-4.8" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="-2" y1="0" x2="-2.8" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="0" y1="0" x2="-0.8" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="2" y1="0" x2="1.2" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="4" y1="0" x2="3.2" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="6" y1="0" x2="5.2" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="8" y1="0" x2="7.2" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="10" y1="0" x2="9.2" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="12" y1="0" x2="11.2" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="14" y1="0" x2="13.2" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="16" y1="0" x2="15.2" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="18" y1="0" x2="17.2" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="20" y1="0" x2="19.2" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="22" y1="0" x2="21.2" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="24" y1="0" x2="23.2" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="26" y1="0" x2="25.2" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="28" y1="0" x2="27.2" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="30" y1="0" x2="29.2" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="32" y1="0" x2="31.2" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="34" y1="0" x2="33.2" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="36" y1="0" x2="35.2" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="38" y1="0" x2="37.2" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<line x1="40" y1="0" x2="39.2" y2="0.8" stroke="#1c1917" stroke-width="0.05" />
+<text x="41.8" y="0.4" font-size="1.0" font-family="sans-serif" fill="#57534e">ROADWAY</text>
+<rect x="0" y="-0.5" width="35.3" height="0.5" fill="#e7e5e4" stroke="#1c1917" stroke-width="0.08" />
+<g id="jersey-barrier">
+<rect x="29.299999999999997" y="-3" width="6" height="3" fill="#d6d3d1" stroke="#1c1917" stroke-width="0.1" />
+<circle cx="30.799999999999997" cy="-1.5" r="0.18" fill="#facc15" stroke="#1c1917" stroke-width="0.04" />
+<circle cx="33.8" cy="-1.5" r="0.18" fill="#facc15" stroke="#1c1917" stroke-width="0.04" />
+</g>
+<g id="enclosure">
+<rect x="0" y="-1.6250000000000002" width="29.299999999999997" height="0.2916666666666667" fill="#fff" stroke="#1c1917" stroke-width="0.07" />
+<rect x="0" y="-2.25" width="29.299999999999997" height="0.2916666666666667" fill="#fff" stroke="#1c1917" stroke-width="0.07" />
+<rect x="0" y="-2.875" width="29.299999999999997" height="0.2916666666666667" fill="#fff" stroke="#1c1917" stroke-width="0.07" />
+<rect x="0" y="-3.5" width="29.299999999999997" height="0.2916666666666667" fill="#fff" stroke="#1c1917" stroke-width="0.07" />
+<rect x="0" y="-3.5" width="29.299999999999997" height="0.4583333333333333" fill="#fff" stroke="#1c1917" stroke-width="0.09" />
+</g>
+<g id="posts">
+<rect x="0" y="-7.416666666666667" width="0.4583333333333333" height="6.916666666666667" fill="#f5f5f4" stroke="#1c1917" stroke-width="0.09" />
+<rect x="8.595833333333333" y="-7.416666666666667" width="0.4583333333333333" height="6.916666666666667" fill="#f5f5f4" stroke="#1c1917" stroke-width="0.09" />
+<rect x="17.42083333333333" y="-7.416666666666667" width="0.4583333333333333" height="6.916666666666667" fill="#f5f5f4" stroke="#1c1917" stroke-width="0.09" />
+<rect x="26.24583333333333" y="-7.416666666666667" width="0.4583333333333333" height="6.916666666666667" fill="#f5f5f4" stroke="#1c1917" stroke-width="0.09" />
+<rect x="34.84166666666666" y="-7.416666666666667" width="0.4583333333333333" height="6.916666666666667" fill="#f5f5f4" stroke="#1c1917" stroke-width="0.09" />
+</g>
+<g id="roof">
+<rect x="0" y="-8.25" width="35.3" height="0.8333333333333334" fill="#fff" stroke="#1c1917" stroke-width="0.09" />
+<rect x="-0.5" y="-8.54" width="36.3" height="0.28999999999999915" fill="#f5f5f4" stroke="#1c1917" stroke-width="0.1" />
+<line x1="1" y1="-8.42" x2="1" y2="-8.37" stroke="#a8a29e" stroke-width="0.04" />
+<line x1="3" y1="-8.42" x2="3" y2="-8.37" stroke="#a8a29e" stroke-width="0.04" />
+<line x1="5" y1="-8.42" x2="5" y2="-8.37" stroke="#a8a29e" stroke-width="0.04" />
+<line x1="7" y1="-8.42" x2="7" y2="-8.37" stroke="#a8a29e" stroke-width="0.04" />
+<line x1="9" y1="-8.42" x2="9" y2="-8.37" stroke="#a8a29e" stroke-width="0.04" />
+<line x1="11" y1="-8.42" x2="11" y2="-8.37" stroke="#a8a29e" stroke-width="0.04" />
+<line x1="13" y1="-8.42" x2="13" y2="-8.37" stroke="#a8a29e" stroke-width="0.04" />
+<line x1="15" y1="-8.42" x2="15" y2="-8.37" stroke="#a8a29e" stroke-width="0.04" />
+<line x1="17" y1="-8.42" x2="17" y2="-8.37" stroke="#a8a29e" stroke-width="0.04" />
+<line x1="19" y1="-8.42" x2="19" y2="-8.37" stroke="#a8a29e" stroke-width="0.04" />
+<line x1="21" y1="-8.42" x2="21" y2="-8.37" stroke="#a8a29e" stroke-width="0.04" />
+<line x1="23" y1="-8.42" x2="23" y2="-8.37" stroke="#a8a29e" stroke-width="0.04" />
+<line x1="25" y1="-8.42" x2="25" y2="-8.37" stroke="#a8a29e" stroke-width="0.04" />
+<line x1="27" y1="-8.42" x2="27" y2="-8.37" stroke="#a8a29e" stroke-width="0.04" />
+<line x1="29" y1="-8.42" x2="29" y2="-8.37" stroke="#a8a29e" stroke-width="0.04" />
+<line x1="31" y1="-8.42" x2="31" y2="-8.37" stroke="#a8a29e" stroke-width="0.04" />
+<line x1="33" y1="-8.42" x2="33" y2="-8.37" stroke="#a8a29e" stroke-width="0.04" />
+<line x1="35" y1="-8.42" x2="35" y2="-8.37" stroke="#a8a29e" stroke-width="0.04" />
+</g>
+<g id="trees">
+</g>
+<g id="entry-beyond">
+<line x1="15.149999999999999" y1="-0.5" x2="15.149999999999999" y2="-3.5" stroke="#78716c" stroke-width="0.07" stroke-dasharray="0.4,0.3" />
+<line x1="20.15" y1="-0.5" x2="20.15" y2="-3.5" stroke="#78716c" stroke-width="0.07" stroke-dasharray="0.4,0.3" />
+<text x="17.65" y="-4.1" font-size="0.85" font-family="sans-serif" text-anchor="middle" fill="#78716c">ENTRY BEYOND — 5&apos;-0&quot; CLR</text>
+</g>
+<g id="labels">
+<line x1="39" y1="-8.889999999999999" x2="34.3" y2="-8.395" stroke="#57534e" stroke-width="0.05" />
+<circle cx="34.3" cy="-8.395" r="0.12" fill="#57534e" />
+<text x="39.3" y="-8.54" font-size="1.0" font-family="sans-serif" fill="#1c1917">PVC CORRUGATED ROOFING — 2:12 (10%) SLOPE TO CURB</text>
+<line x1="39" y1="-7.189999999999999" x2="33.8" y2="-7.833333333333333" stroke="#57534e" stroke-width="0.05" />
+<circle cx="33.8" cy="-7.833333333333333" r="0.12" fill="#57534e" />
+<text x="39.3" y="-6.839999999999999" font-size="1.0" font-family="sans-serif" fill="#1c1917">2x 2x10 PT. WD. BEAM TYP.</text>
+<line x1="39" y1="-5.489999999999998" x2="35.3" y2="-3.4" stroke="#57534e" stroke-width="0.05" />
+<circle cx="35.3" cy="-3.4" r="0.12" fill="#57534e" />
+<text x="39.3" y="-5.139999999999999" font-size="1.0" font-family="sans-serif" fill="#1c1917">6x6 PT. WD. POST TYP.</text>
+<line x1="39" y1="-3.7899999999999996" x2="27.299999999999997" y2="-3.2708333333333335" stroke="#57534e" stroke-width="0.05" />
+<circle cx="27.299999999999997" cy="-3.2708333333333335" r="0.12" fill="#57534e" />
+<text x="39.3" y="-3.4399999999999995" font-size="1.0" font-family="sans-serif" fill="#1c1917">2x6 PT. WD. RAILING</text>
+<line x1="39" y1="-2.0899999999999994" x2="27.299999999999997" y2="-2.1041666666666665" stroke="#57534e" stroke-width="0.05" />
+<circle cx="27.299999999999997" cy="-2.1041666666666665" r="0.12" fill="#57534e" />
+<text x="39.3" y="-1.7399999999999993" font-size="1.0" font-family="sans-serif" fill="#1c1917">2x4 PT. WD. RAILING</text>
+<line x1="39" y1="-0.3899999999999991" x2="32.3" y2="-2.6" stroke="#57534e" stroke-width="0.05" />
+<circle cx="32.3" cy="-2.6" r="0.12" fill="#57534e" />
+<text x="39.3" y="-0.03999999999999915" font-size="1.0" font-family="sans-serif" fill="#1c1917">CONCRETE JERSEY BARRIER</text>
+<line x1="39" y1="1.31" x2="24.709999999999997" y2="-0.25" stroke="#57534e" stroke-width="0.05" />
+<circle cx="24.709999999999997" cy="-0.25" r="0.12" fill="#57534e" />
+<text x="39.3" y="1.6600000000000001" font-size="1.0" font-family="sans-serif" fill="#1c1917">COMPOSITE DECKING ON PT 2x4 SLEEPERS / ADJUSTABLE PEDESTALS</text>
+</g>
+<g id="dimensions">
+<line x1="0" y1="0" x2="0" y2="2.5" stroke="#1c1917" stroke-width="0.06" />
+<line x1="35.3" y1="0" x2="35.3" y2="2.5" stroke="#1c1917" stroke-width="0.06" />
+<line x1="0" y1="2.5" x2="35.3" y2="2.5" stroke="#1c1917" stroke-width="0.08" />
+<line x1="-0.4" y1="2.9" x2="0.4" y2="2.1" stroke="#1c1917" stroke-width="0.12" />
+<line x1="34.9" y1="2.9" x2="35.699999999999996" y2="2.1" stroke="#1c1917" stroke-width="0.12" />
+<text x="17.65" y="2.1" font-size="1.1" font-family="sans-serif" text-anchor="middle" fill="#1c1917">35&apos;-3 1/2&quot;</text>
+<line x1="0" y1="-3.5" x2="-3" y2="-3.5" stroke="#1c1917" stroke-width="0.06" />
+<line x1="0" y1="0" x2="-3" y2="0" stroke="#1c1917" stroke-width="0.06" />
+<line x1="-3" y1="-3.5" x2="-3" y2="0" stroke="#1c1917" stroke-width="0.08" />
+<line x1="-3.4" y1="-3.1" x2="-2.6" y2="-3.9" stroke="#1c1917" stroke-width="0.12" />
+<line x1="-3.4" y1="0.4" x2="-2.6" y2="-0.4" stroke="#1c1917" stroke-width="0.12" />
+<text x="-3.4" y="-1.75" font-size="1.1" font-family="sans-serif" text-anchor="middle" fill="#1c1917" transform="rotate(-90 -3.4 -1.75)">3&apos;-6&quot;</text>
+<line x1="0" y1="-8.25" x2="-6.5" y2="-8.25" stroke="#1c1917" stroke-width="0.06" />
+<line x1="0" y1="0" x2="-6.5" y2="0" stroke="#1c1917" stroke-width="0.06" />
+<line x1="-6.5" y1="-8.25" x2="-6.5" y2="0" stroke="#1c1917" stroke-width="0.08" />
+<line x1="-6.9" y1="-7.85" x2="-6.1" y2="-8.65" stroke="#1c1917" stroke-width="0.12" />
+<line x1="-6.9" y1="0.4" x2="-6.1" y2="-0.4" stroke="#1c1917" stroke-width="0.12" />
+<text x="-6.9" y="-4.125" font-size="1.1" font-family="sans-serif" text-anchor="middle" fill="#1c1917" transform="rotate(-90 -6.9 -4.125)">8&apos;-3&quot;</text>
+</g>
+<text x="-8" y="7.5" font-size="1.15" font-family="sans-serif" font-weight="700" fill="#1c1917">NOTES</text>
+<text x="-8" y="9.1" font-size="0.85" font-family="sans-serif" fill="#44403c">1. Vehicular approach assumed from the high-station end (derived from side-of-street + route direction). SITE-WALK CONFIRM: verify</text>
+<text x="-8" y="10.25" font-size="0.85" font-family="sans-serif" fill="#44403c">traffic direction in the adjacent lane; one-way streets can flip this.</text>
+<text x="-8" y="11.65" font-size="0.85" font-family="sans-serif" fill="#44403c">2. Frontage window OVERRIDDEN to 50 ft — extends past the business&apos;s own storefront. §4.1 requires letters of consent from the</text>
+<text x="-8" y="12.8" font-size="0.85" font-family="sans-serif" fill="#44403c">adjacent property owner(s) AND ground-floor tenant(s).</text>
+<text x="-8" y="14.200000000000001" font-size="0.85" font-family="sans-serif" fill="#44403c">3. Fire Department Connection locations are building-mounted and not in any DC dataset — SITE-WALK: confirm FDC position; enclosure</text>
+<text x="-8" y="15.350000000000001" font-size="0.85" font-family="sans-serif" fill="#44403c">needs a 3 ft gap at it.</text>
+<g id="title-block">
+<rect x="44.3" y="8" width="26" height="12" fill="white" stroke="#1c1917" stroke-width="0.12" />
+<text x="45.3" y="9.8" font-size="1.3" font-family="sans-serif" font-weight="700" fill="#1c1917">MARTHA DEAR</text>
+<text x="45.3" y="11.3" font-size="0.95" font-family="sans-serif" fill="#44403c">3110 MOUNT PLEASANT STREET NW</text>
+<text x="45.3" y="13.2" font-size="1.05" font-family="sans-serif" font-weight="700" fill="#1c1917">ELEVATION — STREET SIDE</text>
+<text x="45.3" y="14.6" font-size="0.85" font-family="sans-serif" fill="#44403c">SEATING CAPACITY: 11 (176 SF / 15)</text>
+<text x="45.3" y="15.9" font-size="0.85" font-family="sans-serif" fill="#44403c">GENERATED 2026-06-11 — SCALE: 1 UNIT = 1 FT</text>
+<text x="45.3" y="17.7" font-size="0.8" font-family="sans-serif" font-style="italic" fill="#a8a29e">AUTOMATED DRAFT — generated by streatery pre-screener v3.</text>
+<text x="45.3" y="18.8" font-size="0.8" font-family="sans-serif" font-style="italic" fill="#a8a29e">Architect review, refinement, and seal required before submission.</text>
+</g>
+<g id="scale-bar" transform="translate(-8, -11.54)">
+<rect x="0" y="0" width="5" height="0.5" fill="#1c1917" />
+<rect x="5" y="0" width="5" height="0.5" fill="white" stroke="#1c1917" stroke-width="0.06" />
+<text x="0" y="-0.4" font-size="0.8" font-family="sans-serif" fill="#1c1917">0</text>
+<text x="5" y="-0.4" font-size="0.8" font-family="sans-serif" text-anchor="middle" fill="#1c1917">5</text>
+<text x="10" y="-0.4" font-size="0.8" font-family="sans-serif" text-anchor="middle" fill="#1c1917">10 FT</text>
+</g>
+<text x="30.65" y="-5.125" font-size="3.2" font-family="sans-serif" font-weight="900" fill="#1c1917" fill-opacity="0.06" text-anchor="middle" dominant-baseline="middle" transform="rotate(-20 30.65 -5.125)">AUTOMATED DRAFT — ARCHITECT REVIEW REQUIRED</text>
+</svg>

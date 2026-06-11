@@ -206,7 +206,7 @@ This decouples three things that tend to get tangled:
 │   elevations(design)       → SVG (one per side)  │
 │   sections(design)         → SVG (typically 2)   │
 │   utilityAccessPlan(design)→ SVG                 │
-│   constructionDetails(...) → SVG (PE territory)  │
+│   constructionDetails(...) → SVG (architect-led) │
 └──────────────────┬───────────────────────────────┘
                    │
                    ▼
@@ -472,7 +472,7 @@ The 4-layer model is structurally sound, but five risks are worth planning for e
 
 ### Risks to plan for
 
-1. **PE accountability** — a PE stamps Drawing 4. If the parametric system produces an instance the PE didn't explicitly anticipate, liability gets fuzzy. **Mitigation:** PE reviews + stamps the *template* with a stated parameter range; instances inside the range are pre-approved, instances outside trigger re-review. Architect + PE define those ranges before any site reaches TOPS.
+1. **PE accountability** — ~~a PE stamps Drawing 4. If the parametric system produces an instance the PE didn't explicitly anticipate, liability gets fuzzy.~~ **RESOLVED (2026-06, v3):** DDOT accepts an **architect-only seal** for Drawing 4 — no PE stamp required in practice (confirmed to District Bridges; both approved reference sets are architect-sealed). The accountability model still holds with the **architect** as the sealing professional: architect reviews + seals the *template* with a stated parameter range; instances inside the range are pre-approved, instances outside trigger re-review. See `docs/v3-reference-set-teardown.md`.
 
 2. **Building footprint data gap** — ~~every drawing assumes a building rectangle from the MAR address point + guessed dimensions. Real buildings have recessed entries, awnings, corner kinks. Cascades into ramp placement, signage facing, sometimes envelope shape.~~ **RESOLVED 2026-05-28** via DC's Building Footprints layer (`Facility_and_Structure_WebMercator/MapServer/1`). Spike confirmed 100% coverage across the cohort with real polygon shapes (5-38 vertices, not stub rectangles). Wired into the pre-screen pipeline as `geocoded.buildingFootprint`. Edge case to flag for the architect: corner buildings span multiple addresses (e.g., Purple Patch at 3155 Mt Pleasant and 1620 Lamont return the same polygon) — design system needs to treat the polygon as "the building," not "the polygon for this address." Most Mt Pleasant captures are 2015; major renovations since then should be a layer-3 site-walk flag.
 
@@ -488,13 +488,13 @@ The 4-layer model is structurally sound, but five risks are worth planning for e
 
 **Cohort dashboard for Mitra**. Single view of every site's status across all 4 layers, all permits, PSC stages. Reuses the existing data model; just a different rendering. Removes "where are we" tax across 12+ restaurants.
 
-**Per-layer audit trail**. Each layer carries `verified_by` + `verified_at` + `source`. Architect signs layer 1 once. Layer 2 auto-timestamps on every pre-screen. Layer 3 needs volunteer + date + photos. Layer 4 needs operator email confirmation. PE gets visible provenance for what they're stamping.
+**Per-layer audit trail**. Each layer carries `verified_by` + `verified_at` + `source`. Architect signs layer 1 once. Layer 2 auto-timestamps on every pre-screen. Layer 3 needs volunteer + date + photos. Layer 4 needs operator email confirmation. The architect (the sealing professional) gets visible provenance for what they're sealing.
 
 **Calendar-aware planning**. The §5.1 timeline is 4-6 months end-to-end; streateries open in spring/summer; that pins submission to Jan-Feb. Tool surfaces "earliest realistic open date" when a site enters the pipeline. Avoids missed seasons.
 
 ### Smaller hygienic items worth baking in early
 
-- **Liability watermark** on every generated drawing until PE-stamped ("AUTOMATED DRAFT — REQUIRES ARCHITECT + PE REVIEW BEFORE SUBMISSION"). Prevents the "operator submitted raw output by mistake" disaster.
+- **Liability watermark** on every generated drawing until architect-sealed ("AUTOMATED DRAFT — REQUIRES ARCHITECT REVIEW BEFORE SUBMISSION"). Prevents the "operator submitted raw output by mistake" disaster.
 - **Re-eligibility alerts**: when DC data changes affect an existing cohort site (e.g., new bus priority lane plan), the system notices and pings the operator + Mitra. Compares fresh pre-screen against last-saved verdict.
 - **Diff view between design versions**: visual comparison when a design regenerates. Reduces operator anxiety about silent changes.
 - **Conflict resolution UX**: when layer 3 (site walk) contradicts layer 2 (pre-screen), explicit UI to resolve rather than silent override.
@@ -515,6 +515,6 @@ These don't need to be in v2 day one — flagging them now so they fit the archi
 8. **Utility Access Plan renderer** (reuses Site Plan with overlays)
 9. **Elevations renderer**
 10. **Sections renderer**
-11. **Construction Details** (PE territory — last and most constrained)
+11. **Construction Details** (architect-sealed — last and most constrained; no PE required in practice)
 
-Estimate: items 1-6 = ~3-4 weeks of dev + ~10 hours architect time. Items 7-10 = ~2-3 weeks. Item 11 is gated on PE engagement.
+Estimate: items 1-6 = ~3-4 weeks of dev + ~10 hours architect time. Items 7-10 = ~2-3 weeks. Item 11 needs architect engagement for the construction details (no separate PE).

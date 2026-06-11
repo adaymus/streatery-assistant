@@ -1,6 +1,6 @@
 # Where we left off
 
-**Last updated:** end of session 2026-06-04.
+**Last updated:** end of session 2026-06-10.
 
 A tight session-handoff doc so we can pick back up without re-deriving context.
 
@@ -8,7 +8,69 @@ A tight session-handoff doc so we can pick back up without re-deriving context.
 
 ## Current state in one paragraph
 
-The v1 pre-screener is live on Cloudflare Pages (deployed from `adaymus/streatery-assistant` `main` on every push), in active use by Mitra Moin and the District Bridges team for the Mt Pleasant streatery cohort. It takes an address, returns a verdict + buildable envelope + every nearby curb feature, and produces a complete printable submission package (Markdown briefing → PDF via browser print). Architectural drawings live in the package as placeholders that the v2 work will fill in. The next phase is a meeting with an architect to scope parametric drawing generation; prep work for that meeting is done and checked into `docs/`.
+The v1 pre-screener is live on Cloudflare Pages (deployed from `adaymus/streatery-assistant` `main` on every push), in active use by Mitra Moin and the District Bridges team for the Mt Pleasant streatery cohort. It takes an address, returns a verdict + buildable envelope + every nearby curb feature, and produces a complete printable submission package (Markdown briefing → PDF via browser print). **v3 (parametric drawing generation) is now underway**: two DDOT-approved reference drawing sets live in `drawing_examples/`, their teardown + extracted dimension spec is in `docs/v3-reference-set-teardown.md`, and Milestone 1 of the drawing generator (street-side elevation) is **built and compiling — validation pending only on a DC endpoint outage** (see RESUME HERE below).
+
+---
+
+## Session 2026-06-10 — v3 kickoff (RESUME HERE)
+
+### What landed
+
+1. **Ground truths**: `drawing_examples/` now holds two DDOT-approved sets — Martha Dear
+   (3110 Mt Pleasant, 1 sheet, Metzler AIA) and Queen's English (3410 11th St, 5 sheets,
+   wood + starr) — plus the full DDOT Streatery Guidelines PDF.
+2. **`docs/v3-reference-set-teardown.md`** — §5.2 checklist comparison, the kit-of-parts
+   convergence, the parametric dimension spec (Part 2), the MAR single-point-of-failure
+   operational finding, and the confirmed **architect-only seal** fact (no PE needed —
+   DDOT told District Bridges; both approved sets bear it out).
+3. **Regs fix**: Principal Arterial (FHWA 3) was wrongly encoded as a parking-lane hard
+   disqualifier; §3.1 only prohibits freeways/interstates (FHWA 1–2). Fixed in
+   `src/prescreen.ts` + 3 places in `CLAUDE.md`.
+4. **PE → architect-only reconciliation** across `submissionPackage.ts`, `CLAUDE.md`,
+   both v2 docs, and the mockup watermark (`requiresPeStamp` → `requiresProfessionalSeal`).
+5. **M1 drawing pipeline** (all compiling, `npx tsc --noEmit` clean):
+   - `src/design/templateConstants.ts` — kit-of-parts as typed, regs-cited constants
+   - `src/design/types.ts` — `ParametricInputs` + `StreateryDesign` (station/offset frame)
+   - `src/design/extractInputs.ts` — PrescreenResult → inputs (width formula, approach
+     end, trees/crosswalks to stations)
+   - `src/design/layout.ts` — solver (post bays, barrier, roof via `longestGapInWindow`
+     reuse with §4.3 buffers, tree clearances, seating, honest notes)
+   - `src/design/renderers/shared.ts` + `renderers/elevation.ts` — architectural SVG
+   - `scripts/drawings.ts` + `npm run drawings` CLI
+   - Four helpers exported from `envelope.ts` for reuse (`longestGapInWindow`,
+     `projectOntoLine`, `arcgisToLineString`, `clipBlockfaceToBlock`)
+
+### What's blocked and how to resume
+
+**M1 validation against approved sheet A100** is the only open item. Blocked 2026-06-10
+evening by a hard outage of `citizenatlas.dc.gov` (MAR geocoder — TLS resets from multiple
+networks for 90+ min while all ArcGIS endpoints stayed healthy). The pipeline's first
+network call is MAR, so nothing runs without it.
+
+**Resume steps:**
+
+1. `bash scripts/retry-martha.sh` — loops until MAR recovers, then writes BOTH validation
+   drawings: `docs/elevation-3110-mt-pleasant.svg` (full 50 ft envelope) and
+   `docs/elevation-3110-mt-pleasant-as-built.svg` (`--length-cap 35.3`, matching A100's
+   25'-6" + 9'-9½" structure). Layout summaries → `/tmp/martha-summary-{full,asbuilt}.txt`.
+   (Or run `npm run drawings -- "3110 Mount Pleasant Street NW" --name "Martha Dear"`
+   directly once MAR is back.)
+2. Compare the layout summary + SVG against `drawing_examples/` A100. Expected from the
+   pipeline: 50'-0" × **6'-0"** (8 ft lane − 2 ft buffer — must match Martha Dear's built
+   width), 6 posts @ 10 ft bays, Jersey barrier at the high-station end (even address →
+   Left/West → approach heuristic), enclosure 3'-6", roof edge 8'-3". If Urban Forestry
+   data has the A100 tree inside the run: a shifted post (`*`), roof holdback, §4.3
+   Exception A note.
+3. **Delete `scripts/retry-martha.sh` after validation** — one-off ops script, not
+   project code. Also regenerate/delete any zero-byte `docs/elevation-*.svg` left by
+   failed redirects.
+4. Next after validation: M2 per the plan — Site Plan renderer consumes `StreateryDesign`,
+   surface `SIDEWALK_IB/OB_WIDTH` from the existing Roadway Block fetch, remaining three
+   elevations, Queen's English (3410 11th St NW) as the generalization test.
+
+Worth checking when curious: is `mar2.data.dc.gov` (MAR 2, the successor geocoder) a
+viable replacement for the legacy citizenatlas endpoint? See the SPOF mitigations in the
+v3 teardown doc.
 
 ---
 
@@ -65,7 +127,7 @@ Bring these 8 decisions out of the meeting (priority-ordered, see `docs/v2-archi
 
 ### Risks still on the list (none blocking)
 
-- **PE accountability**: PE stamps the template with parameter ranges; instances inside the range pre-approved. Needs PE engagement.
+- ~~**PE accountability**: PE stamps the template with parameter ranges; instances inside the range pre-approved. Needs PE engagement.~~ **RESOLVED (v3):** DDOT accepts an architect-only seal — no PE stamp required in practice (confirmed to District Bridges; both approved reference sets are architect-sealed). The accountability model carries over with the architect as the sealing professional. See `docs/v3-reference-set-teardown.md`.
 - **Site-walk data quality**: solved by the mobile site-walk app pattern (build before architect engagement).
 - **Aesthetic palette politics**: solved by defining 2-3 named palettes with photos.
 - **PSC versioning**: solved by version-locked submissions + diff UX.
@@ -82,7 +144,7 @@ Bring these 8 decisions out of the meeting (priority-ordered, see `docs/v2-archi
 8. Utility Access Plan renderer
 9. Elevations renderer
 10. Sections renderer
-11. Construction Details (PE territory)
+11. Construction Details (architect-sealed; no PE required in practice)
 
 Items 1-3 can start before the architect locks template format (they don't depend on it). Item 5 needs the architect's input on conventions.
 

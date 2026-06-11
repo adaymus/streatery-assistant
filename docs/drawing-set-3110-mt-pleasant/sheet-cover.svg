@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -1 110 77" preserveAspectRatio="xMidYMid meet">
+<rect x="0" y="-1" width="110" height="77" fill="#fefdfb" />
+<text x="55" y="2" font-size="3.2" font-family="sans-serif" font-weight="700" text-anchor="middle" fill="#1c1917">MARTHA DEAR</text>
+<text x="55" y="5.4" font-size="1.6" font-family="sans-serif" text-anchor="middle" fill="#44403c">STREATERY — DESIGN PERMIT DRAWING SET</text>
+<text x="55" y="7.6" font-size="1.1" font-family="sans-serif" text-anchor="middle" fill="#78716c">3110 MOUNT PLEASANT STREET NW</text>
+<line x1="2" y1="9.6" x2="108" y2="9.6" stroke="#1c1917" stroke-width="0.12" />
+<text x="2" y="13" font-size="1.3" font-family="sans-serif" font-weight="700" fill="#1c1917">PROJECT DATA</text>
+<text x="2" y="15" font-size="0.95" font-family="sans-serif" fill="#78716c">ADDRESS</text>
+<text x="21" y="15" font-size="0.95" font-family="sans-serif" fill="#1c1917">3110 MOUNT PLEASANT STREET NW</text>
+<text x="2" y="16.6" font-size="0.95" font-family="sans-serif" fill="#78716c">SQUARE-LOT (SSL)</text>
+<text x="21" y="16.6" font-size="0.95" font-family="sans-serif" fill="#1c1917">2596-0639</text>
+<text x="2" y="18.200000000000003" font-size="0.95" font-family="sans-serif" fill="#78716c">WARD / ANC</text>
+<text x="21" y="18.200000000000003" font-size="0.95" font-family="sans-serif" fill="#1c1917">1 / 1D</text>
+<text x="2" y="19.800000000000004" font-size="0.95" font-family="sans-serif" fill="#78716c">BLOCK</text>
+<text x="21" y="19.800000000000004" font-size="0.95" font-family="sans-serif" fill="#1c1917">3100 - 3145 BLOCK OF MOUNT PLEASANT STREET NW</text>
+<text x="2" y="21.400000000000006" font-size="0.95" font-family="sans-serif" fill="#78716c">STRUCTURE</text>
+<text x="21" y="21.400000000000006" font-size="0.95" font-family="sans-serif" fill="#1c1917">22&apos;-0&quot; × 6&apos;-0&quot; parking-lane platform</text>
+<text x="2" y="23.000000000000007" font-size="0.95" font-family="sans-serif" fill="#78716c">BARRIER TYPE (§4.2)</text>
+<text x="21" y="23.000000000000007" font-size="0.95" font-family="sans-serif" fill="#1c1917">TYPE 2</text>
+<text x="2" y="24.60000000000001" font-size="0.95" font-family="sans-serif" fill="#78716c">ROOF</text>
+<text x="21" y="24.60000000000001" font-size="0.95" font-family="sans-serif" fill="#1c1917">PVC CORRUGATED ROOFING</text>
+<text x="2" y="26.20000000000001" font-size="0.95" font-family="sans-serif" fill="#78716c">SEATING CAPACITY (§4.8)</text>
+<text x="21" y="26.20000000000001" font-size="0.95" font-family="sans-serif" fill="#1c1917">6 (96 SF / 15)</text>
+<text x="2" y="27.80000000000001" font-size="0.95" font-family="sans-serif" fill="#78716c">GENERATED</text>
+<text x="21" y="27.80000000000001" font-size="0.95" font-family="sans-serif" fill="#1c1917">2026-06-11</text>
+<text x="2" y="31.400000000000013" font-size="1.3" font-family="sans-serif" font-weight="700" fill="#1c1917">SHEET INDEX</text>
+<text x="16" y="31.400000000000013" font-size="0.8" font-family="sans-serif" font-style="italic" fill="#a8a29e">one view per sheet; page order matches the combined PDF</text>
+<text x="2" y="33.40000000000001" font-size="0.95" font-family="sans-serif" font-weight="700" fill="#1c1917">G1.00</text>
+<text x="9" y="33.40000000000001" font-size="0.95" font-family="sans-serif" fill="#44403c">COVER SHEET</text>
+<text x="2" y="34.95000000000001" font-size="0.95" font-family="sans-serif" font-weight="700" fill="#1c1917">G1.01</text>
+<text x="9" y="34.95000000000001" font-size="0.95" font-family="sans-serif" fill="#44403c">GENERAL NOTES + DDOT REQUIREMENTS</text>
+<text x="2" y="36.50000000000001" font-size="0.95" font-family="sans-serif" font-weight="700" fill="#1c1917">G2.00</text>
+<text x="9" y="36.50000000000001" font-size="0.95" font-family="sans-serif" fill="#44403c">LIFE SAFETY + ACCESSIBILITY</text>
+<text x="2" y="38.050000000000004" font-size="0.95" font-family="sans-serif" font-weight="700" fill="#1c1917">A1.00</text>
+<text x="9" y="38.050000000000004" font-size="0.95" font-family="sans-serif" fill="#44403c">SITE PLAN</text>
+<text x="2" y="39.6" font-size="0.95" font-family="sans-serif" font-weight="700" fill="#1c1917">A2.00</text>
+<text x="9" y="39.6" font-size="0.95" font-family="sans-serif" fill="#44403c">ELEVATION — STREET SIDE</text>
+<text x="2" y="41.15" font-size="0.95" font-family="sans-serif" font-weight="700" fill="#1c1917">A2.01</text>
+<text x="9" y="41.15" font-size="0.95" font-family="sans-serif" fill="#44403c">ELEVATION — SIDEWALK SIDE</text>
+<text x="2" y="42.699999999999996" font-size="0.95" font-family="sans-serif" font-weight="700" fill="#1c1917">A2.02</text>
+<text x="9" y="42.699999999999996" font-size="0.95" font-family="sans-serif" fill="#44403c">END ELEVATION — LOW STATION</text>
+<text x="2" y="44.24999999999999" font-size="0.95" font-family="sans-serif" font-weight="700" fill="#1c1917">A2.03</text>
+<text x="9" y="44.24999999999999" font-size="0.95" font-family="sans-serif" fill="#44403c">END ELEVATION — HIGH STATION</text>
+<text x="2" y="45.79999999999999" font-size="0.95" font-family="sans-serif" font-weight="700" fill="#1c1917">A3.00</text>
+<text x="9" y="45.79999999999999" font-size="0.95" font-family="sans-serif" fill="#44403c">SECTION — TYPICAL</text>
+<text x="2" y="47.34999999999999" font-size="0.95" font-family="sans-serif" font-weight="700" fill="#1c1917">A3.01</text>
+<text x="9" y="47.34999999999999" font-size="0.95" font-family="sans-serif" fill="#44403c">SECTION — ENTRY / ACCESSIBILITY</text>
+<text x="2" y="48.899999999999984" font-size="0.95" font-family="sans-serif" font-weight="700" fill="#1c1917">A4.00</text>
+<text x="9" y="48.899999999999984" font-size="0.95" font-family="sans-serif" fill="#44403c">DDOT STANDARD DETAILS</text>
+<clipPath id="vicinity-clip"><rect x="60" y="12" width="44" height="44" /></clipPath>
+<rect x="60" y="12" width="44" height="44" fill="#fafaf9" stroke="#1c1917" stroke-width="0.12" />
+<g id="vicinity-streets" clip-path="url(#vicinity-clip)">
+<polyline points="74.79,14.31 74.80,13.42 74.77,11.01 74.74,8.43 74.76,6.13 74.87,4.07" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="57.85,13.70 57.86,13.01 57.86,12.71 57.86,10.51 57.86,9.68 57.88,6.33 57.88,5.52" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="63.98,56.62 63.56,56.99 63.28,57.23 61.83,58.33 60.07,59.64 58.57,60.77 58.51,60.82 58.46,60.86 58.40,60.90 58.34,60.93 58.28,60.96 58.22,60.98 58.15,61.00 58.08,61.02 58.02,61.03 57.95,61.03 56.71,60.95 56.14,60.91" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="79.56,19.76 78.61,20.11 78.39,20.19 75.50,21.24 74.78,21.51" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="74.78,21.51 74.78,21.47 74.79,20.80 74.81,18.88 74.78,15.53 74.79,15.24 74.79,14.31" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="78.55,16.34 77.99,16.07 77.40,15.79 75.51,14.87 75.41,14.83 74.79,14.31" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="78.55,16.34 78.30,15.74 78.15,15.18 77.92,14.34 76.85,10.88 76.39,9.38 76.09,8.41 75.59,6.92 75.38,6.08 75.27,5.66 75.17,5.26 75.10,4.84 74.87,4.07" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="91.34,11.89 90.21,11.35 85.09,8.80 80.83,6.67 80.38,6.45 77.23,4.91 76.42,4.51 75.95,4.31 75.83,4.26 74.87,4.07" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="79.56,19.76 79.35,19.07 78.91,17.65 78.88,17.51 78.55,16.34" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="91.36,22.59 90.41,22.14 89.80,21.84 89.13,21.51 88.48,21.19 79.77,16.94 79.68,16.89 78.82,16.48 78.55,16.34" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="91.37,21.33 91.36,20.12 91.35,18.01 91.34,13.48 91.34,12.73 91.34,11.89" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="91.34,11.89 91.34,10.89 91.34,6.41 91.35,4.39 91.36,3.40" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="94.92,13.64 94.41,13.39 92.55,12.48 92.41,12.41 91.34,11.89" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="91.36,22.59 91.37,21.87 91.37,21.82 91.37,21.33" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="96.28,24.83 91.38,22.60 91.36,22.59" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="117.25,16.06 116.18,15.67 111.18,13.23 110.45,12.87 104.28,9.80 103.55,9.43 98.96,7.17 95.87,5.62 94.30,4.83 93.32,4.36 92.39,3.91 91.36,3.40" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="91.37,21.33 91.55,20.71 91.77,20.11 91.95,19.64 92.16,19.18 92.40,18.73 92.51,18.51 94.60,14.29 94.92,13.64" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="102.33,17.33 101.95,17.14 101.70,17.00 96.43,14.37 95.51,13.92 94.92,13.64" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="117.03,24.55 116.88,24.49 115.76,23.94 115.39,23.76 115.07,23.60 111.62,21.91 110.77,21.50 108.13,20.20 103.07,17.72 102.33,17.33" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="57.80,37.14 57.13,37.14 56.51,37.15 53.85,37.14 52.59,37.13 51.90,37.13" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="57.80,37.14 57.79,36.65 57.78,36.48 57.78,33.13 57.77,29.99 57.77,29.68 57.78,29.51 57.79,29.33" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="74.77,29.38 74.31,29.39 74.08,29.38 72.29,29.38 71.06,29.37 69.23,29.36 64.50,29.36 61.21,29.34 58.44,29.33 58.32,29.33 57.79,29.33" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="57.79,29.33 57.81,28.86 57.81,28.66 57.82,25.43 57.82,22.21 57.82,22.08 57.83,21.51" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="57.79,29.33 57.13,29.33 54.66,29.32 54.11,29.32 49.04,29.32 48.37,29.32" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="57.83,21.51 57.19,21.51 57.15,21.50 55.49,21.50 54.08,21.50 53.18,21.49 50.62,21.47 46.64,21.47 45.11,21.47 43.87,21.47 43.84,21.47 43.78,21.48 43.73,21.50 43.67,21.51 43.62,21.54 43.57,21.56 43.52,21.59 43.48,21.62 43.43,21.66 43.39,21.70 43.35,21.75" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="74.78,21.51 74.14,21.58 72.29,21.58 71.08,21.58 67.22,21.57 58.58,21.52 58.32,21.52 57.83,21.51" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="57.83,21.51 57.83,20.76 57.84,20.39 57.86,17.62 57.86,16.90 57.85,14.37 57.85,14.32 57.85,13.70" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="74.79,14.31 74.38,13.97 73.99,13.87 73.56,13.77 73.26,13.76 72.28,13.76 71.11,13.76 69.55,13.75 64.87,13.73 58.49,13.69 58.41,13.69 57.85,13.70" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="57.85,13.70 57.19,13.70 54.88,13.70 54.13,13.70 52.20,13.69 49.78,13.68 47.18,13.65 44.72,13.65 42.98,13.66 42.52,13.66 41.53,13.65 40.06,13.62 38.50,13.65 38.48,13.65 37.87,13.65" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="74.66,37.29 74.68,36.45 74.72,33.31 74.74,31.61 74.76,30.08 74.77,29.51 74.77,29.38" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="85.18,37.87 84.20,37.81 83.83,37.79 83.20,37.76 78.48,37.51 75.34,37.33 74.66,37.29" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="74.77,29.38 74.78,28.71 74.78,28.69 74.77,24.44 74.77,23.16 74.78,22.15 74.78,21.51" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="81.91,27.32 81.12,27.58 78.19,28.55 75.92,29.31 75.81,29.33 75.69,29.35 75.58,29.36 75.46,29.37 75.42,29.37 74.77,29.38" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="81.91,27.32 81.74,26.76 81.73,26.72 80.07,21.42 79.79,20.50 79.56,19.76" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="85.18,37.87 84.96,37.17 84.55,35.87 83.33,31.93 82.96,30.73 82.89,30.48 82.63,29.65 81.91,27.32" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="87.56,45.58 87.33,44.85 86.82,43.17 86.66,42.65 85.55,39.07 85.42,38.65 85.18,37.87" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="91.23,38.28 90.28,38.19 90.13,38.18 86.27,37.93 86.14,37.93 85.18,37.87" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="89.63,52.24 89.45,51.57 88.47,48.52 88.31,48.03 87.78,46.31 87.56,45.58" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="91.17,51.90 91.17,51.26 91.21,45.29 91.21,44.40 91.22,39.12 91.23,38.28" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="91.23,38.28 91.23,37.43 91.23,37.30 91.25,34.56 91.25,34.13 91.25,34.02" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="93.16,38.39 92.26,38.38 91.23,38.28" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="93.16,38.39 93.13,38.32 92.86,37.62 92.83,37.53 92.17,36.10 91.25,34.02" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="91.25,34.02 91.25,33.32 91.28,29.65 91.28,29.50 91.29,28.01 91.29,27.27 91.29,27.17 91.30,26.43 91.31,26.16 91.35,23.27 91.36,22.59" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="103.95,38.31 103.48,38.35 100.83,38.55 100.01,38.62 99.85,38.62 99.70,38.63 99.54,38.63 99.39,38.64 99.23,38.64 99.07,38.64 98.92,38.64 98.76,38.64 98.60,38.64 98.44,38.63 97.37,38.57 97.33,38.57 94.63,38.42 93.95,38.40 93.16,38.39" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="97.81,52.85 97.81,52.82 97.66,52.12 97.63,51.98 95.43,45.13 94.58,42.52 93.58,39.47 93.51,39.29 93.16,38.39" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="118.64,48.50 118.29,48.52 116.71,48.62 114.68,48.86 113.81,48.98 112.92,49.11 112.03,49.19 107.72,49.51 105.70,49.69 102.97,49.90 102.69,49.95 102.41,50.01 102.14,50.09 101.87,50.17 101.61,50.28 101.35,50.39 101.10,50.52 100.86,50.66 100.62,50.81 100.39,50.97 100.15,51.15 99.91,51.33 99.67,51.50 99.43,51.68 99.18,51.86 98.94,52.03 98.70,52.21 98.46,52.38 98.24,52.54 98.03,52.69 97.81,52.85" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="103.95,38.31 103.90,37.70 103.63,34.23 103.49,32.45 103.35,30.54 103.27,29.50 102.84,24.15 102.75,23.00 102.71,22.56 102.37,18.31 102.37,18.10 102.33,17.33" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="117.77,37.22 116.91,37.31 115.43,37.42 111.46,37.74 106.73,38.09 104.51,38.27 103.95,38.31" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="91.14,59.77 91.14,59.27 91.14,57.52" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="88.03,59.65 87.64,59.06 87.59,58.97 84.51,54.83 84.42,54.71 83.93,54.05 83.84,53.96 83.75,53.86 83.66,53.77" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="91.14,57.52 90.38,58.01 89.89,58.35 89.55,58.59 88.71,59.19 88.65,59.23 88.03,59.65" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="98.10,59.30 98.06,58.56 97.95,56.03 97.84,53.67 97.84,53.52 97.81,52.85" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="97.81,52.85 97.16,53.32 92.72,56.50 92.58,56.60 92.26,56.80 91.14,57.52" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="91.14,57.52 89.63,52.24" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="91.14,57.52 91.15,56.79 91.16,54.93 91.16,54.77 91.16,54.46 91.17,51.90" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="89.63,52.24 88.89,52.51 88.57,52.61 86.87,53.09 86.68,53.15 86.48,53.19 86.28,53.23 86.08,53.27 85.88,53.30 84.87,53.35 84.65,53.37 84.41,53.44 83.66,53.77" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="91.17,51.90 91.01,51.91 89.63,52.24" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="87.56,45.58 86.74,45.71 86.64,45.71 86.57,45.72 81.15,45.42 73.69,45.04 73.23,45.01 72.76,44.98 72.30,44.96 71.81,44.93 71.32,44.90 70.82,44.87 70.33,44.84 69.84,44.82 69.35,44.79 68.86,44.76 68.64,44.74 68.37,44.73 66.40,44.61 65.32,44.54 63.47,44.44 62.81,44.40 62.53,44.39 62.25,44.38 61.97,44.37 61.69,44.37 61.41,44.36 61.13,44.36 60.85,44.36 60.57,44.36 60.28,44.37 60.00,44.37 56.96,44.40 56.82,44.40 56.69,44.39 56.55,44.37 56.42,44.34 56.28,44.31 56.16,44.26 56.03,44.21 55.91,44.14 55.79,44.07 55.68,43.99 53.96,42.85 53.86,42.78 53.76,42.71 53.66,42.64 53.57,42.56 53.48,42.48 53.39,42.39 53.30,42.30 53.22,42.21 53.14,42.12 53.07,42.02 52.24,40.92 52.18,40.84 52.13,40.76 52.08,40.67 52.04,40.58 52.00,40.49 51.97,40.40 51.95,40.30 51.93,40.20 51.92,40.11 51.92,40.01 51.92,39.88 51.91,37.91 51.91,37.74 51.90,37.13" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="58.44,51.67 57.62,51.71 57.33,51.72 57.17,51.71 57.01,51.71 56.85,51.70 56.68,51.69 56.52,51.68 56.36,51.67 56.20,51.65 56.04,51.64 55.88,51.62 55.72,51.60 55.60,51.58 55.43,51.57 55.26,51.55 55.09,51.53 54.92,51.50 54.75,51.48 54.58,51.45 54.41,51.41 54.24,51.38 54.08,51.34 53.91,51.30 53.78,51.26" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="58.44,54.54 57.80,54.15 57.73,54.11 57.65,54.07 57.57,54.02 55.57,52.67 55.44,52.59 55.26,52.48 55.08,52.36 54.91,52.23 54.73,52.10 54.57,51.97 54.40,51.84 54.24,51.70 54.08,51.55 53.93,51.41 53.78,51.26" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="56.14,60.91 56.17,60.78 56.20,60.66 56.23,60.54 56.26,60.41 56.30,60.29 56.33,60.17 56.37,60.05 56.41,59.93 56.45,59.82 56.49,59.70 56.53,59.59 58.21,55.46 58.26,55.36 58.30,55.26 58.34,55.15 58.37,55.04 58.40,54.93 58.42,54.84 58.44,54.74 58.44,54.54" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="74.66,37.29 74.22,37.26 74.09,37.25 73.79,37.23 73.49,37.22 73.19,37.21 72.89,37.20 72.59,37.19 72.29,37.18 71.96,37.17 71.62,37.17 71.28,37.17 70.95,37.17 70.61,37.18 67.69,37.16 65.33,37.16 62.15,37.16 59.60,37.13 58.35,37.13 58.32,37.13 57.80,37.14" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="58.44,54.54 58.45,53.66 58.45,52.79 58.45,52.70 58.44,51.67" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="72.72,51.69 72.30,51.69 71.89,51.69 71.73,51.69 71.34,51.68 69.33,51.67 68.19,51.66 66.68,51.65 63.79,51.64 59.54,51.63 59.45,51.63 58.44,51.67" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="63.98,56.62 63.32,56.38 62.90,56.22 60.79,55.47 59.91,55.17" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="69.17,59.37 68.84,58.86 68.78,58.77 68.72,58.68 68.65,58.60 68.57,58.52 68.50,58.44 68.42,58.37 68.33,58.30 68.24,58.24 68.15,58.19 68.05,58.14 66.05,57.38 64.45,56.79 63.98,56.62" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="72.72,51.69 72.51,53.08 72.47,53.39 72.30,54.47 71.77,57.89 71.61,58.97 71.60,59.07 71.59,59.14 71.58,59.20 71.56,59.27 71.55,59.34 71.53,59.41 71.52,59.48 71.50,59.55 71.48,59.61 71.46,59.68" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="83.66,53.77 82.90,54.36 82.80,54.43 80.95,55.81 76.98,58.75 76.06,59.45 75.87,59.56 75.68,59.66 75.48,59.75 75.28,59.82 75.07,59.88 74.86,59.92 74.65,59.95 74.43,59.96 74.21,59.96 74.00,59.94 73.21,59.82 73.05,59.80 72.30,59.74 72.01,59.72 71.46,59.68" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<polyline points="83.66,53.77 83.54,53.67 83.42,53.57 83.30,53.48 83.18,53.39 83.05,53.31 82.91,53.23 82.83,53.19 82.69,53.12 82.55,53.06 82.41,53.00 82.05,52.85 81.69,52.71 81.33,52.58 80.96,52.47 80.59,52.36 80.21,52.26 79.84,52.17 79.46,52.09 79.08,52.02 78.70,51.96 78.32,51.91 77.95,51.86 77.57,51.82 77.20,51.79 76.82,51.75 76.45,51.73 76.07,51.71 75.69,51.70 75.32,51.69 74.94,51.68 74.12,51.70 74.06,51.70 73.57,51.70 72.72,51.69" fill="none" stroke="#a8a29e" stroke-width="0.5" stroke-linecap="round" />
+<text x="66.30433596901416" y="21.00997139602712" font-size="0.85" font-family="sans-serif" text-anchor="middle" fill="#57534e" transform="rotate(-0.0 66.30433596901416 21.50997139602712)">KILBOURNE PLACE NW</text>
+<text x="91.19632072327367" y="44.58994749834273" font-size="0.85" font-family="sans-serif" text-anchor="middle" fill="#57534e" transform="rotate(-89.8 91.19632072327367 45.08994749834273)">16TH STREET NW</text>
+<text x="93.14358458721915" y="16.986151105180745" font-size="0.85" font-family="sans-serif" text-anchor="middle" fill="#57534e" transform="rotate(-65.2 93.14358458721915 17.486151105180745)">PINE STREET NW</text>
+<text x="66.2293770713465" y="36.71136282922127" font-size="0.85" font-family="sans-serif" text-anchor="middle" fill="#57534e" transform="rotate(0.5 66.2293770713465 37.21136282922127)">IRVING STREET NW</text>
+<text x="66.28102284175766" y="28.85384763487223" font-size="0.85" font-family="sans-serif" text-anchor="middle" fill="#57534e" transform="rotate(0.2 66.28102284175766 29.35384763487223)">KENYON STREET NW</text>
+<text x="95.48760079785549" y="45.11926451396596" font-size="0.85" font-family="sans-serif" text-anchor="middle" fill="#57534e" transform="rotate(72.2 95.48760079785549 45.61926451396596)">15TH STREET NW</text>
+<text x="65.57634322215168" y="51.18223467554059" font-size="0.85" font-family="sans-serif" text-anchor="middle" fill="#57534e" transform="rotate(0.1 65.57634322215168 51.68223467554059)">HARVARD STREET NW</text>
+<text x="69.73110680634413" y="40.85558817288187" font-size="0.85" font-family="sans-serif" text-anchor="middle" fill="#57534e" transform="rotate(13.3 69.73110680634413 41.35558817288187)">HOBART STREET NW</text>
+</g>
+<circle cx="82" cy="34" r="0.9" fill="#1c1917" />
+<circle cx="82" cy="34" r="1.6" fill="none" stroke="#1c1917" stroke-width="0.14" />
+<text x="84.2" y="34.4" font-size="1.0" font-family="sans-serif" font-weight="700" fill="#1c1917">SITE</text>
+<g transform="translate(101, 15.4)">
+<polygon points="0,-1.8 -0.7,1.2 0,0.6 0.7,1.2" fill="#1c1917" />
+<text x="0" y="3" font-size="0.9" font-family="sans-serif" font-weight="700" text-anchor="middle" fill="#1c1917">N</text>
+</g>
+<text x="60" y="57.6" font-size="0.9" font-family="sans-serif" font-weight="700" fill="#1c1917">VICINITY MAP</text>
+<text x="60" y="58.9" font-size="0.75" font-family="sans-serif" font-style="italic" fill="#78716c">DDOT Roadway Block centerlines, ±900 ft window, north up. Scale: 1 unit = 41 ft.</text>
+<g id="architect-seal">
+<rect x="73.2" y="63" width="9" height="12" fill="white" stroke="#1c1917" stroke-width="0.12" />
+<text x="73.9" y="64.5" font-size="0.8" font-family="sans-serif" fill="#78716c">ARCHITECT:</text>
+<line x1="73.9" y1="66.1" x2="81.5" y2="66.1" stroke="#a8a29e" stroke-width="0.06" />
+<circle cx="77.7" cy="70.6" r="3" fill="none" stroke="#d6d3d1" stroke-width="0.08" stroke-dasharray="0.5,0.4" />
+<text x="77.7" y="70.9" font-size="0.7" font-family="sans-serif" text-anchor="middle" fill="#a8a29e">SEAL</text>
+</g>
+<g id="title-block">
+<rect x="83" y="63" width="26" height="12" fill="white" stroke="#1c1917" stroke-width="0.12" />
+<text x="84" y="64.8" font-size="1.3" font-family="sans-serif" font-weight="700" fill="#1c1917">MARTHA DEAR</text>
+<text x="84" y="66.3" font-size="0.95" font-family="sans-serif" fill="#44403c">3110 MOUNT PLEASANT STREET NW</text>
+<text x="84" y="68.2" font-size="1.05" font-family="sans-serif" font-weight="700" fill="#1c1917">G1.00 — COVER SHEET</text>
+<text x="84" y="69.6" font-size="0.85" font-family="sans-serif" fill="#44403c">SEATING CAPACITY: 6 (96 SF / 15)</text>
+<text x="84" y="70.9" font-size="0.85" font-family="sans-serif" fill="#44403c">GENERATED 2026-06-11 — SCALE: 1 UNIT = 1 FT</text>
+<text x="84" y="72.7" font-size="0.8" font-family="sans-serif" font-style="italic" fill="#a8a29e">AUTOMATED DRAFT — generated by streatery pre-screener v3.</text>
+<text x="84" y="73.8" font-size="0.8" font-family="sans-serif" font-style="italic" fill="#a8a29e">Architect review, refinement, and seal required before submission.</text>
+</g>
+<g id="scale-bar" transform="translate(2, 1)">
+<rect x="0" y="0" width="5" height="0.5" fill="#1c1917" />
+<rect x="5" y="0" width="5" height="0.5" fill="white" stroke="#1c1917" stroke-width="0.06" />
+<text x="0" y="-0.4" font-size="0.8" font-family="sans-serif" fill="#1c1917">0</text>
+<text x="5" y="-0.4" font-size="0.8" font-family="sans-serif" text-anchor="middle" fill="#1c1917">5</text>
+<text x="10" y="-0.4" font-size="0.8" font-family="sans-serif" text-anchor="middle" fill="#1c1917">10 FT</text>
+</g>
+<text x="55" y="30" font-size="3.2" font-family="sans-serif" font-weight="900" fill="#1c1917" fill-opacity="0.06" text-anchor="middle" dominant-baseline="middle" transform="rotate(-20 55 30)">AUTOMATED DRAFT — ARCHITECT REVIEW REQUIRED</text>
+</svg>

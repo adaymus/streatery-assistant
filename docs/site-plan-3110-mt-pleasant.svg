@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="129.158091257125 -49.8284004053044 129.99229056738866 96.6784004053044" preserveAspectRatio="xMidYMid meet">
+<rect x="129.158091257125" y="-49.8284004053044" width="129.99229056738866" height="96.6784004053044" fill="#fefdfb" />
+<g id="row-bands">
+<rect x="143.158091257125" y="-23.8284004053044" width="101.99229056738866" height="23.8284004053044" fill="#f5f5f4" />
+<rect x="143.158091257125" y="0" width="101.99229056738866" height="8" fill="#fefdfb" />
+<rect x="143.158091257125" y="8" width="101.99229056738866" height="12" fill="#fafaf9" />
+<line x1="143.158091257125" y1="0" x2="245.15038182451366" y2="0" stroke="#1c1917" stroke-width="0.28" />
+<line x1="143.158091257125" y1="8" x2="245.15038182451366" y2="8" stroke="#78716c" stroke-width="0.08" stroke-dasharray="2,1.5" />
+<line x1="143.158091257125" y1="20" x2="245.15038182451366" y2="20" stroke="#a8a29e" stroke-width="0.06" stroke-dasharray="1,1" />
+</g>
+<g id="band-labels">
+<text x="244.15038182451366" y="-22.2284004053044" font-size="1.0" font-family="sans-serif" text-anchor="end" fill="#57534e">EX. SIDEWALK / FRONTAGE ZONE</text>
+<text x="244.15038182451366" y="7.4" font-size="1.0" font-family="sans-serif" text-anchor="end" fill="#57534e">EX. 8&apos;-0&quot; PARKING LANE</text>
+<text x="244.15038182451366" y="9.6" font-size="1.0" font-family="sans-serif" text-anchor="end" fill="#57534e">EX. 12&apos;-0&quot; TRAVEL LANE (1 OF 2)</text>
+</g>
+<g id="traffic-arrow">
+<line x1="199.15423654081934" y1="14" x2="189.15423654081934" y2="14" stroke="#a8a29e" stroke-width="0.15" />
+<polygon points="187.65423654081934,14 189.15423654081934,13.3 189.15423654081934,14.7" fill="#a8a29e" />
+<text x="194.15423654081934" y="13" font-size="0.9" font-family="sans-serif" text-anchor="middle" fill="#a8a29e">TRAFFIC (VERIFY)</text>
+</g>
+<g id="window-edges">
+<polyline points="143.158091257125,-45.8284004053044 143.85809125712498,-44.3284004053044 142.458091257125,-43.5784004053044 143.158091257125,-42.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,-42.8284004053044 143.85809125712498,-41.3284004053044 142.458091257125,-40.5784004053044 143.158091257125,-39.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,-39.8284004053044 143.85809125712498,-38.3284004053044 142.458091257125,-37.5784004053044 143.158091257125,-36.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,-36.8284004053044 143.85809125712498,-35.3284004053044 142.458091257125,-34.5784004053044 143.158091257125,-33.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,-33.8284004053044 143.85809125712498,-32.3284004053044 142.458091257125,-31.5784004053044 143.158091257125,-30.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,-30.8284004053044 143.85809125712498,-29.3284004053044 142.458091257125,-28.5784004053044 143.158091257125,-27.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,-27.8284004053044 143.85809125712498,-26.3284004053044 142.458091257125,-25.5784004053044 143.158091257125,-24.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,-24.8284004053044 143.85809125712498,-23.3284004053044 142.458091257125,-22.5784004053044 143.158091257125,-21.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,-21.8284004053044 143.85809125712498,-20.3284004053044 142.458091257125,-19.5784004053044 143.158091257125,-18.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,-18.8284004053044 143.85809125712498,-17.3284004053044 142.458091257125,-16.5784004053044 143.158091257125,-15.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,-15.8284004053044 143.85809125712498,-14.3284004053044 142.458091257125,-13.5784004053044 143.158091257125,-12.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,-12.8284004053044 143.85809125712498,-11.3284004053044 142.458091257125,-10.5784004053044 143.158091257125,-9.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,-9.8284004053044 143.85809125712498,-8.3284004053044 142.458091257125,-7.5784004053044 143.158091257125,-6.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,-6.8284004053044 143.85809125712498,-5.3284004053044 142.458091257125,-4.5784004053044 143.158091257125,-3.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,-3.8284004053044 143.85809125712498,-2.3284004053044 142.458091257125,-1.5784004053044 143.158091257125,-0.8284004053044001" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,-0.8284004053044001 143.85809125712498,0.6715995946955999 142.458091257125,1.4215995946956 143.158091257125,2.1715995946956" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,2.1715995946956 143.85809125712498,3.6715995946956 142.458091257125,4.4215995946956 143.158091257125,5.1715995946956" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,5.1715995946956 143.85809125712498,6.6715995946956 142.458091257125,7.4215995946956 143.158091257125,8.1715995946956" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,8.1715995946956 143.85809125712498,9.6715995946956 142.458091257125,10.4215995946956 143.158091257125,11.1715995946956" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,11.1715995946956 143.85809125712498,12.6715995946956 142.458091257125,13.4215995946956 143.158091257125,14.1715995946956" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,14.1715995946956 143.85809125712498,15.6715995946956 142.458091257125,16.4215995946956 143.158091257125,17.1715995946956" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="143.158091257125,17.1715995946956 143.85809125712498,18.6715995946956 142.458091257125,19.3357997973478 143.158091257125,20" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,-45.8284004053044 245.85038182451365,-44.3284004053044 244.45038182451367,-43.5784004053044 245.15038182451366,-42.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,-42.8284004053044 245.85038182451365,-41.3284004053044 244.45038182451367,-40.5784004053044 245.15038182451366,-39.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,-39.8284004053044 245.85038182451365,-38.3284004053044 244.45038182451367,-37.5784004053044 245.15038182451366,-36.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,-36.8284004053044 245.85038182451365,-35.3284004053044 244.45038182451367,-34.5784004053044 245.15038182451366,-33.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,-33.8284004053044 245.85038182451365,-32.3284004053044 244.45038182451367,-31.5784004053044 245.15038182451366,-30.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,-30.8284004053044 245.85038182451365,-29.3284004053044 244.45038182451367,-28.5784004053044 245.15038182451366,-27.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,-27.8284004053044 245.85038182451365,-26.3284004053044 244.45038182451367,-25.5784004053044 245.15038182451366,-24.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,-24.8284004053044 245.85038182451365,-23.3284004053044 244.45038182451367,-22.5784004053044 245.15038182451366,-21.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,-21.8284004053044 245.85038182451365,-20.3284004053044 244.45038182451367,-19.5784004053044 245.15038182451366,-18.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,-18.8284004053044 245.85038182451365,-17.3284004053044 244.45038182451367,-16.5784004053044 245.15038182451366,-15.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,-15.8284004053044 245.85038182451365,-14.3284004053044 244.45038182451367,-13.5784004053044 245.15038182451366,-12.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,-12.8284004053044 245.85038182451365,-11.3284004053044 244.45038182451367,-10.5784004053044 245.15038182451366,-9.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,-9.8284004053044 245.85038182451365,-8.3284004053044 244.45038182451367,-7.5784004053044 245.15038182451366,-6.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,-6.8284004053044 245.85038182451365,-5.3284004053044 244.45038182451367,-4.5784004053044 245.15038182451366,-3.8284004053044" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,-3.8284004053044 245.85038182451365,-2.3284004053044 244.45038182451367,-1.5784004053044 245.15038182451366,-0.8284004053044001" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,-0.8284004053044001 245.85038182451365,0.6715995946955999 244.45038182451367,1.4215995946956 245.15038182451366,2.1715995946956" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,2.1715995946956 245.85038182451365,3.6715995946956 244.45038182451367,4.4215995946956 245.15038182451366,5.1715995946956" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,5.1715995946956 245.85038182451365,6.6715995946956 244.45038182451367,7.4215995946956 245.15038182451366,8.1715995946956" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,8.1715995946956 245.85038182451365,9.6715995946956 244.45038182451367,10.4215995946956 245.15038182451366,11.1715995946956" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,11.1715995946956 245.85038182451365,12.6715995946956 244.45038182451367,13.4215995946956 245.15038182451366,14.1715995946956" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,14.1715995946956 245.85038182451365,15.6715995946956 244.45038182451367,16.4215995946956 245.15038182451366,17.1715995946956" fill="none" stroke="#78716c" stroke-width="0.1" />
+<polyline points="245.15038182451366,17.1715995946956 245.85038182451365,18.6715995946956 244.45038182451367,19.3357997973478 245.15038182451366,20" fill="none" stroke="#78716c" stroke-width="0.1" />
+</g>
+<clipPath id="building-clip"><rect x="143.158091257125" y="-45.8284004053044" width="101.99229056738866" height="45.5284004053044" /></clipPath>
+<g id="building" clip-path="url(#building-clip)">
+<polygon points="204.72,-59.26 205.15,-23.83 183.16,-24.18 182.93,-60.77 185.08,-60.72 185.34,-72.74 195.77,-72.50 195.81,-74.52 183.04,-74.82 183.06,-76.15 183.11,-95.09 204.38,-87.71 204.72,-59.26" fill="#e7e5e4" stroke="#44403c" stroke-width="0.14" />
+</g>
+<line x1="143.158091257125" y1="-45.8284004053044" x2="245.15038182451366" y2="-45.8284004053044" stroke="#a8a29e" stroke-width="0.06" stroke-dasharray="1.2,0.8" />
+<text x="194.15423654081934" y="-27.8284004053044" font-size="1.3" font-family="sans-serif" font-weight="700" text-anchor="middle" fill="#1c1917">MARTHA DEAR</text>
+<text x="194.15423654081934" y="-26.2284004053044" font-size="1.0" font-family="sans-serif" text-anchor="middle" fill="#44403c">3110 MOUNT PLEASANT STREET NW</text>
+<text x="194.15423654081934" y="-24.8284004053044" font-size="0.8" font-family="sans-serif" font-style="italic" text-anchor="middle" fill="#78716c">[DC BUILDING FOOTPRINTS, captured 2023-05]</text>
+<g id="frontage">
+<line x1="183.158091257125" y1="-23.8284004053044" x2="183.158091257125" y2="0" stroke="#78716c" stroke-width="0.07" stroke-dasharray="0.8,0.5" />
+<line x1="205.15038182451366" y1="-23.8284004053044" x2="205.15038182451366" y2="0" stroke="#78716c" stroke-width="0.07" stroke-dasharray="0.8,0.5" />
+<line x1="183.158091257125" y1="-23.8284004053044" x2="183.158091257125" y2="-20.8284004053044" stroke="#1c1917" stroke-width="0.06" />
+<line x1="205.15038182451366" y1="-23.8284004053044" x2="205.15038182451366" y2="-20.8284004053044" stroke="#1c1917" stroke-width="0.06" />
+<line x1="183.158091257125" y1="-20.8284004053044" x2="205.15038182451366" y2="-20.8284004053044" stroke="#1c1917" stroke-width="0.08" />
+<line x1="182.758091257125" y1="-20.4284004053044" x2="183.558091257125" y2="-21.2284004053044" stroke="#1c1917" stroke-width="0.12" />
+<line x1="204.75038182451365" y1="-20.4284004053044" x2="205.55038182451366" y2="-21.2284004053044" stroke="#1c1917" stroke-width="0.12" />
+<text x="194.15423654081934" y="-21.2284004053044" font-size="1.1" font-family="sans-serif" text-anchor="middle" fill="#1c1917">OWN FRONTAGE 22&apos;-0&quot;</text>
+</g>
+<g id="structure">
+<rect x="183.158091257125" y="0" width="21.992290567388665" height="6" fill="#ffffff" stroke="#1c1917" stroke-width="0.22" />
+<g transform="rotate(-45 201.92195469976747 3)">
+<rect x="198.92195469976747" y="2" width="6" height="2" fill="#d6d3d1" stroke="#1c1917" stroke-width="0.14" />
+<line x1="198.82195469976747" y1="4" x2="200.22195469976745" y2="2" stroke="#78716c" stroke-width="0.06" />
+<line x1="200.0219546997675" y1="4" x2="201.42195469976747" y2="2" stroke="#78716c" stroke-width="0.06" />
+<line x1="201.22195469976748" y1="4" x2="202.62195469976746" y2="2" stroke="#78716c" stroke-width="0.06" />
+<line x1="202.42195469976747" y1="4" x2="203.82195469976745" y2="2" stroke="#78716c" stroke-width="0.06" />
+<line x1="203.62195469976749" y1="4" x2="205.02195469976746" y2="2" stroke="#78716c" stroke-width="0.06" />
+</g>
+<text x="191.15423654081934" y="3.4" font-size="1.1" font-family="sans-serif" font-weight="700" text-anchor="middle" fill="#1c1917">PROPOSED STREATERY 22'-0" × 6'-0"</text>
+<line x1="183.158091257125" y1="1" x2="205.15038182451366" y2="1" stroke="#57534e" stroke-width="0.06" stroke-dasharray="0.6,0.4" />
+<text x="191.15423654081934" y="1.85" font-size="0.7" font-family="sans-serif" text-anchor="middle" fill="#57534e">1'-0" DRAINAGE CHANNEL BELOW DECK (§4.6)</text>
+<rect x="182.92892459045834" y="0.1" width="0.4583333333333333" height="0.4583333333333333" fill="#1c1917" />
+<rect x="182.92892459045834" y="5.441666666666666" width="0.4583333333333333" height="0.4583333333333333" fill="#1c1917" />
+<rect x="190.25968811292122" y="0.1" width="0.4583333333333333" height="0.4583333333333333" fill="#1c1917" />
+<rect x="190.25968811292122" y="5.441666666666666" width="0.4583333333333333" height="0.4583333333333333" fill="#1c1917" />
+<rect x="197.5904516353841" y="0.1" width="0.4583333333333333" height="0.4583333333333333" fill="#1c1917" />
+<rect x="197.5904516353841" y="5.441666666666666" width="0.4583333333333333" height="0.4583333333333333" fill="#1c1917" />
+<rect x="204.921215157847" y="0.1" width="0.4583333333333333" height="0.4583333333333333" fill="#1c1917" />
+<rect x="204.921215157847" y="5.441666666666666" width="0.4583333333333333" height="0.4583333333333333" fill="#1c1917" />
+<line x1="191.65423654081934" y1="0" x2="196.65423654081934" y2="0" stroke="#ffffff" stroke-width="0.3" />
+<line x1="194.15423654081934" y1="-1.8" x2="194.15423654081934" y2="1.2" stroke="#1c1917" stroke-width="0.1" />
+<polygon points="194.15423654081934,1.9 193.55423654081935,0.9 194.75423654081933,0.9" fill="#1c1917" />
+<text x="194.15423654081934" y="-2.4" font-size="0.9" font-family="sans-serif" text-anchor="middle" fill="#1c1917">5'-0" CLR ENTRY</text>
+<rect x="184.808091257125" y="-0.5" width="0.7" height="0.5" fill="#1c1917" />
+<rect x="202.80038182451366" y="-0.5" width="0.7" height="0.5" fill="#1c1917" />
+<rect x="183.158091257125" y="0" width="21.992290567388665" height="6" fill="none" stroke="#57534e" stroke-width="0.1" stroke-dasharray="1,0.6" />
+<text x="194.15423654081934" y="5.5" font-size="0.85" font-family="sans-serif" text-anchor="middle" fill="#57534e">ROOF ABOVE (DASHED)</text>
+</g>
+<line x1="205.15038182451366" y1="6" x2="208.15038182451366" y2="6" stroke="#1c1917" stroke-width="0.06" />
+<line x1="205.15038182451366" y1="8" x2="208.15038182451366" y2="8" stroke="#1c1917" stroke-width="0.06" />
+<line x1="208.15038182451366" y1="6" x2="208.15038182451366" y2="8" stroke="#1c1917" stroke-width="0.08" />
+<line x1="207.75038182451365" y1="6.4" x2="208.55038182451366" y2="5.6" stroke="#1c1917" stroke-width="0.12" />
+<line x1="207.75038182451365" y1="8.4" x2="208.55038182451366" y2="7.6" stroke="#1c1917" stroke-width="0.12" />
+<text x="207.75038182451365" y="7" font-size="1.1" font-family="sans-serif" text-anchor="middle" fill="#1c1917" transform="rotate(-90 207.75038182451365 7)">2&apos;-0&quot; CLR</text>
+<g id="features">
+<g id="tree-216">
+<rect x="211.64714011687775" y="-4.2" width="9" height="4" fill="none" stroke="#57534e" stroke-width="0.09" />
+<circle cx="216.14714011687775" cy="-5.004712261570004" r="0.5" fill="#57534e" />
+<circle cx="216.14714011687775" cy="-5.004712261570004" r="4" fill="none" stroke="#78716c" stroke-width="0.07" stroke-dasharray="0.6,0.45" />
+<text x="216.44714011687776" y="-9.604712261570004" font-size="0.8" font-family="sans-serif" fill="#1c1917" transform="rotate(-90 216.44714011687776 -9.604712261570004)">EX. LONDON PLANE TREE</text>
+</g>
+<g id="tree-147">
+<rect x="142.08316038608928" y="-4.2" width="9" height="4" fill="none" stroke="#57534e" stroke-width="0.09" />
+<circle cx="146.58316038608928" cy="-2.5962843173396486" r="0.5" fill="#57534e" />
+<circle cx="146.58316038608928" cy="-2.5962843173396486" r="4" fill="none" stroke="#78716c" stroke-width="0.07" stroke-dasharray="0.6,0.45" />
+<text x="146.8831603860893" y="-7.196284317339648" font-size="0.8" font-family="sans-serif" fill="#1c1917" transform="rotate(-90 146.8831603860893 -7.196284317339648)">EX. SKYLINE HONEYLOCUST</text>
+</g>
+</g>
+<g id="dimensions">
+<line x1="183.158091257125" y1="6" x2="183.158091257125" y2="22.5" stroke="#1c1917" stroke-width="0.06" />
+<line x1="205.15038182451366" y1="6" x2="205.15038182451366" y2="22.5" stroke="#1c1917" stroke-width="0.06" />
+<line x1="183.158091257125" y1="22.5" x2="205.15038182451366" y2="22.5" stroke="#1c1917" stroke-width="0.08" />
+<line x1="182.758091257125" y1="22.9" x2="183.558091257125" y2="22.1" stroke="#1c1917" stroke-width="0.12" />
+<line x1="204.75038182451365" y1="22.9" x2="205.55038182451366" y2="22.1" stroke="#1c1917" stroke-width="0.12" />
+<text x="194.15423654081934" y="22.1" font-size="1.1" font-family="sans-serif" text-anchor="middle" fill="#1c1917">22&apos;-0&quot;</text>
+<line x1="143.158091257125" y1="6" x2="143.158091257125" y2="22.5" stroke="#1c1917" stroke-width="0.06" />
+<line x1="183.158091257125" y1="6" x2="183.158091257125" y2="22.5" stroke="#1c1917" stroke-width="0.06" />
+<line x1="143.158091257125" y1="22.5" x2="183.158091257125" y2="22.5" stroke="#1c1917" stroke-width="0.08" />
+<line x1="142.758091257125" y1="22.9" x2="143.558091257125" y2="22.1" stroke="#1c1917" stroke-width="0.12" />
+<line x1="182.758091257125" y1="22.9" x2="183.558091257125" y2="22.1" stroke="#1c1917" stroke-width="0.12" />
+<text x="163.158091257125" y="22.1" font-size="1.1" font-family="sans-serif" text-anchor="middle" fill="#1c1917">183&apos;-2&quot; TO IRVING ST NW (OFF SHEET)</text>
+<line x1="205.15038182451366" y1="6" x2="205.15038182451366" y2="22.5" stroke="#1c1917" stroke-width="0.06" />
+<line x1="245.15038182451366" y1="6" x2="245.15038182451366" y2="22.5" stroke="#1c1917" stroke-width="0.06" />
+<line x1="205.15038182451366" y1="22.5" x2="245.15038182451366" y2="22.5" stroke="#1c1917" stroke-width="0.08" />
+<line x1="204.75038182451365" y1="22.9" x2="205.55038182451366" y2="22.1" stroke="#1c1917" stroke-width="0.12" />
+<line x1="244.75038182451365" y1="22.9" x2="245.55038182451366" y2="22.1" stroke="#1c1917" stroke-width="0.12" />
+<text x="225.15038182451366" y="22.1" font-size="1.1" font-family="sans-serif" text-anchor="middle" fill="#1c1917">247&apos;-9&quot; TO KENYON ST NW (OFF SHEET)</text>
+<line x1="143.158091257125" y1="-23.8284004053044" x2="140.158091257125" y2="-23.8284004053044" stroke="#1c1917" stroke-width="0.06" />
+<line x1="143.158091257125" y1="0" x2="140.158091257125" y2="0" stroke="#1c1917" stroke-width="0.06" />
+<line x1="140.158091257125" y1="-23.8284004053044" x2="140.158091257125" y2="0" stroke="#1c1917" stroke-width="0.08" />
+<line x1="139.758091257125" y1="-23.4284004053044" x2="140.558091257125" y2="-24.2284004053044" stroke="#1c1917" stroke-width="0.12" />
+<line x1="139.758091257125" y1="0.4" x2="140.558091257125" y2="-0.4" stroke="#1c1917" stroke-width="0.12" />
+<text x="139.758091257125" y="-11.9142002026522" font-size="1.1" font-family="sans-serif" text-anchor="middle" fill="#1c1917" transform="rotate(-90 139.758091257125 -11.9142002026522)">23&apos;-10&quot; CURB-FAÇADE</text>
+<line x1="143.158091257125" y1="0" x2="140.158091257125" y2="0" stroke="#1c1917" stroke-width="0.06" />
+<line x1="143.158091257125" y1="8" x2="140.158091257125" y2="8" stroke="#1c1917" stroke-width="0.06" />
+<line x1="140.158091257125" y1="0" x2="140.158091257125" y2="8" stroke="#1c1917" stroke-width="0.08" />
+<line x1="139.758091257125" y1="0.4" x2="140.558091257125" y2="-0.4" stroke="#1c1917" stroke-width="0.12" />
+<line x1="139.758091257125" y1="8.4" x2="140.558091257125" y2="7.6" stroke="#1c1917" stroke-width="0.12" />
+<text x="139.758091257125" y="4" font-size="1.1" font-family="sans-serif" text-anchor="middle" fill="#1c1917" transform="rotate(-90 139.758091257125 4)">8&apos;-0&quot; PARK</text>
+<line x1="143.158091257125" y1="8" x2="140.158091257125" y2="8" stroke="#1c1917" stroke-width="0.06" />
+<line x1="143.158091257125" y1="20" x2="140.158091257125" y2="20" stroke="#1c1917" stroke-width="0.06" />
+<line x1="140.158091257125" y1="8" x2="140.158091257125" y2="20" stroke="#1c1917" stroke-width="0.08" />
+<line x1="139.758091257125" y1="8.4" x2="140.558091257125" y2="7.6" stroke="#1c1917" stroke-width="0.12" />
+<line x1="139.758091257125" y1="20.4" x2="140.558091257125" y2="19.6" stroke="#1c1917" stroke-width="0.12" />
+<text x="139.758091257125" y="14" font-size="1.1" font-family="sans-serif" text-anchor="middle" fill="#1c1917" transform="rotate(-90 139.758091257125 14)">12&apos;-0&quot; TRAVEL</text>
+<line x1="205.15038182451366" y1="0" x2="206.55038182451366" y2="0" stroke="#1c1917" stroke-width="0.06" />
+<line x1="205.15038182451366" y1="6" x2="206.55038182451366" y2="6" stroke="#1c1917" stroke-width="0.06" />
+<line x1="206.55038182451366" y1="0" x2="206.55038182451366" y2="6" stroke="#1c1917" stroke-width="0.08" />
+<line x1="206.15038182451366" y1="0.4" x2="206.95038182451367" y2="-0.4" stroke="#1c1917" stroke-width="0.12" />
+<line x1="206.15038182451366" y1="6.4" x2="206.95038182451367" y2="5.6" stroke="#1c1917" stroke-width="0.12" />
+<text x="206.15038182451366" y="3" font-size="1.1" font-family="sans-serif" text-anchor="middle" fill="#1c1917" transform="rotate(-90 206.15038182451366 3)">6&apos;-0&quot;</text>
+</g>
+<line x1="208.85038182451365" y1="25.15" x2="201.92195469976747" y2="4" stroke="#57534e" stroke-width="0.05" />
+<circle cx="201.92195469976747" cy="4" r="0.12" fill="#57534e" />
+<text x="209.15038182451366" y="25.5" font-size="1.0" font-family="sans-serif" fill="#1c1917">CONCRETE JERSEY BARRIER (DDOT) — ANGLED 45-60° (§4.2)</text>
+<g id="north-arrow" transform="translate(251.15038182451366, -41.8284004053044)">
+<circle cx="0" cy="0" r="3" fill="#ffffff" stroke="#1c1917" stroke-width="0.1" />
+<g transform="rotate(107.2)">
+<polygon points="0,-2.4 -0.8,1.6 0,0.9 0.8,1.6" fill="#1c1917" />
+</g>
+<text x="0" y="4.4" font-size="1.0" font-family="sans-serif" font-weight="700" text-anchor="middle" fill="#1c1917">N</text>
+</g>
+<text x="131.158091257125" y="29.5" font-size="1.15" font-family="sans-serif" font-weight="700" fill="#1c1917">NOTES</text>
+<text x="131.158091257125" y="31.1" font-size="0.85" font-family="sans-serif" fill="#44403c">1. Vehicular approach assumed from the high-station end (derived from side-of-street + route direction). SITE-WALK CONFIRM: verify traffic direction in the adjacent lane; one-way streets can flip this.</text>
+<text x="131.158091257125" y="32.5" font-size="0.85" font-family="sans-serif" fill="#44403c">2. Fire Department Connection locations are building-mounted and not in any DC dataset — SITE-WALK: confirm FDC position; enclosure needs a 3 ft gap at it.</text>
+<text x="131.158091257125" y="33.9" font-size="0.85" font-family="sans-serif" fill="#44403c">3. Building entrance locations are not in DC Open Data — SITE-WALK: mark building entrance(s) on this plan before submission (§5.2 site plan checklist).</text>
+<text x="131.158091257125" y="35.3" font-size="0.85" font-family="sans-serif" fill="#44403c">4. Sidewalk width 23&apos;-10&quot; measured curb-to-façade from DC Building Footprints. DDOT Roadway Block reports 16+ (IB) / 14 (OB) — includes planting zone; IB/OB side mapping unverified. FIELD-VERIFY clear ADA path of travel (5 ft min) on site walk.</text>
+<text x="131.158091257125" y="36.699999999999996" font-size="0.85" font-family="sans-serif" fill="#44403c">5. Existing utilities in/under/adjacent to the streatery are not in DC Open Data — the Utility Access Plan (§5.2 item 5) requires field locating + APWA color-code markings before install.</text>
+<text x="131.158091257125" y="38.099999999999994" font-size="0.85" font-family="sans-serif" fill="#44403c">6. §5.2 requires PHOTOS of existing street trees + tree pits with the site plan. Tree box dimensions from Urban Forestry where reported; dashed boxes are unreported (sentinel/missing) — measure on site walk.</text>
+<text x="131.158091257125" y="39.49999999999999" font-size="0.85" font-family="sans-serif" fill="#44403c">7. METER SCHEDULE — meters on this side of the block (some may sit beyond the drawn window): 14793192 (100&apos;-10&quot; from structure, governs 10 spaces). Multi-space pay stations govern spaces beyond their pole — CONFIRM which meters/spaces are removed or</text>
+<text x="131.158091257125" y="40.64999999999999" font-size="0.85" font-family="sans-serif" fill="#44403c">reprogrammed with DDOT at permit review.</text>
+<text x="131.158091257125" y="42.04999999999999" font-size="0.85" font-family="sans-serif" fill="#44403c">8. Existing curbside regulation (DDOT meter data): 07:00AM-08:30PM Mon-Fri $2.30 120 — verify posted signage on site walk.</text>
+<text x="131.158091257125" y="43.44999999999999" font-size="0.85" font-family="sans-serif" fill="#44403c">9. Seating layout: capacity 6 per §4.8 (96 usable SF / 15); all seating 1 ft clear of barriers/enclosure. Layout drawn on the G2.00 life-safety sheet (M5).</text>
+<g id="title-block">
+<rect x="232.15038182451366" y="33.85" width="26" height="12" fill="white" stroke="#1c1917" stroke-width="0.12" />
+<text x="233.15038182451366" y="35.65" font-size="1.3" font-family="sans-serif" font-weight="700" fill="#1c1917">MARTHA DEAR</text>
+<text x="233.15038182451366" y="37.15" font-size="0.95" font-family="sans-serif" fill="#44403c">3110 MOUNT PLEASANT STREET NW</text>
+<text x="233.15038182451366" y="39.050000000000004" font-size="1.05" font-family="sans-serif" font-weight="700" fill="#1c1917">SITE PLAN</text>
+<text x="233.15038182451366" y="40.45" font-size="0.85" font-family="sans-serif" fill="#44403c">SEATING CAPACITY: 6 (96 SF / 15)</text>
+<text x="233.15038182451366" y="41.75" font-size="0.85" font-family="sans-serif" fill="#44403c">GENERATED 2026-06-11 — SCALE: 1 UNIT = 1 FT</text>
+<text x="233.15038182451366" y="43.55" font-size="0.8" font-family="sans-serif" font-style="italic" fill="#a8a29e">AUTOMATED DRAFT — generated by streatery pre-screener v3.</text>
+<text x="233.15038182451366" y="44.650000000000006" font-size="0.8" font-family="sans-serif" font-style="italic" fill="#a8a29e">Architect review, refinement, and seal required before submission.</text>
+</g>
+<g id="scale-bar" transform="translate(131.158091257125, -47.8284004053044)">
+<rect x="0" y="0" width="5" height="0.5" fill="#1c1917" />
+<rect x="5" y="0" width="5" height="0.5" fill="white" stroke="#1c1917" stroke-width="0.06" />
+<text x="0" y="-0.4" font-size="0.8" font-family="sans-serif" fill="#1c1917">0</text>
+<text x="5" y="-0.4" font-size="0.8" font-family="sans-serif" text-anchor="middle" fill="#1c1917">5</text>
+<text x="10" y="-0.4" font-size="0.8" font-family="sans-serif" text-anchor="middle" fill="#1c1917">10 FT</text>
+</g>
+<text x="194.15423654081934" y="-12.9142002026522" font-size="3.2" font-family="sans-serif" font-weight="900" fill="#1c1917" fill-opacity="0.06" text-anchor="middle" dominant-baseline="middle" transform="rotate(-20 194.15423654081934 -12.9142002026522)">AUTOMATED DRAFT — ARCHITECT REVIEW REQUIRED</text>
+</svg>

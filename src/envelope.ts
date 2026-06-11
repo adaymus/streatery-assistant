@@ -5,8 +5,15 @@
  * blockface curb polyline, and all the curb features fetched by the data
  * layer, this module:
  *
- *   1. Projects the building onto the blockface to find its "frontage
- *      window" (a 50 ft slice of curb in front of the operator's lot).
+ *   1. Derives the building's "frontage window" — the slice of curb the
+ *      streatery may occupy. When DC Building Footprints returns a
+ *      polygon, the window is the footprint's actual extent projected
+ *      onto the curb line. DDOT limits a streatery to the business's own
+ *      street frontage in practice (the regs allow extending past it
+ *      with neighbor consent, but approvals to date have not) — so the
+ *      real storefront width, not an assumption, caps the envelope.
+ *      Fallback when no footprint exists: a 50 ft window centered on
+ *      the geocoded address point.
  *   2. Projects every constraining curb feature onto the same line and
  *      converts each into a "forbidden interval" along the curb, sized by
  *      that feature's DDOT Section 3 buffer (10 ft for hydrants, 15 ft for
@@ -88,6 +95,27 @@ const OPPOSITE_SIDE_THRESHOLD_FT = 25;
 const DEFAULT_FRONTAGE_FT = 50;
 const STANDARD_PARKING_SPACE_FT = 20;
 
+/**
+ * When deriving frontage from the building footprint, keep only the
+ * polygon vertices whose curb offset is within this band of the CLOSEST
+ * vertex's offset. The closest vertex sits on the front wall; the band
+ * keeps the rest of the front wall plus the near ends of the side
+ * walls, and drops (a) the rear of deep buildings and (b) the wing of a
+ * corner building that runs down the cross street — both of which would
+ * otherwise smear the projected extent and overstate the frontage.
+ */
+const FRONTAGE_VERTEX_BAND_FT = 30;
+
+/**
+ * A footprint-derived frontage narrower than this is geometry noise
+ * (e.g. a sliver polygon, or a footprint that barely clips the
+ * blockface) — fall back to the assumed window instead.
+ */
+const MIN_PLAUSIBLE_FRONTAGE_FT = 8;
+
+/** How far past the frontage a neighbor-consent extension reaches, per side. */
+const EXTENSION_PER_SIDE_FT = 25;
+
 /** Per the agreed thresholds (CLAUDE.md, 2026-05-22). */
 const VERDICT_ELIGIBLE_MIN_FT = 20;
 const VERDICT_CAVEATS_MIN_FT = 12;
@@ -124,6 +152,21 @@ export interface EligibilityResult {
   bindingConstraints: BindingConstraint[];
   /** Hard disqualifiers that override envelope-based logic. */
   hardDisqualifiers: string[];
+  /**
+   * The frontage window the envelope was confined to, and where it came
+   * from. "building_footprint" = real storefront extent from DC Building
+   * Footprints (what DDOT actually approves against); "operator_override"
+   * = an explicit frontageLengthFt was passed in (modeling a §4.1
+   * consent-based extension); "assumed_default" = 50 ft centered on the
+   * address point because no footprint was found — downstream consumers
+   * should flag that for operator confirmation.
+   */
+  frontage: {
+    startAlongBlockfaceFt: number;
+    endAlongBlockfaceFt: number;
+    lengthFt: number;
+    source: "building_footprint" | "operator_override" | "assumed_default";
+  };
   /** If extending the frontage window would meaningfully help. */
   extensionOpportunity: {
     couldHelp: boolean;
@@ -138,8 +181,11 @@ export interface EligibilityResult {
  * Convert an ArcGIS polyline ({ paths: [[[lon, lat], ...]] }) to a Turf
  * LineString feature. We take the first path only; multi-path blockfaces
  * don't occur in practice for a single side of a single block.
+ *
+ * Exported for the v3 design pipeline, which needs the same blockface
+ * LineString to project curb features into station coordinates.
  */
-function arcgisToLineString(
+export function arcgisToLineString(
   arcgisGeometry: unknown,
 ): Feature<LineString> | null {
   const paths = (arcgisGeometry as { paths?: number[][][] } | null)?.paths;
@@ -159,8 +205,12 @@ function arcgisToLineString(
  *
  * If the measure ranges aren't available or don't fit, return the raw
  * line unchanged — the envelope math degrades gracefully.
+ *
+ * Exported for the v3 design pipeline (station coordinates must be
+ * measured along the SAME clipped line the envelope was computed on,
+ * or envelope.startAlongBlockfaceFt wouldn't line up).
  */
-function clipBlockfaceToBlock(
+export function clipBlockfaceToBlock(
   rawLine: Feature<LineString>,
   blockfaceMeasFrom: number | null,
   blockfaceMeasTo: number | null,
@@ -202,8 +252,12 @@ function clipBlockfaceToBlock(
  * Project a lat/lon point onto a line, returning the position along the
  * line (in feet from the line's start) and the perpendicular distance from
  * the point to the line.
+ *
+ * Exported for the v3 design pipeline: (positionFt, distanceFromLineFt)
+ * is exactly the "station / offset" coordinate frame the drawing
+ * generators work in — feet along the curb × feet from the curb.
  */
-function projectOntoLine(
+export function projectOntoLine(
   lat: number,
   lon: number,
   line: Feature<LineString>,
@@ -218,6 +272,69 @@ function projectOntoLine(
     positionFt: (snapped.properties.location ?? 0) * FT_PER_KM,
     distanceFromLineFt: (snapped.properties.dist ?? 0) * FT_PER_KM,
   };
+}
+
+/**
+ * Derive the frontage window from the building footprint polygon.
+ *
+ * Every ring vertex gets projected into the station/offset frame
+ * (feet along the curb × feet from the curb). The vertex closest to
+ * the curb is on the front wall; we keep all vertices within
+ * FRONTAGE_VERTEX_BAND_FT of that offset (the front of the building)
+ * and take the min/max station among them. That [min, max] interval IS
+ * the storefront's extent along the curb.
+ *
+ * Why filter by offset at all? Two failure modes if we naively take
+ * min/max over every vertex:
+ *   - Corner buildings (e.g. Purple Patch at 3155 Mt Pleasant = 1620
+ *     Lamont — one polygon, two streets): the wing running down the
+ *     cross street projects onto our blockface's endpoint and would
+ *     stretch the frontage to the corner even where the Mt Pleasant
+ *     storefront stops short of it.
+ *   - L-shaped or rear-addition footprints: back-of-lot geometry can
+ *     project to stations outside the actual storefront.
+ *
+ * Returns null when the footprint produces an implausible window —
+ * the caller falls back to the assumed 50 ft window.
+ */
+export function frontageWindowFromFootprint(
+  ring: number[][],
+  blockface: Feature<LineString>,
+  blockfaceLengthFt: number,
+): { startFt: number; endFt: number } | null {
+  // Project every vertex into station/offset coordinates.
+  const projections: Array<{ positionFt: number; distanceFromLineFt: number }> =
+    [];
+  for (const vertex of ring) {
+    const lon = vertex[0];
+    const lat = vertex[1];
+    if (lon == null || lat == null) continue;
+    projections.push(projectOntoLine(lat, lon, blockface));
+  }
+  if (projections.length < 3) return null;
+
+  // The smallest curb offset locates the front wall (typically the
+  // sidewalk width, ~10-20 ft in Mt Pleasant).
+  const frontWallOffsetFt = Math.min(
+    ...projections.map((p) => p.distanceFromLineFt),
+  );
+  const frontVertices = projections.filter(
+    (p) => p.distanceFromLineFt <= frontWallOffsetFt + FRONTAGE_VERTEX_BAND_FT,
+  );
+  if (frontVertices.length < 2) return null;
+
+  // The storefront's extent along the curb, clamped to the block.
+  const startFt = Math.max(
+    0,
+    Math.min(...frontVertices.map((p) => p.positionFt)),
+  );
+  const endFt = Math.min(
+    blockfaceLengthFt,
+    Math.max(...frontVertices.map((p) => p.positionFt)),
+  );
+  if (endFt - startFt < MIN_PLAUSIBLE_FRONTAGE_FT) return null;
+
+  return { startFt, endFt };
 }
 
 /**
@@ -245,8 +362,14 @@ function sliceLineByMeasure(
  *
  * This is the classic interval-coverage problem: sort, merge overlaps,
  * walk the merged intervals tracking the largest gap.
+ *
+ * Exported because the v3 layout solver (src/design/layout.ts) reuses the
+ * exact same algorithm for ROOF extent: §4.3 forbids overhead structures
+ * within 25 ft of a crosswalk / 40 ft of an intersection without one /
+ * 5 ft of a tree trunk — same "subtract forbidden intervals, keep the
+ * longest gap" problem, just with a different buffer table.
  */
-function longestGapInWindow(
+export function longestGapInWindow(
   windowStart: number,
   windowEnd: number,
   forbidden: Array<[number, number]>,
@@ -466,18 +589,42 @@ export function computeEligibility(
   const blockfaceLengthFt =
     length(blockface, { units: "kilometers" }) * FT_PER_KM;
 
-  // 1. Project the building onto the blockface to anchor the frontage window.
-  const projected = projectOntoLine(
-    args.geocoded.mar.latitude,
-    args.geocoded.mar.longitude,
-    blockface,
-  );
-  const frontageCenter = projected.positionFt;
-  const frontageStart = Math.max(0, frontageCenter - frontageLengthFt / 2);
-  const frontageEnd = Math.min(
-    blockfaceLengthFt,
-    frontageCenter + frontageLengthFt / 2,
-  );
+  // 1. Determine the frontage window — the slice of curb the streatery
+  // may occupy. DDOT limits approvals to the business's own storefront
+  // width in practice (confirmed against the Martha Dear approved set:
+  // 35'-3 1/2" as built vs the 50 ft our assumed window allowed), so
+  // prefer the real footprint extent when DC Building Footprints has
+  // one. An explicit frontageLengthFt arg (operator override) wins over
+  // both; no footprint falls back to 50 ft centered on the address.
+  const footprintRing = args.geocoded.buildingFootprint?.ring;
+  const footprintWindow =
+    args.frontageLengthFt == null && footprintRing
+      ? frontageWindowFromFootprint(footprintRing, blockface, blockfaceLengthFt)
+      : null;
+
+  let frontageStart: number;
+  let frontageEnd: number;
+  let frontageSource: EligibilityResult["frontage"]["source"];
+  if (footprintWindow) {
+    frontageStart = footprintWindow.startFt;
+    frontageEnd = footprintWindow.endFt;
+    frontageSource = "building_footprint";
+  } else {
+    // Fallback: center an assumed window on the geocoded address point.
+    const projected = projectOntoLine(
+      args.geocoded.mar.latitude,
+      args.geocoded.mar.longitude,
+      blockface,
+    );
+    const frontageCenter = projected.positionFt;
+    frontageStart = Math.max(0, frontageCenter - frontageLengthFt / 2);
+    frontageEnd = Math.min(
+      blockfaceLengthFt,
+      frontageCenter + frontageLengthFt / 2,
+    );
+    frontageSource =
+      args.frontageLengthFt != null ? "operator_override" : "assumed_default";
+  }
 
   // 2. Hard disqualifiers that override everything else.
   const hardDisqualifiers: string[] = [];
@@ -575,13 +722,16 @@ export function computeEligibility(
   }
 
   // 8. Frontage extension opportunity. What if the operator got consent
-  // to extend into their neighbor's frontage on both sides?
-  const extendedFrontageFt = frontageLengthFt + 50; // +25 ft on each side
-  const extendedStart = Math.max(0, frontageCenter - extendedFrontageFt / 2);
+  // to extend into their neighbor's frontage on both sides? (The regs
+  // allow this with adjacent-owner + ground-floor-tenant letters, even
+  // though DDOT hasn't approved one yet — worth surfacing as a "what
+  // if," never as the default envelope.)
+  const extendedStart = Math.max(0, frontageStart - EXTENSION_PER_SIDE_FT);
   const extendedEnd = Math.min(
     blockfaceLengthFt,
-    frontageCenter + extendedFrontageFt / 2,
+    frontageEnd + EXTENSION_PER_SIDE_FT,
   );
+  const extendedFrontageFt = extendedEnd - extendedStart;
   const extendedGap = longestGapInWindow(
     extendedStart,
     extendedEnd,
@@ -598,6 +748,12 @@ export function computeEligibility(
     envelope,
     bindingConstraints,
     hardDisqualifiers,
+    frontage: {
+      startAlongBlockfaceFt: frontageStart,
+      endAlongBlockfaceFt: frontageEnd,
+      lengthFt: frontageEnd - frontageStart,
+      source: frontageSource,
+    },
     extensionOpportunity: {
       couldHelp,
       extendedEnvelopeLengthFt: extendedLength,
@@ -647,6 +803,12 @@ function inelligibleResult(reason: string): EligibilityResult {
     },
     bindingConstraints: [],
     hardDisqualifiers: [reason],
+    frontage: {
+      startAlongBlockfaceFt: 0,
+      endAlongBlockfaceFt: 0,
+      lengthFt: 0,
+      source: "assumed_default",
+    },
     extensionOpportunity: {
       couldHelp: false,
       extendedEnvelopeLengthFt: 0,

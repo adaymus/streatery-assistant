@@ -57,6 +57,17 @@ export interface PrescreenResult {
   fetchedAt: string; // ISO timestamp
 }
 
+export interface PrescreenOptions {
+  /**
+   * Override the frontage window length (feet), centered on the address
+   * point. Bypasses the building-footprint derivation — use it to model
+   * a consent-based frontage extension (§4.1: adjacent owner +
+   * ground-floor tenant letters) or to reproduce an approved set that
+   * extends past the business's own frontage.
+   */
+  frontageLengthFt?: number;
+}
+
 /**
  * Run the full pre-screen for an address.
  *
@@ -65,6 +76,7 @@ export interface PrescreenResult {
  */
 export async function prescreenAddress(
   rawAddress: string,
+  options: PrescreenOptions = {},
 ): Promise<PrescreenResult> {
   const geocoded = await geocodeAddress(rawAddress);
 
@@ -113,13 +125,17 @@ export async function prescreenAddress(
   const earlyDisqualifiers = computeEarlyDisqualifiers(geocoded);
 
   // Skip envelope math if an early disqualifier already short-circuits the
-  // decision. Speeds beyond 30 mph or arterial classification mean the
+  // decision. Speeds beyond 30 mph or freeway/interstate classification mean the
   // address is INELIGIBLE regardless of curb features — no point doing
   // the geometric work.
   const eligibility =
     earlyDisqualifiers.length > 0
       ? null
-      : computeEligibility({ geocoded, curbFeatures });
+      : computeEligibility({
+          geocoded,
+          curbFeatures,
+          frontageLengthFt: options.frontageLengthFt,
+        });
 
   return {
     geocoded,
@@ -149,20 +165,24 @@ function computeEarlyDisqualifiers(
     });
   }
 
-  // FHWA functional class 1-3 are Interstate / Freeway / Principal Arterial,
-  // all disqualifying. 4+ are eligible. DC equivalents: 11, 12, 14.
+  // Per §3.1, a PARKING-LANE streatery is prohibited only on Interstate
+  // (FHWA 1) and Other Freeway/Expressway (FHWA 2). Principal Arterials
+  // (FHWA 3) are NOT disqualified — they're eligible but require Type 1
+  // (3-sided, pinned) Jersey barriers per §4.2. Minor Arterials (4) and
+  // Collector/Local (5-7) are eligible too. Barrier-type selection (Type 1
+  // vs Type 2) is a separate concern we don't compute yet. DC equivalents
+  // that disqualify: 11 (Interstate), 12 (Freeway).
   if (
     block.functionalClassFhwa != null &&
     block.functionalClassFhwa >= 1 &&
-    block.functionalClassFhwa <= 3
+    block.functionalClassFhwa <= 2
   ) {
     const labels: Record<number, string> = {
       1: "Interstate",
       2: "Other Freeway / Expressway",
-      3: "Principal Arterial",
     };
     out.push({
-      rule: "Street cannot be an arterial, freeway, or interstate",
+      rule: "Street cannot be a freeway or interstate",
       detail: `${block.blockName} is classified as FHWA ${block.functionalClassFhwa} (${labels[block.functionalClassFhwa]})`,
     });
   }
