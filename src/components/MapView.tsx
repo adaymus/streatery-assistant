@@ -80,7 +80,7 @@ export function MapView({ result }: MapViewProps): React.ReactElement {
   return (
     <div
       ref={containerRef}
-      className="w-full h-80 md:h-full min-h-72 rounded-lg border border-stone-200 overflow-hidden"
+      className="w-full h-80 min-h-72 rounded-xs border border-hairline overflow-hidden"
     />
   );
 }

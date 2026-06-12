@@ -1,59 +1,46 @@
 /**
- * Address input with quick-pick buttons for the cohort restaurants the
- * tool was built for. Quick picks let Mitra and other testers click
- * through known-good addresses without typing.
+ * Address input with example chips.
+ *
+ * General-audience redesign: the old version organized quick picks by
+ * District Bridges cohort ("Initial cohort", "Second wave") — insider
+ * framing that meant nothing to a citizen or journalist. Examples are
+ * now a single row of neighborhood restaurant chips: still one-click
+ * for returning operators, but they read as "try it" invitations.
  */
 import { useState } from "react";
 
-interface QuickPick {
+interface ExamplePick {
   label: string;
   address: string;
 }
 
-interface QuickPickGroup {
-  label: string;
-  items: QuickPick[];
-}
-
-// Cohort restaurants from the District Bridges streatery rollout, plus a
-// cross-street test address. Order within Second wave is by street number
-// (north-to-south along the Mt Pleasant corridor) so the list reads
-// geographically when scanning.
-const QUICK_PICK_GROUPS: QuickPickGroup[] = [
-  {
-    label: "Initial cohort",
-    items: [
-      { label: "Martha Dear", address: "3110 Mount Pleasant Street NW" },
-      { label: "Purple Patch", address: "3155 Mount Pleasant Street NW" },
-    ],
-  },
-  {
-    label: "Second wave",
-    items: [
-      { label: "Suns Cinema", address: "3107 Mount Pleasant Street NW" },
-      { label: "Beau Thai", address: "3162 Mount Pleasant Street NW" },
-      { label: "Marx Cafe", address: "3203 Mount Pleasant Street NW" },
-      { label: "La Tejana", address: "3211 Mount Pleasant Street NW" },
-      { label: "Joia Burger", address: "3213 Mount Pleasant Street NW" },
-      { label: "Ellē", address: "3221 Mount Pleasant Street NW" },
-    ],
-  },
-  {
-    label: "Cross-street test",
-    items: [
-      { label: "1620 Lamont St NW", address: "1620 Lamont Street NW" },
-    ],
-  },
+// Mt. Pleasant restaurants, ordered by street number so the row reads
+// geographically along the corridor. The Lamont St entry exercises the
+// cross-street (E-W) code path and shows users it's not just one street.
+const EXAMPLES: ExamplePick[] = [
+  { label: "Suns Cinema", address: "3107 Mount Pleasant Street NW" },
+  { label: "Martha Dear", address: "3110 Mount Pleasant Street NW" },
+  { label: "Purple Patch", address: "3155 Mount Pleasant Street NW" },
+  { label: "Beau Thai", address: "3162 Mount Pleasant Street NW" },
+  { label: "Marx Cafe", address: "3203 Mount Pleasant Street NW" },
+  { label: "La Tejana", address: "3211 Mount Pleasant Street NW" },
+  { label: "Joia Burger", address: "3213 Mount Pleasant Street NW" },
+  { label: "Ellē", address: "3221 Mount Pleasant Street NW" },
+  { label: "1620 Lamont St", address: "1620 Lamont Street NW" },
 ];
 
 interface AddressFormProps {
   onSubmit: (address: string) => void;
   isSubmitting: boolean;
+  /** Show the example chips (landing only — once a result is up, the
+      compact search row is enough). */
+  showExamples: boolean;
 }
 
 export function AddressForm({
   onSubmit,
   isSubmitting,
+  showExamples,
 }: AddressFormProps): React.ReactElement {
   const [value, setValue] = useState("");
 
@@ -64,19 +51,16 @@ export function AddressForm({
     onSubmit(trimmed);
   };
 
-  const handleQuickPick = (address: string): void => {
+  const handleExample = (address: string): void => {
     setValue(address);
     onSubmit(address);
   };
 
   return (
-    <div className="space-y-6">
-      <form onSubmit={handleSubmit} className="space-y-2">
-        <label
-          htmlFor="address-input"
-          className="block text-sm font-medium text-stone-700"
-        >
-          Address
+    <div>
+      <form onSubmit={handleSubmit} className="sm:flex sm:gap-2 space-y-2 sm:space-y-0">
+        <label htmlFor="address-input" className="sr-only">
+          Mt. Pleasant address
         </label>
         <input
           id="address-input"
@@ -89,51 +73,41 @@ export function AddressForm({
           autoCapitalize="words"
           // text-base (16px) on mobile prevents iOS Safari from zooming on
           // focus. text-sm is fine on desktop where there's no zoom behavior.
-          className="w-full px-3 py-2.5 text-base sm:text-sm border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-400 focus:border-stone-400 disabled:bg-stone-100"
+          className="w-full sm:flex-1 px-3.5 py-3 text-base sm:text-sm bg-vellum border border-rule rounded-xs placeholder:text-graphite-faint focus:outline-none focus:ring-2 focus:ring-brick/40 focus:border-brick disabled:bg-wash disabled:text-graphite-faint"
         />
         <button
           type="submit"
           disabled={isSubmitting || value.trim().length === 0}
-          // py-3 on mobile bumps the touch target above ~44px — Apple's
-          // recommended minimum for finger taps. Stays compact on desktop
-          // where pointer precision is higher.
-          className="w-full px-4 py-3 sm:py-2 text-sm font-medium text-white bg-stone-800 rounded-md hover:bg-stone-900 disabled:bg-stone-300 disabled:cursor-not-allowed transition-colors"
+          // py-3 keeps the touch target above ~44px on mobile — Apple's
+          // recommended minimum for finger taps.
+          className="w-full sm:w-auto px-5 py-3 text-sm font-semibold text-vellum bg-brick rounded-xs hover:bg-brick-deep disabled:bg-graphite-faint disabled:cursor-not-allowed transition-colors duration-150"
         >
-          {isSubmitting ? "Checking..." : "Pre-screen"}
+          {isSubmitting ? "Checking..." : "Check this address"}
         </button>
       </form>
 
-      <div className="space-y-5">
-        <h3 className="text-xs font-semibold text-stone-500 uppercase tracking-wide">
-          Quick picks
-        </h3>
-        {QUICK_PICK_GROUPS.map((group) => (
-          <div key={group.label}>
-            <h4 className="text-xs font-medium text-stone-400 uppercase tracking-wide mb-1.5 px-3">
-              {group.label}
-            </h4>
-            <ul className="space-y-0.5">
-              {group.items.map((pick) => (
-                <li key={pick.address}>
-                  <button
-                    type="button"
-                    onClick={() => handleQuickPick(pick.address)}
-                    disabled={isSubmitting}
-                    className="w-full text-left px-3 py-3 sm:py-2 text-sm rounded-md hover:bg-stone-100 active:bg-stone-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                  >
-                    <div className="font-medium text-stone-800">
-                      {pick.label}
-                    </div>
-                    <div className="text-xs text-stone-500 font-mono">
-                      {pick.address}
-                    </div>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
+      {showExamples && (
+        <div className="mt-4">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-graphite-faint mb-2">
+            Or try a neighborhood restaurant
+          </p>
+          <ul className="flex flex-wrap gap-1.5">
+            {EXAMPLES.map((pick) => (
+              <li key={pick.address}>
+                <button
+                  type="button"
+                  onClick={() => handleExample(pick.address)}
+                  disabled={isSubmitting}
+                  title={pick.address}
+                  className="px-3 py-1.5 text-sm text-graphite bg-vellum border border-hairline rounded-xs hover:border-rule hover:bg-wash active:bg-wash disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-150"
+                >
+                  {pick.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

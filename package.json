@@ -30,6 +30,7 @@
     "wrangler": "^4.94.0"
   },
   "dependencies": {
+    "@fontsource-variable/public-sans": "^5.2.7",
     "@turf/along": "^7.3.5",
     "@turf/helpers": "^7.3.5",
     "@turf/length": "^7.3.5",

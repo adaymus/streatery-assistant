@@ -1,7 +1,62 @@
 /* Tailwind v4 syntax: a single @import pulls in core + utilities.
-   No tailwind.config.js needed unless we want to customize the theme. */
+   Theme customization happens in the @theme block below — no
+   tailwind.config.js needed. */
 @import "tailwindcss";
 
 /* MapLibre's stylesheet ships as a regular CSS file; bundling it here
    means we don't have to add a separate <link> in index.html. */
 @import "maplibre-gl/dist/maplibre-gl.css";
+
+/* Public Sans — the U.S. Web Design System typeface. Chosen because this
+   is a civic tool and these are the letterforms of well-made public
+   documents. Variable font: one file covers every weight we use. */
+@import "@fontsource-variable/public-sans";
+
+/* ---------------------------------------------------------------------
+   Design tokens — the drafting-civic system.
+
+   The product generates architect's drawing sheets; the UI speaks the
+   same language: graphite ink on warm vellum paper, hairline rules for
+   structure (borders-only depth — no shadows), and color used only
+   where it means something:
+
+     brick   — Mt. Pleasant's rowhouses and sidewalks. Actions + links.
+     tree    — the willow-oak canopy. ELIGIBLE.
+     curb    — curb-paint yellow. ELIGIBLE WITH CAVEATS.
+     signal  — stop-sign red. INELIGIBLE.
+
+   Surfaces are three whisper-apart warm papers: `desk` (the page
+   background), `vellum` (the sheet you read), `wash` (inset panels on
+   the sheet). Rules come in two weights: `hairline` disappears until
+   you look for it; `rule` is the findable edge of a title block.
+   --------------------------------------------------------------------- */
+@theme {
+  --font-sans: "Public Sans Variable", system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+
+  /* Surfaces (light → lighter; barely different, still distinguishable) */
+  --color-desk: #f3eee2;
+  --color-vellum: #fcfaf4;
+  --color-wash: #f6f2e7;
+
+  /* Ink */
+  --color-graphite: #2b2620;
+  --color-graphite-soft: #6d6557;
+  --color-graphite-faint: #9c937f;
+
+  /* Rules */
+  --color-hairline: #e6dfce;
+  --color-rule: #beb398;
+
+  /* Brick — the one accent. Actions, links, emphasis. */
+  --color-brick: #9c3d22;
+  --color-brick-deep: #7c3019;
+
+  /* Semantic — verdicts only, never decoration */
+  --color-tree: #3f6b39;
+  --color-tree-wash: #edf1e2;
+  --color-curb: #8a6c1c;
+  --color-curb-wash: #f6efd7;
+  --color-signal: #9e3434;
+  --color-signal-wash: #f6e9e5;
+}
