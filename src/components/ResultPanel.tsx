@@ -437,9 +437,11 @@ function PrintPackageButton({
 }
 
 /**
- * Draft drawing set — renders the 11 sheets client-side and opens the
- * printable view. Slower than the package (it fetches more site data),
- * so the busy label says what's happening; errors surface inline.
+ * Draft drawing set — renders the schematic sheets (plan + elevations,
+ * outline + dimensions only) client-side and opens the printable view.
+ * Slower than the package (it fetches more site data), so the busy
+ * label says what's happening; errors surface inline. The full packet
+ * is still available from the CLI (`npm run drawings -- ... --pdf`).
  */
 function PrintDrawingSetButton({
   result,

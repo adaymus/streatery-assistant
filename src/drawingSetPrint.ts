@@ -2,13 +2,17 @@
  * Drawing set — PDF export via printable HTML view.
  *
  * Same "render then print" pattern as the submission package
- * (submissionPackagePrint.ts), applied to the 11-sheet drawing set the
- * CLI produces with `npm run drawings -- "<addr>" --pdf`:
+ * (submissionPackagePrint.ts), applied to the drawing set the CLI
+ * produces with `npm run drawings -- "<addr>" --pdf`:
  *
  *   1. Run the design pipeline (site context → parametric inputs →
  *      layout) on the already-fetched PrescreenResult
- *   2. Render every sheet in SHEET_INDEX to SVG and fit each onto a
- *      tabloid (11×17) page at a standard architect's scale
+ *   2. Render each sheet to SVG and fit it onto a tabloid (11×17) page
+ *      at a standard architect's scale
+ *
+ * Defaults to the SCHEMATIC set (plan + 4 elevations, outline +
+ * dimensions only) — see DrawingSetOptions for why and how to flip it
+ * back to the full packet.
  *   3. Inline the SVGs into a print-styled HTML document, one sheet
  *      per page (@page size matches the sheet's physical size)
  *   4. Open in a new tab, auto-trigger window.print()
@@ -36,9 +40,25 @@ import type { PrescreenResult } from "./prescreen.js";
 import { extractSiteContext } from "./design/siteContext.js";
 import { extractInputs } from "./design/extractInputs.js";
 import { layoutStreatery } from "./design/layout.js";
-import { SHEET_INDEX } from "./design/sheetIndex.js";
+import { SHEET_INDEX, SCHEMATIC_SHEET_INDEX } from "./design/sheetIndex.js";
 import { VIEWS } from "./design/views.js";
 import { fitSheetToPage, PAGE_SIZES } from "./design/page.js";
+
+/**
+ * Options for the drawing-set export.
+ *
+ * `schematic` defaults to TRUE: the web export ships the simple
+ * outline+dimensions set (plan + 4 elevations) rather than the full
+ * 11-sheet packet. That's the deliberate default while the packet's
+ * boilerplate is still being validated against reference docs — we'd
+ * rather show something honest and obviously-schematic than something
+ * that LOOKS sealed but isn't. As more reference sets are learned from,
+ * detail gets added back and this can flip to false (or grow into a
+ * per-sheet toggle).
+ */
+export interface DrawingSetOptions {
+  schematic?: boolean;
+}
 
 /** The page every sheet is fitted to. Matches PAGE_SIZES.tabloid. */
 const PAGE_ID = "tabloid" as const;
@@ -54,6 +74,7 @@ const PAGE_ID = "tabloid" as const;
  */
 export async function openPrintableDrawingSet(
   result: PrescreenResult,
+  options: DrawingSetOptions = {},
 ): Promise<void> {
   // Open the tab BEFORE any await — popup blockers only trust
   // window.open calls made synchronously inside the user's click.
@@ -66,7 +87,7 @@ export async function openPrintableDrawingSet(
   let fullHtml: string;
   let title: string;
   try {
-    ({ html: fullHtml, title } = await buildDrawingSetHtml(result));
+    ({ html: fullHtml, title } = await buildDrawingSetHtml(result, options));
   } catch (err) {
     // Don't leave an orphaned "generating..." tab behind on failure.
     printWindow?.close();
@@ -94,7 +115,11 @@ export async function openPrintableDrawingSet(
  */
 export async function buildDrawingSetHtml(
   result: PrescreenResult,
+  options: DrawingSetOptions = {},
 ): Promise<{ html: string; title: string }> {
+  // Schematic by default — see DrawingSetOptions.
+  const schematic = options.schematic ?? true;
+
   // Site context first: it measures how far the blockface line sits
   // from the real curb, and that correction feeds extractInputs' curb-
   // relative tree/crosswalk filters before the layout is solved. (Same
@@ -105,7 +130,10 @@ export async function buildDrawingSetHtml(
   });
   const design = layoutStreatery(inputs);
 
-  const sheets = SHEET_INDEX.map((sheet) => {
+  // Schematic trims the set to the plan + elevations; the renderers get
+  // the same flag so they draw outline + dimensions only.
+  const sheetIndex = schematic ? SCHEMATIC_SHEET_INDEX : SHEET_INDEX;
+  const sheets = sheetIndex.map((sheet) => {
     const render = VIEWS[sheet.view];
     if (!render) {
       throw new Error(
@@ -115,13 +143,14 @@ export async function buildDrawingSetHtml(
     return {
       number: sheet.number,
       title: sheet.title,
-      svg: fitSheetToPage(render(design, siteContext), PAGE_ID),
+      svg: fitSheetToPage(render(design, siteContext, { schematic }), PAGE_ID),
     };
   });
 
   const addressSlug = slugify(result.geocoded.mar.fullAddress);
   const dateSlug = new Date().toISOString().slice(0, 10);
-  const title = `streatery-drawing-set-${addressSlug}-${dateSlug}`;
+  const kind = schematic ? "schematic-set" : "drawing-set";
+  const title = `streatery-${kind}-${addressSlug}-${dateSlug}`;
 
   return { html: wrapInPrintableDocument(sheets, title), title };
 }
