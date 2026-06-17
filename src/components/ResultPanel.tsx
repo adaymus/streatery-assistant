@@ -15,6 +15,7 @@ import { lazy, Suspense, useState } from "react";
 
 import type { PrescreenResult } from "../prescreen.js";
 import type { Verdict } from "../envelope.js";
+import type { CostEstimate, CostLineItem } from "../costEstimate.js";
 import { ftIn } from "../design/renderers/shared.js";
 import { EnvelopeStrip } from "./EnvelopeStrip.js";
 
@@ -161,6 +162,14 @@ export function ResultPanel({ result }: ResultPanelProps): React.ReactElement {
           ))}
         </ul>
       </section>
+
+      {/* ---------- What it might cost ---------- */}
+      {result.costEstimate && verdict !== "INELIGIBLE" && (
+        <section className="border-t border-hairline px-5 sm:px-7 py-6">
+          <SectionLabel>What it might cost</SectionLabel>
+          <CostEstimateSection estimate={result.costEstimate} />
+        </section>
+      )}
 
       {/* ---------- Next steps, by reader ---------- */}
       <section className="border-t border-hairline px-5 sm:px-7 py-6">
@@ -346,6 +355,108 @@ function PlainAnswer({
           no realistic streatery design fits in that space.
         </p>
       )}
+    </div>
+  );
+}
+
+// ---------- Cost estimate ----------
+
+/** "$5,000" — whole dollars, no cents (this is a ballpark, not an invoice). */
+function usd(amount: number): string {
+  return amount.toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  });
+}
+
+/** Render a low–high pair as "$5,000–$10,000", collapsing to a single figure
+ *  when low === high, and showing "—" for the unpriced lines (insurance etc.). */
+function usdRange(lowUsd: number | null, highUsd: number | null): string {
+  if (lowUsd == null || highUsd == null) return "—";
+  if (lowUsd === highUsd) return usd(lowUsd);
+  return `${usd(lowUsd)}–${usd(highUsd)}`;
+}
+
+function CostEstimateSection({
+  estimate,
+}: {
+  estimate: CostEstimate;
+}): React.ReactElement {
+  return (
+    <div>
+      {/* The one-line ballpark the operator actually asked for, up top; the
+          itemized breakdown below backs it up. */}
+      <p className="mt-1.5 mb-5 text-sm sm:text-base text-graphite-soft max-w-2xl">
+        Roughly{" "}
+        <strong className="text-graphite">
+          {usdRange(estimate.oneTimeTotalLowUsd, estimate.oneTimeTotalHighUsd)}
+        </strong>{" "}
+        to design and build, plus about{" "}
+        <strong className="text-graphite">
+          {usd(estimate.annualTotalLowUsd)}/year
+        </strong>{" "}
+        in city rent on the ~{estimate.footprintSqFt} sq ft footprint. These are
+        ballpark figures to plan around — not a quote.
+      </p>
+
+      <div className="grid gap-6 sm:grid-cols-2">
+        <CostGroup
+          heading="One-time — to get built"
+          items={estimate.oneTime}
+          totalLabel="One-time total"
+          totalLowUsd={estimate.oneTimeTotalLowUsd}
+          totalHighUsd={estimate.oneTimeTotalHighUsd}
+        />
+        <CostGroup
+          heading="Every year — to keep operating"
+          items={estimate.annual}
+          totalLabel="Annual total (priced items)"
+          totalLowUsd={estimate.annualTotalLowUsd}
+          totalHighUsd={estimate.annualTotalHighUsd}
+        />
+      </div>
+    </div>
+  );
+}
+
+function CostGroup({
+  heading,
+  items,
+  totalLabel,
+  totalLowUsd,
+  totalHighUsd,
+}: {
+  heading: string;
+  items: CostLineItem[];
+  totalLabel: string;
+  totalLowUsd: number;
+  totalHighUsd: number;
+}): React.ReactElement {
+  return (
+    <div>
+      <h4 className="text-xs text-graphite-faint mb-2">{heading}</h4>
+      <dl className="space-y-2.5">
+        {items.map((item) => (
+          <div key={item.label} className="flex justify-between gap-3 text-sm">
+            <div>
+              <dt className="text-graphite">{item.label}</dt>
+              {item.note && (
+                <dd className="text-xs text-graphite-faint">{item.note}</dd>
+              )}
+            </div>
+            <dd className="font-mono tabular-nums text-graphite shrink-0 whitespace-nowrap">
+              {usdRange(item.lowUsd, item.highUsd)}
+            </dd>
+          </div>
+        ))}
+      </dl>
+      <div className="mt-3 pt-2.5 border-t border-hairline flex justify-between text-sm">
+        <span className="font-semibold text-graphite">{totalLabel}</span>
+        <span className="font-mono tabular-nums font-semibold text-graphite whitespace-nowrap">
+          {usdRange(totalLowUsd, totalHighUsd)}
+        </span>
+      </div>
     </div>
   );
 }
