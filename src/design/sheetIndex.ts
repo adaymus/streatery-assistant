@@ -46,6 +46,34 @@ export const SHEET_INDEX: SheetEntry[] = [
 ];
 
 /**
+ * The views that survive into a SCHEMATIC set (the "--schematic" flag).
+ *
+ * Schematic mode answers one question — "how big is the streatery and
+ * where does it sit?" — so it keeps the dimensioned plan and the four
+ * elevations and drops the five boilerplate-heavy sheets (cover,
+ * general notes, life safety, the two construction sections, and DDOT
+ * standard details). Those sheets are almost entirely templating; a
+ * stakeholder shouldn't have to wade through them to sanity-check the
+ * dimensions, and their "finished" look is exactly what makes a draft
+ * read as over-claiming what the engine can stand behind today.
+ *
+ * Listed as views (not sheet numbers) because the views registry is the
+ * unit the CLI and the browser both iterate.
+ */
+export const SCHEMATIC_VIEWS: readonly string[] = [
+  "site-plan",
+  "street",
+  "sidewalk",
+  "end-low",
+  "end-high",
+];
+
+/** SHEET_INDEX narrowed to the schematic set, in the same page order. */
+export const SCHEMATIC_SHEET_INDEX: SheetEntry[] = SHEET_INDEX.filter((s) =>
+  SCHEMATIC_VIEWS.includes(s.view),
+);
+
+/**
  * The title-block label for a view: "A2.00 — ELEVATION — STREET SIDE".
  * `suffix` lets variant renderers append site-derived context (e.g. the
  * approach-end marker on an end elevation).

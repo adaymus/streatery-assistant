@@ -58,6 +58,15 @@ export interface SheetSpec {
    * watermark still render.
    */
   hideNotesBand?: boolean;
+  /**
+   * Schematic mode: drop the title block, architect seal box, scale
+   * bar, and notes band, and replace the "ARCHITECT REVIEW REQUIRED"
+   * watermark with a plain-language SCHEMATIC caption. The whole point
+   * of schematic output is to NOT look like a sealed sheet, so the
+   * furniture that signals "finished drawing" comes off here in one
+   * place rather than in every renderer.
+   */
+  schematic?: boolean;
 }
 
 /**
@@ -70,6 +79,10 @@ export interface SheetSpec {
  * collide.
  */
 export function composeSheet(spec: SheetSpec, content: string[]): string {
+  // Schematic sheets get their own minimal furniture and bail early —
+  // none of the title-block / seal / notes machinery below runs.
+  if (spec.schematic) return composeSchematicSheet(spec, content);
+
   const { design, sheetMinX, sheetMaxX, sheetMinY } = spec;
 
   const tbX = sheetMaxX - TITLE_BLOCK_W - 1;
@@ -170,6 +183,89 @@ export function composeSheet(spec: SheetSpec, content: string[]): string {
   );
 
   // ---------- Assemble ----------
+
+  return [
+    `<?xml version="1.0" encoding="UTF-8"?>`,
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${sheetMinX} ${sheetMinY} ${sheetMaxX - sheetMinX} ${sheetMaxY - sheetMinY}" preserveAspectRatio="xMidYMid meet">`,
+    el.join("\n"),
+    `</svg>`,
+  ].join("\n");
+}
+
+/**
+ * Minimal furniture for a schematic sheet: a plain background, the
+ * view's content, a one-line caption identifying the drawing, and a
+ * light SCHEMATIC watermark. No title block, no seal, no scale bar, no
+ * notes band — those are exactly the cues that make a draft look ready
+ * to submit, and schematic output deliberately doesn't claim that.
+ *
+ * The caption sits just below the content (which already includes the
+ * dimension strings), so the sheet height is content + a short caption
+ * band rather than content + the tall title-block band.
+ */
+function composeSchematicSheet(spec: SheetSpec, content: string[]): string {
+  const { design, sheetMinX, sheetMaxX, sheetMinY } = spec;
+  // A short band under the content for the caption — far less than the
+  // full set's title-block reservation (TITLE_BLOCK_H + 3 ≈ 15 ft).
+  const CAPTION_BAND_FT = 6;
+  const sheetMaxY = spec.contentBottomY + CAPTION_BAND_FT;
+
+  const el: string[] = [];
+
+  // Background.
+  el.push(
+    `<rect x="${sheetMinX}" y="${sheetMinY}" width="${sheetMaxX - sheetMinX}" height="${sheetMaxY - sheetMinY}" fill="#fefdfb" />`,
+  );
+
+  // The view's content (outline + dimension strings).
+  el.push(...content);
+
+  // Caption: identity on one line, an honest disclaimer on the next.
+  // Font sizes are in drawing FEET, so a fixed size that fits a wide
+  // sheet (a long elevation) overflows a narrow one (an end elevation).
+  // fitFont() shrinks each line just enough to fit the sheet width —
+  // never growing past the desired size. 0.62 ft/char is a deliberately
+  // generous width estimate for bold caps so we under- rather than
+  // overflow.
+  const capX = sheetMinX + 2;
+  const availW = sheetMaxX - sheetMinX - 4; // 2 ft inset each side
+  const CAP_CHAR_W = 0.62;
+  const fitFont = (text: string, desired: number): number =>
+    Math.min(desired, availW / (Math.max(1, text.length) * CAP_CHAR_W));
+
+  const titleText = `${design.businessName.toUpperCase()} — ${spec.viewTitle}`;
+  const disclaimerText =
+    "SCHEMATIC — DIMENSIONS ONLY. NOT AN ARCHITECTURAL DRAWING; NOT FOR SUBMISSION OR CONSTRUCTION.";
+
+  let capY = spec.contentBottomY + 2;
+  el.push(
+    `<text x="${capX}" y="${capY}" font-size="${fitFont(titleText, 1.3)}" font-family="sans-serif" font-weight="700" fill="#1c1917">` +
+      `${escapeXml(titleText)}</text>`,
+  );
+  capY += 1.6;
+  el.push(
+    `<text x="${capX}" y="${capY}" font-size="${fitFont(design.address, 0.95)}" font-family="sans-serif" fill="#44403c">${escapeXml(design.address)}</text>`,
+  );
+  capY += 1.5;
+  el.push(
+    `<text x="${capX}" y="${capY}" font-size="${fitFont(disclaimerText, 0.9)}" font-family="sans-serif" font-weight="700" fill="#b91c1c">` +
+      `${escapeXml(disclaimerText)}</text>`,
+  );
+
+  // Light watermark, same diagonal placement style as the full set but
+  // saying what this actually is. Sized to span (not overflow) the sheet
+  // width — same drawing-feet problem as the caption above.
+  const wmText = "SCHEMATIC — DIMENSIONS ONLY";
+  const wmFont = Math.min(
+    3.2,
+    (sheetMaxX - sheetMinX) / (wmText.length * CAP_CHAR_W),
+  );
+  el.push(
+    `<text x="${spec.watermarkCenter.x}" y="${spec.watermarkCenter.y}" font-size="${wmFont}" font-family="sans-serif" ` +
+      `font-weight="900" fill="#1c1917" fill-opacity="0.05" text-anchor="middle" ` +
+      `dominant-baseline="middle" transform="rotate(-20 ${spec.watermarkCenter.x} ${spec.watermarkCenter.y})">` +
+      `${wmText}</text>`,
+  );
 
   return [
     `<?xml version="1.0" encoding="UTF-8"?>`,

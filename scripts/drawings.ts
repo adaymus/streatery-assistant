@@ -38,7 +38,8 @@ import {
   PAGE_SIZES,
   type PageSizeId,
 } from "../src/design/page.js";
-import { SHEET_INDEX } from "../src/design/sheetIndex.js";
+import { SHEET_INDEX, SCHEMATIC_SHEET_INDEX } from "../src/design/sheetIndex.js";
+import type { RenderOptions } from "../src/design/types.js";
 import { ftIn } from "../src/design/renderers/shared.js";
 // The view registry (name → renderer) is shared with the browser print
 // module (src/drawingSetPrint.ts), so it lives in src/design/views.ts.
@@ -70,7 +71,8 @@ const address = addressWords.join(" ");
 if (!address) {
   console.error(
     'Usage: npm run drawings -- "<address>" [--name "Business"] [--palette pvc-corrugated|polycarbonate] [--entry <ft>] [--length-cap <ft>] [--frontage <ft>] [--view street|sidewalk|end-low|end-high|section|section-entry|site-plan|cover|general-notes|life-safety|ddot-details|all] [--page arch-d|tabloid|letter] [--pdf] [--notes] [--out <file>]\n' +
-      '  --pdf: render the COMPLETE set as one combined PDF in sheet-index order (requires --out <file.pdf>; pages at --page, default arch-d)',
+      '  --pdf: render the COMPLETE set as one combined PDF in sheet-index order (requires --out <file.pdf>; pages at --page, default arch-d)\n' +
+      '  --schematic: strip the architectural finish — outline + dimensions only, and reduce the set to the plan + elevations (no cover/notes/sections/details). For showing the dimensions without implying a finished packet.',
   );
   process.exit(1);
 }
@@ -106,6 +108,14 @@ async function main(): Promise<void> {
     curbOffsetFt: siteContext.curbReference.offsetFt,
   });
   const design = layoutStreatery(inputs);
+
+  // --schematic strips the architectural finish (outline + dimensions
+  // only) and reduces the set to the plan + elevations. One flag,
+  // threaded to every renderer via RenderOptions.
+  const schematic = flags.has("schematic");
+  const renderOpts: RenderOptions = { schematic };
+  // The set the "all"/"--pdf" fan-outs iterate: trimmed in schematic.
+  const sheetSet = schematic ? SCHEMATIC_SHEET_INDEX : SHEET_INDEX;
 
   // ---------- Layout summary (stderr) — the validation surface ----------
 
@@ -182,7 +192,7 @@ async function main(): Promise<void> {
     const tmpDir = mkdtempSync(join(tmpdir(), "streatery-sheets-"));
     try {
       const sheetPaths: string[] = [];
-      for (const sheet of SHEET_INDEX) {
+      for (const sheet of sheetSet) {
         const render = VIEWS[sheet.view];
         if (!render) {
           throw new Error(
@@ -192,7 +202,7 @@ async function main(): Promise<void> {
         const path = join(tmpDir, `${sheet.number}.svg`);
         writeFileSync(
           path,
-          fitSheetToPage(render(design, siteContext), pdfPageId),
+          fitSheetToPage(render(design, siteContext, renderOpts), pdfPageId),
         );
         sheetPaths.push(path);
         console.error(`Rendered ${sheet.number} — ${sheet.title}`);
@@ -211,7 +221,7 @@ async function main(): Promise<void> {
         throw new Error(`rsvg-convert exited with status ${result.status}.`);
       }
       console.error(
-        `Wrote ${outPath} (${SHEET_INDEX.length} sheets, ${PAGE_SIZES[pdfPageId].label})`,
+        `Wrote ${outPath} (${sheetSet.length} sheets${schematic ? ", SCHEMATIC" : ""}, ${PAGE_SIZES[pdfPageId].label})`,
       );
     } finally {
       rmSync(tmpDir, { recursive: true, force: true });
@@ -233,15 +243,21 @@ async function main(): Promise<void> {
   }
 
   if (view === "all") {
-    // "all" needs file output: 6 SVGs can't share one stdout. Filenames
-    // derive from --out by inserting the view name before ".svg".
+    // "all" needs file output: the SVGs can't share one stdout.
+    // Filenames derive from --out by inserting the view name before
+    // ".svg". In schematic mode "all" means the trimmed schematic set,
+    // not every registered view.
     if (!outPath) {
       console.error('--view all requires --out (e.g. --out drawings/martha.svg → martha-street.svg, martha-sidewalk.svg, ...)');
       process.exit(1);
     }
-    for (const [name, render] of Object.entries(VIEWS)) {
+    const allViews = schematic
+      ? sheetSet.map((s) => s.view)
+      : Object.keys(VIEWS);
+    for (const name of allViews) {
+      const render = VIEWS[name]!;
       const path = outPath.replace(/\.svg$/i, `-${name}.svg`);
-      writeOut(path, toPage(render(design, siteContext)) + "\n");
+      writeOut(path, toPage(render(design, siteContext, renderOpts)) + "\n");
       console.error(`Wrote ${path}`);
     }
     return;
@@ -254,7 +270,7 @@ async function main(): Promise<void> {
     );
     process.exit(1);
   }
-  const svg = toPage(render(design, siteContext));
+  const svg = toPage(render(design, siteContext, renderOpts));
   if (outPath) {
     writeOut(outPath, svg + "\n");
     console.error(`Wrote ${outPath}`);

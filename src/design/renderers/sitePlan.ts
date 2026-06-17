@@ -36,7 +36,7 @@ import {
 import { evaluateNotes, sidewalkDepthFt } from "../notes/index.js";
 import { sheetTitleForView } from "../sheetIndex.js";
 import type { SiteContext, TreeOnPlan } from "../siteContext.js";
-import type { StreateryDesign } from "../types.js";
+import type { RenderOptions, StreateryDesign } from "../types.js";
 import { escapeXml, ftIn, horizontalDim, leaderLabel, verticalDim } from "./shared.js";
 import { composeSheet } from "./sheetChrome.js";
 
@@ -57,7 +57,14 @@ const MARGIN_RIGHT_FT = 14;
 export function buildSitePlanSvg(
   design: StreateryDesign,
   site: SiteContext,
+  opts?: RenderOptions,
 ): string {
+  // Schematic: the proposed structure (footprint + dimensions) against
+  // a bare curb/parking-lane reference and the building outline — none
+  // of the existing curb features, ROW band fills, or context furniture
+  // the full plan carries (see RenderOptions).
+  const schematic = opts?.schematic ?? false;
+
   // ---------- Frame: where everything sits ----------
 
   const structStartFt = design.anchor.structureStartStationFt;
@@ -119,70 +126,81 @@ export function buildSitePlanSvg(
     `<rect x="${winLow}" y="${yTop}" width="${winHigh - winLow}" height="${height}" fill="${fill}" />`;
 
   el.push(`<g id="row-bands">`);
-  el.push(band(yFacade, sidewalkBandFt, "#f5f5f4")); // sidewalk
-  el.push(band(0, parkingFt, "#fefdfb")); // parking lane
-  if (bikeFt > 0) el.push(band(yBikeTop, bikeFt, "#f5f5f4"));
-  el.push(band(yTravelTop, travelFt, "#fafaf9")); // travel lane
+  if (!schematic) {
+    el.push(band(yFacade, sidewalkBandFt, "#f5f5f4")); // sidewalk
+    el.push(band(0, parkingFt, "#fefdfb")); // parking lane
+    if (bikeFt > 0) el.push(band(yBikeTop, bikeFt, "#f5f5f4"));
+    el.push(band(yTravelTop, travelFt, "#fafaf9")); // travel lane
+  }
   // Curb: the heaviest line on the sheet, like both approved sets.
+  // Kept in schematic — it's the reference the structure sits against.
   el.push(
     `<line x1="${winLow}" y1="0" x2="${winHigh}" y2="0" stroke="#1c1917" stroke-width="0.28" />`,
   );
-  // Parking/travel lane line (dashed, standard pavement-marking style).
+  // Parking-lane outer edge (dashed). Schematic keeps just this one so
+  // the lane the structure occupies still reads; the full set adds the
+  // bike/travel lane lines too.
   el.push(
     `<line x1="${winLow}" y1="${yBikeTop}" x2="${winHigh}" y2="${yBikeTop}" stroke="#78716c" stroke-width="0.08" stroke-dasharray="2,1.5" />`,
   );
-  if (bikeFt > 0) {
+  if (!schematic) {
+    if (bikeFt > 0) {
+      el.push(
+        `<line x1="${winLow}" y1="${yTravelTop}" x2="${winHigh}" y2="${yTravelTop}" stroke="#78716c" stroke-width="0.08" stroke-dasharray="2,1.5" />`,
+      );
+    }
     el.push(
-      `<line x1="${winLow}" y1="${yTravelTop}" x2="${winHigh}" y2="${yTravelTop}" stroke="#78716c" stroke-width="0.08" stroke-dasharray="2,1.5" />`,
+      `<line x1="${winLow}" y1="${yStreetBottom}" x2="${winHigh}" y2="${yStreetBottom}" stroke="#a8a29e" stroke-width="0.06" stroke-dasharray="1,1" />`,
     );
   }
-  el.push(
-    `<line x1="${winLow}" y1="${yStreetBottom}" x2="${winHigh}" y2="${yStreetBottom}" stroke="#a8a29e" stroke-width="0.06" stroke-dasharray="1,1" />`,
-  );
   el.push(`</g>`);
 
-  // Band labels hug the right edge of the window, clear of the structure.
-  const bandLabel = (y: number, text: string): string =>
-    `<text x="${winHigh - 1}" y="${y}" font-size="1.0" font-family="sans-serif" text-anchor="end" fill="#57534e">${escapeXml(text)}</text>`;
-  // The top band is curb-to-façade: on blocks with front yards (Mt
-  // Pleasant's west side) it's wider than the paved sidewalk, so the
-  // label says what was measured rather than claiming "sidewalk".
-  el.push(`<g id="band-labels">`);
-  el.push(
-    bandLabel(
-      yFacade + 1.6,
-      row.facadeOffsetFt != null ? "EX. SIDEWALK / FRONTAGE ZONE" : "EX. SIDEWALK",
-    ),
-  );
-  el.push(
-    bandLabel(parkingFt - 0.6, `EX. ${ftIn(parkingFt)} PARKING LANE`),
-  );
-  if (bikeFt > 0) {
-    el.push(bandLabel(yBikeTop + 1.6, "EX. BIKE LANE (WIDTH — VERIFY)"));
+  // Band labels + traffic arrow are existing-context furniture, not
+  // streatery dimensions — schematic omits both.
+  if (!schematic) {
+    // Band labels hug the right edge of the window, clear of the structure.
+    const bandLabel = (y: number, text: string): string =>
+      `<text x="${winHigh - 1}" y="${y}" font-size="1.0" font-family="sans-serif" text-anchor="end" fill="#57534e">${escapeXml(text)}</text>`;
+    // The top band is curb-to-façade: on blocks with front yards (Mt
+    // Pleasant's west side) it's wider than the paved sidewalk, so the
+    // label says what was measured rather than claiming "sidewalk".
+    el.push(`<g id="band-labels">`);
+    el.push(
+      bandLabel(
+        yFacade + 1.6,
+        row.facadeOffsetFt != null ? "EX. SIDEWALK / FRONTAGE ZONE" : "EX. SIDEWALK",
+      ),
+    );
+    el.push(
+      bandLabel(parkingFt - 0.6, `EX. ${ftIn(parkingFt)} PARKING LANE`),
+    );
+    if (bikeFt > 0) {
+      el.push(bandLabel(yBikeTop + 1.6, "EX. BIKE LANE (WIDTH — VERIFY)"));
+    }
+    el.push(
+      bandLabel(
+        yTravelTop + 1.6,
+        `EX. ${ftIn(travelFt)} TRAVEL LANE` +
+          (row.travelLaneCount != null && row.travelLaneCount > 1
+            ? ` (1 OF ${row.travelLaneCount})`
+            : ""),
+      ),
+    );
+    el.push(`</g>`);
+
+    // Traffic direction arrow in the travel lane. The approach end is a
+    // heuristic — design.notes already carries the site-walk confirm.
+    const arrowY = yTravelTop + travelFt / 2;
+    const arrowDir = design.anchor.vehicularApproachEnd === "low" ? 1 : -1;
+    const arrowCx = (winLow + winHigh) / 2;
+    el.push(
+      `<g id="traffic-arrow">`,
+      `<line x1="${arrowCx - arrowDir * 5}" y1="${arrowY}" x2="${arrowCx + arrowDir * 5}" y2="${arrowY}" stroke="#a8a29e" stroke-width="0.15" />`,
+      `<polygon points="${arrowCx + arrowDir * 6.5},${arrowY} ${arrowCx + arrowDir * 5},${arrowY - 0.7} ${arrowCx + arrowDir * 5},${arrowY + 0.7}" fill="#a8a29e" />`,
+      `<text x="${arrowCx}" y="${arrowY - 1}" font-size="0.9" font-family="sans-serif" text-anchor="middle" fill="#a8a29e">TRAFFIC (VERIFY)</text>`,
+      `</g>`,
+    );
   }
-  el.push(
-    bandLabel(
-      yTravelTop + 1.6,
-      `EX. ${ftIn(travelFt)} TRAVEL LANE` +
-        (row.travelLaneCount != null && row.travelLaneCount > 1
-          ? ` (1 OF ${row.travelLaneCount})`
-          : ""),
-    ),
-  );
-  el.push(`</g>`);
-
-  // Traffic direction arrow in the travel lane. The approach end is a
-  // heuristic — design.notes already carries the site-walk confirm.
-  const arrowY = yTravelTop + travelFt / 2;
-  const arrowDir = design.anchor.vehicularApproachEnd === "low" ? 1 : -1;
-  const arrowCx = (winLow + winHigh) / 2;
-  el.push(
-    `<g id="traffic-arrow">`,
-    `<line x1="${arrowCx - arrowDir * 5}" y1="${arrowY}" x2="${arrowCx + arrowDir * 5}" y2="${arrowY}" stroke="#a8a29e" stroke-width="0.15" />`,
-    `<polygon points="${arrowCx + arrowDir * 6.5},${arrowY} ${arrowCx + arrowDir * 5},${arrowY - 0.7} ${arrowCx + arrowDir * 5},${arrowY + 0.7}" fill="#a8a29e" />`,
-    `<text x="${arrowCx}" y="${arrowY - 1}" font-size="0.9" font-family="sans-serif" text-anchor="middle" fill="#a8a29e">TRAFFIC (VERIFY)</text>`,
-    `</g>`,
-  );
 
   // ---------- 2. Cross streets / break lines at the window edges ----------
 
@@ -207,17 +225,20 @@ export function buildSitePlanSvg(
     return segments.join("\n");
   };
 
+  // Schematic keeps the cross-street EDGE lines (they orient the block
+  // and the setback dimensions name them) but drops the break-line
+  // zigzags, which are pure drafting convention.
   el.push(`<g id="window-edges">`);
-  el.push(
-    lowIsIntersection
-      ? crossStreetEdge(winLow, site.fromStreet, -1)
-      : breakLine(winLow),
-  );
-  el.push(
-    highIsIntersection
-      ? crossStreetEdge(winHigh, site.toStreet, 1)
-      : breakLine(winHigh),
-  );
+  if (lowIsIntersection) {
+    el.push(crossStreetEdge(winLow, site.fromStreet, -1));
+  } else if (!schematic) {
+    el.push(breakLine(winLow));
+  }
+  if (highIsIntersection) {
+    el.push(crossStreetEdge(winHigh, site.toStreet, 1));
+  } else if (!schematic) {
+    el.push(breakLine(winHigh));
+  }
   el.push(`</g>`);
 
   // ---------- 3. Building footprint (clipped to its band) ----------
@@ -234,7 +255,7 @@ export function buildSitePlanSvg(
       .map((v) => `${v.stationFt.toFixed(2)},${v.offsetFt.toFixed(2)}`)
       .join(" ");
     el.push(
-      `<polygon points="${points}" fill="#e7e5e4" stroke="#44403c" stroke-width="0.14" />`,
+      `<polygon points="${points}" fill="${schematic ? "none" : "#e7e5e4"}" stroke="#44403c" stroke-width="0.14" />`,
     );
   } else {
     el.push(
@@ -252,12 +273,17 @@ export function buildSitePlanSvg(
   el.push(
     `<text x="${buildingLabelX}" y="${buildingLabelY}" font-size="1.3" font-family="sans-serif" font-weight="700" text-anchor="middle" fill="#1c1917">${escapeXml(design.businessName.toUpperCase())}</text>`,
     `<text x="${buildingLabelX}" y="${buildingLabelY + 1.6}" font-size="1.0" font-family="sans-serif" text-anchor="middle" fill="#44403c">${escapeXml(site.building.addressLabel)}</text>`,
-    `<text x="${buildingLabelX}" y="${buildingLabelY + 3.0}" font-size="0.8" font-family="sans-serif" font-style="italic" text-anchor="middle" fill="#78716c">${escapeXml(
-      site.building.assumed
-        ? "[FOOTPRINT ASSUMED — CONFIRM STOREFRONT]"
-        : `[DC BUILDING FOOTPRINTS${site.building.captureLabel ? ", " + site.building.captureLabel : ""}]`,
-    )}</text>`,
   );
+  // The footprint-provenance bracket is data-source detail; schematic drops it.
+  if (!schematic) {
+    el.push(
+      `<text x="${buildingLabelX}" y="${buildingLabelY + 3.0}" font-size="0.8" font-family="sans-serif" font-style="italic" text-anchor="middle" fill="#78716c">${escapeXml(
+        site.building.assumed
+          ? "[FOOTPRINT ASSUMED — CONFIRM STOREFRONT]"
+          : `[DC BUILDING FOOTPRINTS${site.building.captureLabel ? ", " + site.building.captureLabel : ""}]`,
+      )}</text>`,
+    );
+  }
 
   // ---------- 4. Frontage window ----------
   // The legal extent the envelope was confined to. Ticks at both ends
@@ -311,12 +337,14 @@ export function buildSitePlanSvg(
   const angleDeg = jb.angledInward ? (jb.atEnd === "low" ? 45 : -45) : 0;
   el.push(
     `<g transform="rotate(${angleDeg} ${jbCx} ${jbCy})">`,
-    `<rect x="${jbCx - jbLen / 2}" y="${jbCy - 1}" width="${jbLen}" height="2" fill="#d6d3d1" stroke="#1c1917" stroke-width="0.14" />`,
-    // Diagonal hatch — the concrete convention.
-    ...Array.from({ length: 5 }, (_, i) => {
-      const hx = jbCx - jbLen / 2 + (i + 0.5) * (jbLen / 5);
-      return `<line x1="${hx - 0.7}" y1="${jbCy + 1}" x2="${hx + 0.7}" y2="${jbCy - 1}" stroke="#78716c" stroke-width="0.06" />`;
-    }),
+    `<rect x="${jbCx - jbLen / 2}" y="${jbCy - 1}" width="${jbLen}" height="2" fill="${schematic ? "none" : "#d6d3d1"}" stroke="#1c1917" stroke-width="0.14" />`,
+    // Diagonal hatch — the concrete convention (full set only).
+    ...(schematic
+      ? []
+      : Array.from({ length: 5 }, (_, i) => {
+          const hx = jbCx - jbLen / 2 + (i + 0.5) * (jbLen / 5);
+          return `<line x1="${hx - 0.7}" y1="${jbCy + 1}" x2="${hx + 0.7}" y2="${jbCy - 1}" stroke="#78716c" stroke-width="0.06" />`;
+        })),
     `</g>`,
   );
 
@@ -330,27 +358,36 @@ export function buildSitePlanSvg(
     `<text x="${titleCx}" y="${W / 2 + 0.4}" font-size="1.1" font-family="sans-serif" font-weight="700" text-anchor="middle" fill="#1c1917">PROPOSED STREATERY ${ftIn(design.platform.lengthFt)} × ${ftIn(W)}</text>`,
   );
 
-  // Drainage channel: §4.6's 1 ft clear channel at the curb, below
-  // deck. Labeled in place — a leader from outside would have to cross
-  // the whole structure.
-  el.push(
-    `<line x1="${structStartFt}" y1="${DRAINAGE_CHANNEL_FT}" x2="${structEndFt}" y2="${DRAINAGE_CHANNEL_FT}" stroke="#57534e" stroke-width="0.06" stroke-dasharray="0.6,0.4" />`,
-    `<text x="${titleCx}" y="${DRAINAGE_CHANNEL_FT + 0.85}" font-size="0.7" font-family="sans-serif" text-anchor="middle" fill="#57534e">${ftIn(DRAINAGE_CHANNEL_FT)} DRAINAGE CHANNEL BELOW DECK (§4.6)</text>`,
-  );
+  // Drainage channel is a construction detail — full set only.
+  if (!schematic) {
+    // §4.6's 1 ft clear channel at the curb, below deck. Labeled in
+    // place — a leader from outside would have to cross the structure.
+    el.push(
+      `<line x1="${structStartFt}" y1="${DRAINAGE_CHANNEL_FT}" x2="${structEndFt}" y2="${DRAINAGE_CHANNEL_FT}" stroke="#57534e" stroke-width="0.06" stroke-dasharray="0.6,0.4" />`,
+      `<text x="${titleCx}" y="${DRAINAGE_CHANNEL_FT + 0.85}" font-size="0.7" font-family="sans-serif" text-anchor="middle" fill="#57534e">${ftIn(DRAINAGE_CHANNEL_FT)} DRAINAGE CHANNEL BELOW DECK (§4.6)</text>`,
+    );
+  }
 
   // Posts: pairs at both long edges (street + sidewalk), the layout the
-  // elevations imply (same stations on both faces).
+  // elevations imply (same stations on both faces). Structure, not
+  // finish — drawn in both modes so the plan agrees with the elevations
+  // now that those show posts. Schematic uses open squares; the full set
+  // fills them (and half-fills posts the solver shifted off a tree).
   const postFt = POST_ACTUAL_IN / 12;
   for (const post of design.posts) {
     const x = bf(post.stationFt);
     for (const yEdge of [postFt / 2 + 0.1, W - postFt / 2 - 0.1]) {
+      const style = schematic
+        ? 'fill="none" stroke="#1c1917" stroke-width="0.1"'
+        : `fill="#1c1917"${post.shifted ? ' stroke="#1c1917" stroke-width="0.12" fill-opacity="0.5"' : ""}`;
       el.push(
-        `<rect x="${x - postFt / 2}" y="${yEdge - postFt / 2}" width="${postFt}" height="${postFt}" fill="#1c1917"${post.shifted ? ' stroke="#1c1917" stroke-width="0.12" fill-opacity="0.5"' : ""} />`,
+        `<rect x="${x - postFt / 2}" y="${yEdge - postFt / 2}" width="${postFt}" height="${postFt}" ${style} />`,
       );
     }
   }
 
-  // Entry: a real gap in the sidewalk edge with an access arrow.
+  // Entry: a real gap in the sidewalk edge with an access arrow. Kept in
+  // schematic — it's a real opening and carries its clear-width dim.
   const entryX = bf(design.entry.stationFt);
   const entryHalf = design.entry.widthFt / 2;
   el.push(
@@ -360,22 +397,27 @@ export function buildSitePlanSvg(
     `<text x="${entryX}" y="-2.4" font-size="0.9" font-family="sans-serif" text-anchor="middle" fill="#1c1917">${ftIn(design.entry.widthFt)} CLR ENTRY</text>`,
   );
 
-  // §4.7 signage placards on the sidewalk-facing edge.
-  for (const stationFt of design.signageStationsFt) {
-    el.push(
-      `<rect x="${bf(stationFt) - 0.35}" y="-0.5" width="0.7" height="0.5" fill="#1c1917" />`,
-    );
+  // Signage placards and the dashed roof-above outline are descriptive
+  // overlays, not footprint dimensions — schematic omits both.
+  if (!schematic) {
+    // §4.7 signage placards on the sidewalk-facing edge.
+    for (const stationFt of design.signageStationsFt) {
+      el.push(
+        `<rect x="${bf(stationFt) - 0.35}" y="-0.5" width="0.7" height="0.5" fill="#1c1917" />`,
+      );
+    }
+
+    // Roof extent above, dashed (hidden-above convention).
+    for (const seg of design.roofSegments) {
+      el.push(
+        `<rect x="${bf(seg.startFt)}" y="0" width="${seg.endFt - seg.startFt}" height="${W}" fill="none" stroke="#57534e" stroke-width="0.1" stroke-dasharray="1,0.6" />`,
+        `<text x="${bf((seg.startFt + seg.endFt) / 2)}" y="${W - 0.5}" font-size="0.85" font-family="sans-serif" text-anchor="middle" fill="#57534e">ROOF ABOVE (DASHED)</text>`,
+      );
+    }
   }
 
-  // Roof extent above, dashed (hidden-above convention).
-  for (const seg of design.roofSegments) {
-    el.push(
-      `<rect x="${bf(seg.startFt)}" y="0" width="${seg.endFt - seg.startFt}" height="${W}" fill="none" stroke="#57534e" stroke-width="0.1" stroke-dasharray="1,0.6" />`,
-      `<text x="${bf((seg.startFt + seg.endFt) / 2)}" y="${W - 0.5}" font-size="0.85" font-family="sans-serif" text-anchor="middle" fill="#57534e">ROOF ABOVE (DASHED)</text>`,
-    );
-  }
-
-  // Tree clearance cutouts in the platform (12" clear per UFD).
+  // Tree clearance cutouts in the platform (12" clear per UFD). Kept —
+  // they're real shape in the footprint.
   for (const tree of design.trees) {
     const x = bf(tree.stationFt);
     el.push(
@@ -396,7 +438,12 @@ export function buildSitePlanSvg(
   );
 
   // ---------- 6. Existing curb features ----------
+  // Meters, hydrants, trees, driveways, ramps, bus stops, loading
+  // zones, crosswalks — all EXISTING context, not the streatery's
+  // dimensions. Schematic drops the entire section. (Their effect on
+  // the envelope already happened upstream in the buffer math.)
 
+  if (!schematic) {
   el.push(`<g id="features">`);
 
   // Parking meters: the A100 signature item. Symbol + vertical ID label;
@@ -497,6 +544,7 @@ export function buildSitePlanSvg(
     );
   }
   el.push(`</g>`);
+  } // end if (!schematic) — section 6
 
   // ---------- 7. Dimension strings ----------
 
@@ -541,72 +589,83 @@ export function buildSitePlanSvg(
   }
 
   // The ROW cross-section stack at the left edge — A100's signature
-  // sidewalk/park/travel dimensions, here as a vertical string.
+  // sidewalk/park/travel dimensions, here as a vertical string. Schematic
+  // keeps only the PARKING-lane dim (the lane the structure occupies);
+  // the sidewalk/bike/travel dims describe the street, not the streatery.
   const rowDimX = winLow - 3;
-  el.push(
-    verticalDim(
-      yFacade,
-      0,
-      rowDimX,
-      winLow,
-      `${ftIn(sidewalkBandFt)} ${row.facadeOffsetFt != null ? "CURB-FAÇADE" : "SIDEWALK"}`,
-    ),
-    verticalDim(0, parkingFt, rowDimX, winLow, `${ftIn(parkingFt)} PARK`),
-  );
-  if (bikeFt > 0) {
-    el.push(verticalDim(yBikeTop, yTravelTop, rowDimX, winLow, `BIKE`));
+  if (!schematic) {
+    el.push(
+      verticalDim(
+        yFacade,
+        0,
+        rowDimX,
+        winLow,
+        `${ftIn(sidewalkBandFt)} ${row.facadeOffsetFt != null ? "CURB-FAÇADE" : "SIDEWALK"}`,
+      ),
+    );
   }
-  el.push(
-    verticalDim(yTravelTop, yStreetBottom, rowDimX, winLow, `${ftIn(travelFt)} TRAVEL`),
-  );
+  el.push(verticalDim(0, parkingFt, rowDimX, winLow, `${ftIn(parkingFt)} PARK`));
+  if (!schematic) {
+    if (bikeFt > 0) {
+      el.push(verticalDim(yBikeTop, yTravelTop, rowDimX, winLow, `BIKE`));
+    }
+    el.push(
+      verticalDim(yTravelTop, yStreetBottom, rowDimX, winLow, `${ftIn(travelFt)} TRAVEL`),
+    );
+  }
 
   // Platform width on the structure's high end.
   el.push(verticalDim(0, W, structEndFt + 1.4, structEndFt, ftIn(W)));
   el.push(`</g>`);
 
-  // Jersey barrier callout. The text sits beyond the approach end so
-  // the leader crosses the buffer/travel bands, never the structure.
-  const jbLabelX = jb.atEnd === "low" ? structStartFt - 26 : structEndFt + 4;
-  el.push(
-    leaderLabel(
-      jbLabelX,
-      yStreetBottom + 5.5,
-      jbCx,
-      jbCy + 1,
-      `${JERSEY_BARRIER_LABEL} (DDOT) — ANGLED 45-60° (§4.2)`,
-    ),
-  );
+  // Jersey barrier callout + north arrow are annotation/orientation
+  // furniture — schematic omits both.
+  if (!schematic) {
+    // Jersey barrier callout. The text sits beyond the approach end so
+    // the leader crosses the buffer/travel bands, never the structure.
+    const jbLabelX = jb.atEnd === "low" ? structStartFt - 26 : structEndFt + 4;
+    el.push(
+      leaderLabel(
+        jbLabelX,
+        yStreetBottom + 5.5,
+        jbCx,
+        jbCy + 1,
+        `${JERSEY_BARRIER_LABEL} (DDOT) — ANGLED 45-60° (§4.2)`,
+      ),
+    );
 
-  // ---------- 8. North arrow (true bearing, rotated into plan frame) ----------
+    // ---------- 8. North arrow (true bearing, rotated into plan frame) ----------
 
-  const naX = winHigh + 6;
-  const naY = yBuildingTop + 4;
-  el.push(
-    `<g id="north-arrow" transform="translate(${naX}, ${naY})">`,
-    `<circle cx="0" cy="0" r="3" fill="#ffffff" stroke="#1c1917" stroke-width="0.1" />`,
-    `<g transform="rotate(${site.northAngleDeg.toFixed(1)})">`,
-    `<polygon points="0,-2.4 -0.8,1.6 0,0.9 0.8,1.6" fill="#1c1917" />`,
-    `</g>`,
-    `<text x="0" y="4.4" font-size="1.0" font-family="sans-serif" font-weight="700" text-anchor="middle" fill="#1c1917">N</text>`,
-    `</g>`,
-  );
+    const naX = winHigh + 6;
+    const naY = yBuildingTop + 4;
+    el.push(
+      `<g id="north-arrow" transform="translate(${naX}, ${naY})">`,
+      `<circle cx="0" cy="0" r="3" fill="#ffffff" stroke="#1c1917" stroke-width="0.1" />`,
+      `<g transform="rotate(${site.northAngleDeg.toFixed(1)})">`,
+      `<polygon points="0,-2.4 -0.8,1.6 0,0.9 0.8,1.6" fill="#1c1917" />`,
+      `</g>`,
+      `<text x="0" y="4.4" font-size="1.0" font-family="sans-serif" font-weight="700" text-anchor="middle" fill="#1c1917">N</text>`,
+      `</g>`,
+    );
+  }
 
   // ---------- 9. Site-plan-specific notes + compose ----------
   // composeSheet prints design.notes; the notes library appends the
   // "site-plan" scope — the §5.2 items that are data gaps rather than
   // geometry (entrances, utilities, meter schedule, provenance). Each
   // block carries its own condition predicate, so nothing prints that
-  // doesn't apply to THIS site.
+  // doesn't apply to THIS site. Schematic has no notes band, so it skips
+  // the evaluation and passes the design through unchanged.
 
-  const siteNotes: string[] = [
-    ...design.notes,
-    ...evaluateNotes("site-plan", { design, site }),
-  ];
+  const siteNotes: string[] = schematic
+    ? design.notes
+    : [...design.notes, ...evaluateNotes("site-plan", { design, site })];
 
   return composeSheet(
     {
       viewTitle: sheetTitleForView("site-plan"),
       design: { ...design, notes: siteNotes },
+      schematic,
       sheetMinX,
       sheetMaxX,
       sheetMinY,

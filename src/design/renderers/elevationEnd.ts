@@ -34,7 +34,7 @@ import {
   TRAVEL_SIDE_BUFFER_FT,
 } from "../templateConstants.js";
 import { sheetTitleForView } from "../sheetIndex.js";
-import type { StreateryDesign } from "../types.js";
+import type { RenderOptions, StreateryDesign } from "../types.js";
 import { ftIn, horizontalDim, leaderLabel, verticalDim } from "./shared.js";
 import { composeSheet } from "./sheetChrome.js";
 
@@ -55,7 +55,11 @@ const CAP_RAIL_THICKNESS_FT = 5.5 / 12;
 export function buildEndElevationSvg(
   design: StreateryDesign,
   end: "low" | "high",
+  opts?: RenderOptions,
 ): string {
+  // Outline + dimensions only when schematic (see RenderOptions).
+  const schematic = opts?.schematic ?? false;
+
   const W = design.platform.widthFt;
   const deckTopFt = design.platform.deckHeightFt;
   const enclosureTopFt = ENCLOSURE_TOP_IN / 12;
@@ -73,7 +77,10 @@ export function buildEndElevationSvg(
 
   const curbX = W; // curb face
   const sheetMinX = -MARGIN_LEFT_FT;
-  const sheetMaxX = curbX + SIDEWALK_CONTEXT_FT + MARGIN_RIGHT_FT - 8;
+  // No right-hand label column in schematic — just sidewalk context + air.
+  const sheetMaxX = schematic
+    ? curbX + SIDEWALK_CONTEXT_FT + 4
+    : curbX + SIDEWALK_CONTEXT_FT + MARGIN_RIGHT_FT - 8;
   const sheetMinY = -((hasRoof ? highEdgeFt + fasciaDepthFt : enclosureTopFt) + SKY_FT);
   const yOf = (heightFt: number): number => -heightFt;
 
@@ -89,61 +96,90 @@ export function buildEndElevationSvg(
     `<line x1="${curbX}" y1="0" x2="${curbX}" y2="${yOf(deckTopFt)}" stroke="#1c1917" stroke-width="0.22" />`,
     `<line x1="${curbX}" y1="${yOf(deckTopFt)}" x2="${curbX + SIDEWALK_CONTEXT_FT}" y2="${yOf(deckTopFt)}" stroke="#1c1917" stroke-width="0.22" />`,
   );
-  for (let x = Math.ceil(sheetMinX + 2); x < curbX; x += 2) {
+  if (!schematic) {
+    for (let x = Math.ceil(sheetMinX + 2); x < curbX; x += 2) {
+      el.push(
+        `<line x1="${x}" y1="0" x2="${x - 0.8}" y2="0.8" stroke="#1c1917" stroke-width="0.05" />`,
+      );
+    }
     el.push(
-      `<line x1="${x}" y1="0" x2="${x - 0.8}" y2="0.8" stroke="#1c1917" stroke-width="0.05" />`,
+      `<text x="${sheetMinX + 2}" y="1.6" font-size="1.0" font-family="sans-serif" fill="#57534e">TRAVEL LANE →</text>`,
+      `<text x="${curbX + 1}" y="${yOf(deckTopFt) - 0.6}" font-size="1.0" font-family="sans-serif" fill="#57534e">SIDEWALK</text>`,
     );
   }
-  el.push(
-    `<text x="${sheetMinX + 2}" y="1.6" font-size="1.0" font-family="sans-serif" fill="#57534e">TRAVEL LANE →</text>`,
-    `<text x="${curbX + 1}" y="${yOf(deckTopFt) - 0.6}" font-size="1.0" font-family="sans-serif" fill="#57534e">SIDEWALK</text>`,
-  );
 
   // ---------- Platform end face ----------
-  // Solid band from grade to deck top; the §4.6 drainage channel at the
-  // curb side is an OPENING in that face (water must flow along the
-  // gutter under the platform), drawn as a dashed void.
+  // Full set: solid band with the §4.6 drainage channel drawn as a
+  // dashed void at the curb side. Schematic: a single deck outline.
 
-  el.push(
-    `<rect x="0" y="${yOf(deckTopFt)}" width="${W - DRAINAGE_CHANNEL_FT}" height="${deckTopFt}" fill="#e7e5e4" stroke="#1c1917" stroke-width="0.08" />`,
-    `<rect x="${W - DRAINAGE_CHANNEL_FT}" y="${yOf(deckTopFt)}" width="${DRAINAGE_CHANNEL_FT}" height="${deckTopFt - 0.08}" fill="none" stroke="#78716c" stroke-width="0.06" stroke-dasharray="0.3,0.25" />`,
-  );
-
-  // ---------- Rails across the end face ----------
-
-  el.push(`<g id="enclosure">`);
-  for (const railFt of RAIL_HEIGHTS_FT) {
+  if (schematic) {
     el.push(
-      `<rect x="0" y="${yOf(deckTopFt + railFt + RAIL_THICKNESS_FT)}" width="${W}" height="${RAIL_THICKNESS_FT}" fill="#fff" stroke="#1c1917" stroke-width="0.07" />`,
+      `<rect x="0" y="${yOf(deckTopFt)}" width="${W}" height="${deckTopFt}" fill="none" stroke="#1c1917" stroke-width="0.08" />`,
+    );
+  } else {
+    el.push(
+      `<rect x="0" y="${yOf(deckTopFt)}" width="${W - DRAINAGE_CHANNEL_FT}" height="${deckTopFt}" fill="#e7e5e4" stroke="#1c1917" stroke-width="0.08" />`,
+      `<rect x="${W - DRAINAGE_CHANNEL_FT}" y="${yOf(deckTopFt)}" width="${DRAINAGE_CHANNEL_FT}" height="${deckTopFt - 0.08}" fill="none" stroke="#78716c" stroke-width="0.06" stroke-dasharray="0.3,0.25" />`,
     );
   }
-  el.push(
-    `<rect x="0" y="${yOf(enclosureTopFt)}" width="${W}" height="${CAP_RAIL_THICKNESS_FT}" fill="#fff" stroke="#1c1917" stroke-width="0.09" />`,
-  );
+
+  // ---------- Enclosure across the end face ----------
+  // Schematic: one outline box (deck → cap-rail top). Full set: rails.
+
+  el.push(`<g id="enclosure">`);
+  if (schematic) {
+    el.push(
+      `<rect x="0" y="${yOf(enclosureTopFt)}" width="${W}" height="${enclosureTopFt - deckTopFt}" fill="none" stroke="#1c1917" stroke-width="0.1" />`,
+    );
+  } else {
+    for (const railFt of RAIL_HEIGHTS_FT) {
+      el.push(
+        `<rect x="0" y="${yOf(deckTopFt + railFt + RAIL_THICKNESS_FT)}" width="${W}" height="${RAIL_THICKNESS_FT}" fill="#fff" stroke="#1c1917" stroke-width="0.07" />`,
+      );
+    }
+    el.push(
+      `<rect x="0" y="${yOf(enclosureTopFt)}" width="${W}" height="${CAP_RAIL_THICKNESS_FT}" fill="#fff" stroke="#1c1917" stroke-width="0.09" />`,
+    );
+  }
   el.push(`</g>`);
 
   // ---------- Corner posts ----------
   // Street-side post rises to the low roof edge, sidewalk-side post to
-  // the high edge — the posts make the slope legible.
+  // the high edge — the posts make the slope legible AND tie the roof to
+  // the deck. Rendered in both modes (structure, not finish); schematic
+  // draws outlines and runs roofed posts to the roof edge (no beam).
 
   el.push(`<g id="posts">`);
   const postTops: Array<{ x: number; topFt: number }> = [
-    { x: 0, topFt: hasRoof ? lowEdgeFt - beamDepthFt : enclosureTopFt },
+    {
+      x: 0,
+      topFt: hasRoof ? (schematic ? lowEdgeFt : lowEdgeFt - beamDepthFt) : enclosureTopFt,
+    },
     {
       x: W - postWidthFt,
-      topFt: hasRoof ? highEdgeFt - beamDepthFt : enclosureTopFt,
+      topFt: hasRoof ? (schematic ? highEdgeFt : highEdgeFt - beamDepthFt) : enclosureTopFt,
     },
   ];
   for (const post of postTops) {
     el.push(
-      `<rect x="${post.x}" y="${yOf(post.topFt)}" width="${postWidthFt}" height="${post.topFt - deckTopFt}" fill="#f5f5f4" stroke="#1c1917" stroke-width="0.09" />`,
+      `<rect x="${post.x}" y="${yOf(post.topFt)}" width="${postWidthFt}" height="${post.topFt - deckTopFt}" fill="${schematic ? "none" : "#f5f5f4"}" stroke="#1c1917" stroke-width="0.09" />`,
     );
   }
   el.push(`</g>`);
 
   // ---------- Roof: the sloped panel, finally drawn AS a slope ----------
 
-  if (hasRoof) {
+  if (hasRoof && schematic) {
+    // Schematic: a single sloped outline (low at the street edge, high
+    // at the sidewalk) + the slope ratio. That slope is a real dimension
+    // — the long elevations can't show it — so it stays.
+    el.push(
+      `<g id="roof">`,
+      `<polygon points="0,${yOf(lowEdgeFt)} ${W},${yOf(highEdgeFt)} ${W},${yOf(highEdgeFt + 0.15)} 0,${yOf(lowEdgeFt + 0.15)}" fill="none" stroke="#1c1917" stroke-width="0.1" />`,
+      `<text x="${W / 2}" y="${yOf((lowEdgeFt + highEdgeFt) / 2 + 1.2)}" font-size="0.9" font-family="sans-serif" text-anchor="middle" fill="#1c1917">${design.roof.slopeLabel}</text>`,
+      `</g>`,
+    );
+  } else if (hasRoof) {
     el.push(`<g id="roof">`);
     // Beam ends (doubled 2x10 reads as a deep block) atop each post.
     el.push(
@@ -178,74 +214,85 @@ export function buildEndElevationSvg(
   // sits at the structure's street edge per the Type-2 placement the
   // long elevation models; exact in-buffer position is the architect's
   // call (§4.2: angled 45-60° inward, 12" off the travel lane).
+  // Schematic shows it as a plain block (massing, not the safety shape).
 
   if (hasBarrier) {
     const jbH = design.jerseyBarrier.heightFt;
     const half = JERSEY_BARRIER_WIDTH_FT / 2;
     const cx = 0; // centered on the street-side platform edge
-    el.push(
-      `<g id="jersey-barrier">`,
-      `<path d="M ${cx - half} 0 ` +
-        `L ${cx - half} ${yOf(0.25)} ` +
-        `L ${cx - 0.3} ${yOf(1.1)} ` +
-        `L ${cx - 0.25} ${yOf(jbH)} ` +
-        `L ${cx + 0.25} ${yOf(jbH)} ` +
-        `L ${cx + 0.3} ${yOf(1.1)} ` +
-        `L ${cx + half} ${yOf(0.25)} ` +
-        `L ${cx + half} 0 Z" fill="#d6d3d1" stroke="#1c1917" stroke-width="0.1" />`,
-      `<circle cx="${cx}" cy="${yOf(jbH / 2)}" r="0.18" fill="#facc15" stroke="#1c1917" stroke-width="0.04" />`,
-      `</g>`,
-    );
+    if (schematic) {
+      el.push(
+        `<rect x="${cx - half}" y="${yOf(jbH)}" width="${JERSEY_BARRIER_WIDTH_FT}" height="${jbH}" fill="none" stroke="#1c1917" stroke-width="0.1" />`,
+      );
+    } else {
+      el.push(
+        `<g id="jersey-barrier">`,
+        `<path d="M ${cx - half} 0 ` +
+          `L ${cx - half} ${yOf(0.25)} ` +
+          `L ${cx - 0.3} ${yOf(1.1)} ` +
+          `L ${cx - 0.25} ${yOf(jbH)} ` +
+          `L ${cx + 0.25} ${yOf(jbH)} ` +
+          `L ${cx + 0.3} ${yOf(1.1)} ` +
+          `L ${cx + half} ${yOf(0.25)} ` +
+          `L ${cx + half} 0 Z" fill="#d6d3d1" stroke="#1c1917" stroke-width="0.1" />`,
+        `<circle cx="${cx}" cy="${yOf(jbH / 2)}" r="0.18" fill="#facc15" stroke="#1c1917" stroke-width="0.04" />`,
+        `</g>`,
+      );
+    }
   }
 
   // ---------- Material labels ----------
+  // The whole call-out column (materials, the drainage-channel note, the
+  // barrier angle note) is descriptive finish — schematic skips it.
 
-  const labelX = curbX + SIDEWALK_CONTEXT_FT + 2;
-  const labels: Array<{ text: string; targetX: number; targetY: number }> = [];
-  if (hasRoof) {
-    labels.push({
-      text: ROOF_PALETTE_LABELS[design.roofPalette],
-      targetX: W * 0.6,
-      targetY: yOf((lowEdgeFt + highEdgeFt) / 2 + ROOF_SLOPE_RATIO * W * 0.1),
-    });
-  }
-  labels.push(
-    {
-      text: POST_LABEL,
-      targetX: W - postWidthFt / 2,
-      targetY: yOf((deckTopFt + enclosureTopFt) / 2 + 1.2),
-    },
-    {
-      text: RAIL_TOP_LABEL,
-      targetX: W * 0.4,
-      targetY: yOf(enclosureTopFt - CAP_RAIL_THICKNESS_FT / 2),
-    },
-    {
-      text: PLATFORM_DECK_LABEL,
-      targetX: W * 0.4,
-      targetY: yOf(deckTopFt / 2),
-    },
-    {
-      text: `${ftIn(DRAINAGE_CHANNEL_FT)} CLEAR STORMWATER CHANNEL AT CURB (§4.6)`,
-      targetX: W - DRAINAGE_CHANNEL_FT / 2,
-      targetY: yOf(deckTopFt / 2 - 0.05),
-    },
-  );
-  if (hasBarrier) {
-    labels.push({
-      text: `${JERSEY_BARRIER_LABEL} — ANGLED 45-60° INWARD (§4.2)`,
-      targetX: 0.3,
-      targetY: yOf(design.jerseyBarrier.heightFt - 0.4),
-    });
-  }
-  el.push(`<g id="labels">`);
-  const labelTopFt = hasRoof ? highEdgeFt + fasciaDepthFt : enclosureTopFt + 3;
-  labels.forEach((lab, i) => {
-    el.push(
-      leaderLabel(labelX, yOf(labelTopFt - i * 1.7), lab.targetX, lab.targetY, lab.text),
+  if (!schematic) {
+    const labelX = curbX + SIDEWALK_CONTEXT_FT + 2;
+    const labels: Array<{ text: string; targetX: number; targetY: number }> = [];
+    if (hasRoof) {
+      labels.push({
+        text: ROOF_PALETTE_LABELS[design.roofPalette],
+        targetX: W * 0.6,
+        targetY: yOf((lowEdgeFt + highEdgeFt) / 2 + ROOF_SLOPE_RATIO * W * 0.1),
+      });
+    }
+    labels.push(
+      {
+        text: POST_LABEL,
+        targetX: W - postWidthFt / 2,
+        targetY: yOf((deckTopFt + enclosureTopFt) / 2 + 1.2),
+      },
+      {
+        text: RAIL_TOP_LABEL,
+        targetX: W * 0.4,
+        targetY: yOf(enclosureTopFt - CAP_RAIL_THICKNESS_FT / 2),
+      },
+      {
+        text: PLATFORM_DECK_LABEL,
+        targetX: W * 0.4,
+        targetY: yOf(deckTopFt / 2),
+      },
+      {
+        text: `${ftIn(DRAINAGE_CHANNEL_FT)} CLEAR STORMWATER CHANNEL AT CURB (§4.6)`,
+        targetX: W - DRAINAGE_CHANNEL_FT / 2,
+        targetY: yOf(deckTopFt / 2 - 0.05),
+      },
     );
-  });
-  el.push(`</g>`);
+    if (hasBarrier) {
+      labels.push({
+        text: `${JERSEY_BARRIER_LABEL} — ANGLED 45-60° INWARD (§4.2)`,
+        targetX: 0.3,
+        targetY: yOf(design.jerseyBarrier.heightFt - 0.4),
+      });
+    }
+    el.push(`<g id="labels">`);
+    const labelTopFt = hasRoof ? highEdgeFt + fasciaDepthFt : enclosureTopFt + 3;
+    labels.forEach((lab, i) => {
+      el.push(
+        leaderLabel(labelX, yOf(labelTopFt - i * 1.7), lab.targetX, lab.targetY, lab.text),
+      );
+    });
+    el.push(`</g>`);
+  }
 
   // ---------- Dimension strings ----------
 
@@ -287,6 +334,7 @@ export function buildEndElevationSvg(
     {
       viewTitle: sheetTitleForView(`end-${end}`, hasBarrier ? " (APPROACH)" : ""),
       design,
+      schematic,
       sheetMinX,
       sheetMaxX,
       sheetMinY,

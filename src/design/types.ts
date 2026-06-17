@@ -26,6 +26,26 @@
 import type { BarrierType, RoofPalette } from "./templateConstants.js";
 export type { BarrierType } from "./templateConstants.js";
 
+// ---------- RenderOptions ----------
+
+/**
+ * Per-render switches that change HOW a sheet is drawn without changing
+ * the underlying StreateryDesign. Passed to every renderer so the whole
+ * set responds to one flag.
+ *
+ * `schematic` is the "strip the architectural finish" mode: the renderers
+ * draw the structure as a clean massing outline carrying only its
+ * dimensions, and drop the boilerplate that makes a draft LOOK sealed
+ * (title block, material call-outs, hatching, notes band). The point is
+ * honesty — a deliberately diagrammatic drawing claims only "here is the
+ * envelope and its size", which is exactly what the engine can stand
+ * behind today. Default (undefined / false) = the full detailed set,
+ * unchanged.
+ */
+export interface RenderOptions {
+  schematic?: boolean;
+}
+
 // ---------- ParametricInputs ----------
 
 /** A street tree that lands inside the structure's extent. */
