@@ -22,6 +22,7 @@ import { fetchAdaCurbRampsNear } from "./adaCurbRamps.js";
 import { fetchDrivewaysNear } from "./driveways.js";
 import { fetchCrosswalksNear } from "./crosswalks.js";
 import { computeEligibility, type EligibilityResult } from "./envelope.js";
+import { estimateCost, type CostEstimate } from "./costEstimate.js";
 import type { CurbFeature } from "./curbFeatures.js";
 
 export interface CurbFeaturesBundle {
@@ -51,6 +52,10 @@ export interface PrescreenResult {
   // from the geocoded address + curb features. Null only when an early
   // disqualifier short-circuits the computation.
   eligibility: EligibilityResult | null;
+  // Ballpark cost to build and operate, sized off the buildable envelope.
+  // Null when there's no real envelope to cost (early disqualifier, or an
+  // envelope of zero length) — there's nothing to price.
+  costEstimate: CostEstimate | null;
   // Site walk caveats that always apply, even when nothing in the data
   // surfaces a problem. The spec is explicit that these must always appear.
   siteWalkCaveats: string[];
@@ -137,11 +142,20 @@ export async function prescreenAddress(
           frontageLengthFt: options.frontageLengthFt,
         });
 
+  // Cost only makes sense when there's an actual buildable strip to size the
+  // public-space rent against. A zero-length envelope (or no envelope at all)
+  // gets no estimate.
+  const costEstimate =
+    eligibility && eligibility.envelope.lengthFt > 0
+      ? estimateCost(eligibility.envelope)
+      : null;
+
   return {
     geocoded,
     curbFeatures,
     earlyDisqualifiers,
     eligibility,
+    costEstimate,
     siteWalkCaveats: standardSiteWalkCaveats(),
     fetchedAt: new Date().toISOString(),
   };
